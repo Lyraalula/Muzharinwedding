@@ -1,9 +1,9 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muzharin Wedding</title>
+<title>MuzharInWedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -11,13 +11,38 @@
 body {
   margin:0;
   font-family:'Poppins', sans-serif;
-  scroll-behavior:smooth;
+  background:#f9f9f9;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+/* OPENING */
+.opening {
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url('foto.jpg') center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  z-index:999;
+  text-shadow:0 2px 10px rgba(0,0,0,0.7);
+}
+
+.opening button {
+  padding:12px 25px;
+  border:none;
+  border-radius:10px;
+  background:white;
+  margin-top:20px;
 }
 
 /* ANIMASI */
 .fade {
   opacity:0;
-  transform:translateY(40px);
+  transform:translateY(30px);
   transition:1s;
 }
 .fade.show {
@@ -25,202 +50,199 @@ body {
   transform:translateY(0);
 }
 
-/* COVER */
-.cover {
-  height:100vh;
-  background:url('foto.jpg') center/cover no-repeat;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  color:white;
-  text-shadow:0 2px 10px rgba(0,0,0,0.7);
-}
-
+/* WAVE */
 .wave {
   height:100px;
   background:url('https://i.ibb.co/wQZVxxk/wave.png');
-  background-size:1000px 100px;
-  animation:wave 8s linear infinite;
+  animation:wave 10s linear infinite;
 }
 @keyframes wave {
   0%{background-position-x:0;}
   100%{background-position-x:1000px;}
 }
 
-.section {
-  padding:50px 20px;
-  text-align:center;
-}
+.section { padding:50px 20px; }
 
 .card {
   background:white;
+  margin:20px auto;
   padding:20px;
   border-radius:12px;
   max-width:500px;
-  margin:15px auto;
   box-shadow:0 4px 10px rgba(0,0,0,0.05);
 }
 
-.gallery img {
-  width:90%;
-  margin:10px;
-  border-radius:10px;
-}
-
-/* BUTTON */
-button {
-  padding:10px;
-  border:none;
-  background:#d6e4ea;
-  border-radius:8px;
-  width:80%;
-}
-
-input {
+input, textarea, button {
   padding:10px;
   margin:5px;
   width:80%;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+/* COUNTDOWN */
+.countdown {
+  font-size:20px;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
+<!-- OPENING -->
+<div class="opening" id="opening">
+  <h3 id="guest"></h3>
+  <h1>Putri & Azhari</h1>
+  <button onclick="openInvite()">Open Invitation</button>
+</div>
+
 <audio id="music" loop>
   <source src="love-story.mp3" type="audio/mpeg">
 </audio>
 
-<!-- COVER -->
-<section class="cover">
-  <h2 id="guest"></h2>
-  <h1>Putri & Azhari</h1>
-  <p>02 Mei 2026</p>
-  <button onclick="playMusic()">Buka Undangan</button>
-</section>
+<!-- MAIN -->
+<div id="main" style="display:none">
 
 <div class="wave"></div>
 
-<!-- QUOTES -->
+<section class="section fade">
+<h2>Countdown Wedding</h2>
+<div id="countdown" class="countdown"></div>
+</section>
+
 <section class="section fade">
 <p>
-Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka—menuntun melalui waktu, jarak, dan berbagai kebetulan yang ternyata bukan kebetulan sama sekali. Dalam perjalanan yang lembut namun pasti, dua hati yang pernah berjalan di jalurnya masing-masing akhirnya dipertemukan untuk saling melengkapi, mengikat janji, dan memulai babak baru sebagai satu takdir yang sama: selamanya bersama. 💍
+Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka—menuntun melalui waktu, jarak, dan berbagai kebetulan yang ternyata bukan kebetulan sama sekali...
 </p>
 </section>
 
-<!-- MEMPELAI -->
 <section class="section fade">
 <h2>Mempelai</h2>
-
 <div class="card">
 <img src="pria.jpg" width="100%">
 <h3>Muhamad Azhari</h3>
-<p>Anak dari Bpk alm. Mukhsin & Ibu Suhaini</p>
+<p>Anak ke-1 dari Bpk. Mukhsin (Alm) & Ibu Suhaini</p>
 </div>
 
 <div class="card">
 <img src="wanita.jpg" width="100%">
 <h3>Putri Zahira Rahimah Mumtaz</h3>
-<p>Anak dari Bpk Chandra Teguh B.S & Ibu Rusni Windari Y</p>
+<p>Anak ke-1 dari Bpk. Chandra Teguh B.S & Ibu Rusni Windari Y</p>
 </div>
 </section>
 
-<!-- EVENT -->
 <section class="section fade">
 <h2>Acara</h2>
-
 <div class="card">
 <h3>Akad</h3>
 <p>02 Mei 2026</p>
-<p>09.30 WIB</p>
+<p>09.30 - 11.30</p>
 </div>
 
 <div class="card">
 <h3>Resepsi</h3>
 <p>02 Mei 2026</p>
-<p>11.30 WIB</p>
+<p>11.30 - 14.30</p>
 </div>
+</section>
 
-<div class="card">
-<p>Kediaman Mempelai Wanita</p>
+<section class="section fade">
+<h2>Lokasi</h2>
+<p>Kediaman mempelai wanita</p>
 <p>Bekasi Timur Regency 3, Cluster Jade</p>
-</div>
 </section>
 
-<!-- GALLERY -->
-<section class="section fade gallery">
-<h2>Gallery</h2>
-<img src="foto1.jpg">
-<img src="foto2.jpg">
-<img src="foto3.jpg">
-</section>
-
-<!-- RSVP -->
 <section class="section fade">
 <h2>RSVP</h2>
-
-<input type="text" id="nama" placeholder="Nama">
-<input type="number" id="jumlah" placeholder="Jumlah Tamu">
-<input type="text" id="kota" placeholder="Kota">
-
-<button onclick="kirim()">Kirim</button>
+<div class="card">
+<input id="nama" placeholder="Nama">
+<input id="jumlah" placeholder="Jumlah">
+<input id="kota" placeholder="Kota">
+<button onclick="rsvp()">Kirim</button>
+</div>
 </section>
 
-<!-- AMplop -->
+<section class="section fade">
+<h2>Doa & Harapan</h2>
+<div class="card">
+<input id="namaDoa" placeholder="Nama">
+<textarea id="doa" placeholder="Tulis doa"></textarea>
+<button onclick="kirimDoa()">Kirim</button>
+</div>
+</section>
+
 <section class="section fade">
 <h2>Amplop Digital</h2>
-
 <div class="card">
-<p>Gopay / Dana / Shopeepay</p>
+<p>DANA / GOPAY / SHOPEEPAY / MANDIRI</p>
 <p>08123456789 (Putri)</p>
-</div>
-
-<div class="card">
-<p>Mandiri</p>
-<p>1234567890</p>
-</div>
-
-<div class="card">
-<p>Danamon</p>
-<p>9876543210</p>
 </div>
 </section>
 
+</div>
+
 <script>
-// AUTOPLAY MUSIC
-function playMusic(){
+// OPEN INVITE + MUSIK
+function openInvite(){
+  document.getElementById("opening").style.display="none";
+  document.getElementById("main").style.display="block";
   document.getElementById("music").play();
 }
 
 // NAMA TAMU
 const params = new URLSearchParams(window.location.search);
-const nama = params.get("to");
-if(nama){
-  document.getElementById("guest").innerText = "Kepada " + nama;
+let to = params.get("to");
+if(to){
+  document.getElementById("guest").innerText = "Kepada " + to;
 }
 
 // ANIMASI SCROLL
 const fades = document.querySelectorAll('.fade');
 window.addEventListener('scroll', ()=>{
   fades.forEach(el=>{
-    const pos = el.getBoundingClientRect().top;
-    if(pos < window.innerHeight){
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
       el.classList.add('show');
     }
   });
 });
 
-// RSVP GOOGLE SHEETS
-function kirim(){
-  fetch("URL_GOOGLE_SCRIPT", {
-    method:"POST",
-    body:JSON.stringify({
-      nama:document.getElementById("nama").value,
-      jumlah:document.getElementById("jumlah").value,
-      kota:document.getElementById("kota").value
-    })
-  }).then(()=>alert("Terima kasih ❤️"));
+// COUNTDOWN
+const target = new Date("May 2, 2026 09:30:00").getTime();
+setInterval(()=>{
+  let now = new Date().getTime();
+  let d = target-now;
+
+  let hari = Math.floor(d/(1000*60*60*24));
+  let jam = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  let menit = Math.floor((d%(1000*60*60))/(1000*60));
+  let detik = Math.floor((d%(1000*60))/1000);
+
+  document.getElementById("countdown").innerHTML =
+    hari+" Hari "+jam+" Jam "+menit+" Menit "+detik+" Detik";
+},1000);
+
+// RSVP (Google Sheets)
+function rsvp(){
+ fetch("URL_GOOGLE_SCRIPT", {
+  method:"POST",
+  body:JSON.stringify({
+    nama:document.getElementById("nama").value,
+    jumlah:document.getElementById("jumlah").value,
+    kota:document.getElementById("kota").value
+  })
+ }).then(()=>alert("Terima kasih ❤️"));
+}
+
+// DOA
+function kirimDoa(){
+ fetch("URL_GOOGLE_SCRIPT", {
+  method:"POST",
+  body:JSON.stringify({
+    nama:document.getElementById("namaDoa").value,
+    doa:document.getElementById("doa").value
+  })
+ }).then(()=>alert("Doa terkirim 🤍"));
 }
 </script>
 
