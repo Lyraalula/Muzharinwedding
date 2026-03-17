@@ -1,117 +1,228 @@
- border:none;
+   <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muzharin Wedding</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  scroll-behavior:smooth;
+}
+
+/* ANIMASI */
+.fade {
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+.fade.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* COVER */
+.cover {
+  height:100vh;
+  background:url('foto.jpg') center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  text-shadow:0 2px 10px rgba(0,0,0,0.7);
+}
+
+.wave {
+  height:100px;
+  background:url('https://i.ibb.co/wQZVxxk/wave.png');
+  background-size:1000px 100px;
+  animation:wave 8s linear infinite;
+}
+@keyframes wave {
+  0%{background-position-x:0;}
+  100%{background-position-x:1000px;}
+}
+
+.section {
+  padding:50px 20px;
+  text-align:center;
+}
+
+.card {
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  max-width:500px;
+  margin:15px auto;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+.gallery img {
+  width:90%;
+  margin:10px;
+  border-radius:10px;
+}
+
+/* BUTTON */
+button {
+  padding:10px;
+  border:none;
+  background:#d6e4ea;
+  border-radius:8px;
+  width:80%;
+}
+
+input {
+  padding:10px;
+  margin:5px;
+  width:80%;
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="love-story.mp3" type="audio/mpeg">
+</audio>
+
 <!-- COVER -->
 <section class="cover">
-  <h1 id="guest"></h1>
-  <h2>Putri & Azhari</h2>
+  <h2 id="guest"></h2>
+  <h1>Putri & Azhari</h1>
   <p>02 Mei 2026</p>
+  <button onclick="playMusic()">Buka Undangan</button>
 </section>
 
 <div class="wave"></div>
 
-<!-- QUOTE -->
-<section class="section">
+<!-- QUOTES -->
+<section class="section fade">
 <p>
-Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka...
+Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka—menuntun melalui waktu, jarak, dan berbagai kebetulan yang ternyata bukan kebetulan sama sekali. Dalam perjalanan yang lembut namun pasti, dua hati yang pernah berjalan di jalurnya masing-masing akhirnya dipertemukan untuk saling melengkapi, mengikat janji, dan memulai babak baru sebagai satu takdir yang sama: selamanya bersama. 💍
 </p>
 </section>
 
-<!-- EVENT -->
-<section class="section">
-<h2>Akad</h2>
+<!-- MEMPELAI -->
+<section class="section fade">
+<h2>Mempelai</h2>
+
 <div class="card">
+<img src="pria.jpg" width="100%">
+<h3>Muhamad Azhari</h3>
+<p>Anak dari Bpk alm. Mukhsin & Ibu Suhaini</p>
+</div>
+
+<div class="card">
+<img src="wanita.jpg" width="100%">
+<h3>Putri Zahira Rahimah Mumtaz</h3>
+<p>Anak dari Bpk Chandra Teguh B.S & Ibu Rusni Windari Y</p>
+</div>
+</section>
+
+<!-- EVENT -->
+<section class="section fade">
+<h2>Acara</h2>
+
+<div class="card">
+<h3>Akad</h3>
 <p>02 Mei 2026</p>
 <p>09.30 WIB</p>
 </div>
 
-<h2>Resepsi</h2>
 <div class="card">
+<h3>Resepsi</h3>
 <p>02 Mei 2026</p>
 <p>11.30 WIB</p>
 </div>
+
+<div class="card">
+<p>Kediaman Mempelai Wanita</p>
+<p>Bekasi Timur Regency 3, Cluster Jade</p>
+</div>
+</section>
+
+<!-- GALLERY -->
+<section class="section fade gallery">
+<h2>Gallery</h2>
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
 </section>
 
 <!-- RSVP -->
-<section class="section">
+<section class="section fade">
 <h2>RSVP</h2>
-<div class="card">
+
 <input type="text" id="nama" placeholder="Nama">
-<input type="number" id="jumlah" placeholder="Jumlah Orang">
+<input type="number" id="jumlah" placeholder="Jumlah Tamu">
+<input type="text" id="kota" placeholder="Kota">
+
 <button onclick="kirim()">Kirim</button>
+</section>
+
+<!-- AMplop -->
+<section class="section fade">
+<h2>Amplop Digital</h2>
+
+<div class="card">
+<p>Gopay / Dana / Shopeepay</p>
+<p>08123456789 (Putri)</p>
+</div>
+
+<div class="card">
+<p>Mandiri</p>
+<p>1234567890</p>
+</div>
+
+<div class="card">
+<p>Danamon</p>
+<p>9876543210</p>
 </div>
 </section>
 
 <script>
-// ambil nama tamu dari link
-const params = new URLSearchParams(window.location.search);
-const namaTamu = params.get("to");
-if(namaTamu){
-  document.getElementById("guest").innerText = "Kepada " + namaTamu;
+// AUTOPLAY MUSIC
+function playMusic(){
+  document.getElementById("music").play();
 }
 
-// KIRIM KE GOOGLE SHEETS
-function kirim(){
-  let nama = document.getElementById("nama").value;
-  let jumlah = document.getElementById("jumlah").value;
+// NAMA TAMU
+const params = new URLSearchParams(window.location.search);
+const nama = params.get("to");
+if(nama){
+  document.getElementById("guest").innerText = "Kepada " + nama;
+}
 
+// ANIMASI SCROLL
+const fades = document.querySelectorAll('.fade');
+window.addEventListener('scroll', ()=>{
+  fades.forEach(el=>{
+    const pos = el.getBoundingClientRect().top;
+    if(pos < window.innerHeight){
+      el.classList.add('show');
+    }
+  });
+});
+
+// RSVP GOOGLE SHEETS
+function kirim(){
   fetch("URL_GOOGLE_SCRIPT", {
     method:"POST",
-    body:JSON.stringify({nama:nama, jumlah:jumlah})
+    body:JSON.stringify({
+      nama:document.getElementById("nama").value,
+      jumlah:document.getElementById("jumlah").value,
+      kota:document.getElementById("kota").value
+    })
   }).then(()=>alert("Terima kasih ❤️"));
 }
 </script>
 
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                  <p>Bekasi Timur Regency 3, Cluster Jade</p>
-                                                                                                                                                                                                                                                                                                                                                                            <p>Blok J3 No.43, Cimuning, Mustika Jaya</p>
-                                                                                                                                                                                                                                                                                                                                                                              </div>
-                                                                                                                                                                                                                                                                                                                                                                              </section>
-
-                                                                                                                                                                                                                                                                                                                                                                              <!-- MAP -->
-                                                                                                                                                                                                                                                                                                                                                                              <section class="section">
-                                                                                                                                                                                                                                                                                                                                                                                <h2>Lokasi</h2>
-                                                                                                                                                                                                                                                                                                                                                                                  <iframe 
-                                                                                                                                                                                                                                                                                                                                                                                      src="https://www.google.com/maps?q=Bekasi+Timur+Regency+3&output=embed"
-                                                                                                                                                                                                                                                                                                                                                                                          width="90%" height="250" style="border:0; border-radius:10px;">
-                                                                                                                                                                                                                                                                                                                                                                                            </iframe>
-                                                                                                                                                                                                                                                                                                                                                                                            </section>
-
-                                                                                                                                                                                                                                                                                                                                                                                            <!-- RSVP -->
-                                                                                                                                                                                                                                                                                                                                                                                            <section class="section">
-                                                                                                                                                                                                                                                                                                                                                                                              <h2>RSVP</h2>
-                                                                                                                                                                                                                                                                                                                                                                                                <div class="card">
-                                                                                                                                                                                                                                                                                                                                                                                                    <input type="text" id="nama" placeholder="Nama Tamu">
-                                                                                                                                                                                                                                                                                                                                                                                                        <input type="number" id="jumlah" placeholder="Jumlah Orang">
-                                                                                                                                                                                                                                                                                                                                                                                                            <button onclick="kirimRSVP()">Kirim</button>
-                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                                                              </section>
-
-                                                                                                                                                                                                                                                                                                                                                                                                              <!-- MUSIC -->
-                                                                                                                                                                                                                                                                                                                                                                                                              <audio autoplay loop>
-                                                                                                                                                                                                                                                                                                                                                                                                                <source src="love-story.mp3" type="audio/mpeg">
-                                                                                                                                                                                                                                                                                                                                                                                                                </audio>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                <footer>
-                                                                                                                                                                                                                                                                                                                                                                                                                  www.muzharinwedding.com
-                                                                                                                                                                                                                                                                                                                                                                                                                  </footer>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                  <script>
-                                                                                                                                                                                                                                                                                                                                                                                                                  function kirimRSVP() {
-                                                                                                                                                                                                                                                                                                                                                                                                                    let nama = document.getElementById("nama").value;
-                                                                                                                                                                                                                                                                                                                                                                                                                      let jumlah = document.getElementById("jumlah").value;
-
-                                                                                                                                                                                                                                                                                                                                                                                                                        if(nama && jumlah){
-                                                                                                                                                                                                                                                                                                                                                                                                                            alert("Terima kasih " + nama + " (" + jumlah + " orang)");
-                                                                                                                                                                                                                                                                                                                                                                                                                              } else {
-                                                                                                                                                                                                                                                                                                                                                                                                                                  alert("Isi data dulu ya");
-                                                                                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                                                                                    </script>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                    </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    </html> 
+</html>
