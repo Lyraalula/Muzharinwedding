@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MuzharInWedding</title>
+
+<title>Muzharin Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -11,12 +12,10 @@
 body {
   margin:0;
   font-family:'Poppins', sans-serif;
-  background:#f9f9f9;
-  text-align:center;
   overflow-x:hidden;
 }
 
-/* OPENING */
+/* OPENING FULL SCREEN */
 .opening {
   position:fixed;
   width:100%;
@@ -27,63 +26,98 @@ body {
   justify-content:center;
   align-items:center;
   color:white;
+  text-align:center;
   z-index:999;
-  text-shadow:0 2px 10px rgba(0,0,0,0.7);
+}
+
+.overlay {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+.opening-content {
+  position:relative;
+  z-index:2;
+}
+
+.opening h1 {
+  font-family:'Playfair Display';
+  font-size:32px;
 }
 
 .opening button {
+  margin-top:20px;
   padding:12px 25px;
   border:none;
-  border-radius:10px;
+  border-radius:30px;
   background:white;
-  margin-top:20px;
+}
+
+/* SECTION BACKGROUND FOTO */
+.section {
+  padding:80px 20px;
+  color:white;
+  position:relative;
+}
+
+.section::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+.section-content {
+  position:relative;
+  z-index:2;
+  max-width:600px;
+  margin:auto;
 }
 
 /* ANIMASI */
 .fade {
   opacity:0;
-  transform:translateY(30px);
-  transition:1s;
+  transform:translateY(40px);
+  transition:1.2s;
 }
 .fade.show {
   opacity:1;
   transform:translateY(0);
 }
 
-/* WAVE */
-.wave {
-  height:100px;
-  background:url('https://i.ibb.co/wQZVxxk/wave.png');
-  animation:wave 10s linear infinite;
-}
-@keyframes wave {
-  0%{background-position-x:0;}
-  100%{background-position-x:1000px;}
+/* GALLERY CINEMATIC */
+.gallery {
+  position:relative;
+  height:400px;
+  overflow:hidden;
 }
 
-.section { padding:50px 20px; }
-
-.card {
-  background:white;
-  margin:20px auto;
-  padding:20px;
-  border-radius:12px;
-  max-width:500px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+.slide {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:1.5s;
 }
-
-input, textarea, button {
-  padding:10px;
-  margin:5px;
-  width:80%;
-  border-radius:8px;
-  border:1px solid #ccc;
+.slide.active {
+  opacity:1;
 }
 
 /* COUNTDOWN */
 .countdown {
   font-size:20px;
-  margin-top:10px;
+}
+
+/* BUTTON */
+button {
+  cursor:pointer;
 }
 </style>
 </head>
@@ -92,98 +126,51 @@ input, textarea, button {
 
 <!-- OPENING -->
 <div class="opening" id="opening">
-  <h3 id="guest"></h3>
-  <h1>Putri & Azhari</h1>
-  <button onclick="openInvite()">Open Invitation</button>
+  <div class="overlay"></div>
+  <div class="opening-content">
+    <h3 id="guest"></h3>
+    <h1>Putri & Azhari</h1>
+    <p>02 Mei 2026</p>
+    <button onclick="openInvite()">Open Invitation</button>
+  </div>
 </div>
 
 <audio id="music" loop>
-  <source src="love-story.mp3" type="audio/mpeg">
+  <source src="love-story.mp3">
 </audio>
 
-<!-- MAIN -->
 <div id="main" style="display:none">
 
-<div class="wave"></div>
-
-<section class="section fade">
-<h2>Countdown Wedding</h2>
-<div id="countdown" class="countdown"></div>
+<!-- QUOTE -->
+<section class="section fade" style="background:url('foto2.jpg') center/cover">
+  <div class="section-content">
+    <p>
+    Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka—menuntun melalui waktu, jarak,adan berbagai kebetulan yang ternyata bukan kebetulan sama sekali. Dalam perjalanan yang lembut namun pasti, dua hati yang pernah berjalan di jalurnya masing-masing akhirnya dipertemukan untuk saling melengkapi, mengikat janji, dan memulai babak baru sebagai satu takdir yang sama: selamanya bersama. 💍
+    </p>
+  </div>
 </section>
 
-<section class="section fade">
-<p>
-Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka—menuntun melalui waktu, jarak, dan berbagai kebetulan yang ternyata bukan kebetulan sama sekali...
-</p>
+<!-- COUNTDOWN -->
+<section class="section fade" style="background:url('foto3.jpg') center/cover">
+  <div class="section-content">
+    <h2>Countdown Wedding</h2>
+    <div id="countdown" class="countdown"></div>
+  </div>
 </section>
 
-<section class="section fade">
-<h2>Mempelai</h2>
-<div class="card">
-<img src="pria.png" width="100%">
-<h3>Muhamad Azhari</h3>
-<p>Anak ke-1 dari Bpk. Mukhsin (Alm) & Ibu Suhaini</p>
-</div>
-
-<div class="card">
-<img src="wanita.png" width="100%">
-<h3>Putri Zahira Rahimah Mumtaz</h3>
-<p>Anak ke-1 dari Bpk. Chandra Teguh B.S & Ibu Rusni Windari Y</p>
-</div>
-</section>
-
-<section class="section fade">
-<h2>Acara</h2>
-<div class="card">
-<h3>Akad</h3>
-<p>02 Mei 2026</p>
-<p>09.30 - 11.30</p>
-</div>
-
-<div class="card">
-<h3>Resepsi</h3>
-<p>02 Mei 2026</p>
-<p>11.30 - 14.30</p>
-</div>
-</section>
-
-<section class="section fade">
-<h2>Lokasi</h2>
-<p>Kediaman mempelai wanita</p>
-<p>Bekasi Timur Regency 3, Cluster Jade</p>
-</section>
-
-<section class="section fade">
-<h2>RSVP</h2>
-<div class="card">
-<input id="nama" placeholder="Nama">
-<input id="jumlah" placeholder="Jumlah">
-<input id="kota" placeholder="Kota">
-<button onclick="rsvp()">Kirim</button>
-</div>
-</section>
-
-<section class="section fade">
-<h2>Doa & Harapan</h2>
-<div class="card">
-<input id="namaDoa" placeholder="Nama">
-<textarea id="doa" placeholder="Tulis doa"></textarea>
-<button onclick="kirimDoa()">Kirim</button>
-</div>
-</section>
-
-<section class="section fade">
-<h2>Amplop Digital</h2>
-<div class="card">
-<p>DANA / GOPAY / SHOPEEPAY / MANDIRI</p>
-<p>08123456789 (Putri)</p>
-</div>
+<!-- GALLERY -->
+<section class="fade">
+  <div class="gallery">
+    <div class="slide active" style="background:url('galeri1.jpg')"></div>
+    <div class="slide" style="background:url('galeri2.jpg')"></div>
+    <div class="slide" style="background:url('galeri3.jpg')"></div>
+  </div>
 </section>
 
 </div>
 
 <script>
-// OPEN INVITE + MUSIK
+// OPEN INVITE
 function openInvite(){
   document.getElementById("opening").style.display="none";
   document.getElementById("main").style.display="block";
@@ -219,31 +206,19 @@ setInterval(()=>{
   let detik = Math.floor((d%(1000*60))/1000);
 
   document.getElementById("countdown").innerHTML =
-    hari+" Hari "+jam+" Jam "+menit+" Menit "+detik+" Detik";
+  hari+" Hari "+jam+" Jam "+menit+" Menit "+detik+" Detik";
 },1000);
 
-// RSVP (Google Sheets)
-function rsvp(){
- fetch("URL_GOOGLE_SCRIPT", {
-  method:"POST",
-  body:JSON.stringify({
-    nama:document.getElementById("nama").value,
-    jumlah:document.getElementById("jumlah").value,
-    kota:document.getElementById("kota").value
-  })
- }).then(()=>alert("Terima kasih ❤️"));
-}
+// SLIDER CINEMATIC
+let slides = document.querySelectorAll(".slide");
+let index = 0;
 
-// DOA
-function kirimDoa(){
- fetch("URL_GOOGLE_SCRIPT", {
-  method:"POST",
-  body:JSON.stringify({
-    nama:document.getElementById("namaDoa").value,
-    doa:document.getElementById("doa").value
-  })
- }).then(()=>alert("Doa terkirim 🤍"));
-}
+setInterval(()=>{
+  slides[index].classList.remove("active");
+  index = (index+1)%slides.length;
+  slides[index].classList.add("active");
+},4000);
+
 </script>
 
 </body>
