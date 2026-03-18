@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Muzharin Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
@@ -14,44 +15,102 @@ body {
   overflow-x:hidden;
 }
 
-/* COVER */
-.cover {
-  height:100vh;
+/* OPENING */
+.opening {
+  position:fixed;
+  width:100%;
+  height:100%;
   background:url('foto.png') center/cover no-repeat;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-  color:white;
   text-align:center;
-  text-shadow:0 2px 10px rgba(0,0,0,0.7);
+  color:white;
+  z-index:999;
+  transition:1s;
 }
 
-.cover button {
-  margin-top:15px;
-  padding:10px 20px;
+.overlay {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+}
+
+.opening-content {
+  position:relative;
+  z-index:2;
+}
+
+.opening h1 {
+  font-family:'Playfair Display';
+  font-size:32px;
+}
+
+.opening button {
+  margin-top:20px;
+  padding:12px 30px;
+  border-radius:30px;
   border:none;
   background:white;
-  border-radius:20px;
 }
 
-/* WAVE */
-.wave {
-  height:100px;
-  background:url('https://i.ibb.co/wQZVxxk/wave.png');
-  background-size:1000px 100px;
-  animation:wave 10s linear infinite;
-}
-@keyframes wave {
-  0%{background-position-x:0;}
-  100%{background-position-x:1000px;}
+/* TRANSISI */
+.hide {
+  opacity:0;
+  visibility:hidden;
 }
 
 /* SECTION */
 .section {
-  padding:50px 20px;
-  text-align:center;
+  padding:80px 20px;
+  color:white;
+  position:relative;
 }
+
+.section::before {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+}
+
+.content {
+  position:relative;
+  z-index:2;
+  max-width:600px;
+  margin:auto;
+}
+
+/* ANIMASI */
+.fade {
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.2s;
+}
+.fade.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* GALLERY */
+.gallery {
+  height:400px;
+  position:relative;
+  overflow:hidden;
+}
+
+.slide {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:1.5s;
+}
+.slide.active { opacity:1; }
 
 /* CARD */
 .card {
@@ -63,64 +122,48 @@ body {
   box-shadow:0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* FADE ANIMATION */
-.fade {
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-.fade.show {
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* FORM */
-input, button {
-  padding:10px;
-  margin:5px;
-  width:80%;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
-button {
-  background:#d6e4ea;
-  border:none;
-}
-
-/* GALLERY */
-.gallery img {
-  width:90%;
-  margin:10px;
-  border-radius:10px;
+/* COUNTDOWN */
+.countdown {
+  font-size:20px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
+<!-- OPENING -->
+<div class="opening" id="opening">
+  <div class="overlay"></div>
+  <div class="opening-content">
+    <h3 id="guest"></h3>
+    <h1>Putri & Azhari</h1>
+    <p>02 Mei 2026</p>
+    <button onclick="openInvite()">Open Invitation</button>
+  </div>
+</div>
+
 <audio id="music" loop>
-  <source src="love-story.mp3" type="audio/mpeg">
+  <source src="love-story.mp3">
 </audio>
 
-<!-- COVER -->
-<section class="cover">
-  <h3 id="guest"></h3>
-  <h1>Putri & Azhari</h1>
-  <p>02 Mei 2026</p>
-  <button onclick="playMusic()">Buka Undangan</button>
-</section>
-
-<div class="wave"></div>
+<!-- MAIN -->
+<div id="main">
 
 <!-- QUOTE -->
-<section class="section fade">
-<p style="max-width:600px;margin:auto;">
-Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka—menuntun melalui waktu, jarak, dan berbagai kebetulan yang ternyata bukan kebetulan sama sekali.
-Dalam perjalanan yang lembut namun pasti, dua hati yang pernah berjalan di jalurnya masing-masing akhirnya dipertemukan untuk saling melengkapi, mengikat janji, dan memulai babak baru sebagai satu takdir yang sama: selamanya bersama. 💍
-</p>
-  
+<section class="section fade" style="background:url('foto2.png') center/cover">
+  <div class="content">
+    <p>
+    Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat...
+    </p>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="section fade" style="background:url('foto3.png') center/cover">
+  <div class="content">
+    <h2>Countdown Wedding</h2>
+    <div id="countdown" class="countdown"></div>
+  </div>
 </section>
 
 <!-- MEMPELAI -->
@@ -172,13 +215,15 @@ width="90%" height="250" style="border:0;border-radius:10px;">
 </iframe>
 </section>
 
+
 <!-- GALLERY -->
-<section class="section fade gallery">
-<h2>Gallery Prewedding</h2>
-<img src="galeri1.png">
-<img src="galeri2.png">
-<img src="galeri3.png">
-<img src="galeri4.png">
+<section class="fade">
+  <div class="gallery">
+    <div class="slide active" style="background:url('galeri1.png')"></div>
+    <div class="slide" style="background:url('galeri2.png')"></div>
+    <div class="slide" style="background:url('galeri3.png')"></div>
+    <div class="slide" style="background:url('galeri4.png')"></div>
+  </div>
 </section>
 
 <!-- RSVP -->
@@ -212,32 +257,35 @@ width="90%" height="250" style="border:0;border-radius:10px;">
 </div>
 </section>
 
-<footer style="padding:20px;color:#aaa;">
+</div>
+
+  <footer style="padding:20px;color:#aaa;">
 www.muzharinwedding.com
 </footer>
 
 <script>
-// MUSIC
-function playMusic(){
-  document.getElementById("music").play();
+// OPEN INVITATION (TRANSISI HALUS)
+function openInvite(){
+  let open = document.getElementById("opening");
+  open.style.opacity="0";
+  
+  setTimeout(()=>{
+    open.style.display="none";
+    document.getElementById("music").play();
+    
+    window.scrollTo({
+      top: document.getElementById("main").offsetTop,
+      behavior:"smooth"
+    });
+  },800);
 }
 
 // NAMA TAMU
 const params = new URLSearchParams(window.location.search);
-const nama = params.get("to");
-if(nama){
-  document.getElementById("guest").innerText = "Kepada " + nama;
+let to = params.get("to");
+if(to){
+  document.getElementById("guest").innerText = "Kepada " + to;
 }
-
-// ANIMASI
-const fades = document.querySelectorAll('.fade');
-window.addEventListener('scroll', ()=>{
-  fades.forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight){
-      el.classList.add('show');
-    }
-  });
-});
 
 // RSVP
 function kirim(){
@@ -250,6 +298,41 @@ function kirim(){
     })
   }).then(()=>alert("Terima kasih ❤️"));
 }
+
+// ANIMASI SCROLL
+const fades = document.querySelectorAll('.fade');
+window.addEventListener('scroll', ()=>{
+  fades.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
+      el.classList.add('show');
+    }
+  });
+});
+
+// COUNTDOWN
+const target = new Date("May 2, 2026 09:30:00").getTime();
+setInterval(()=>{
+  let now = new Date().getTime();
+  let d = target-now;
+
+  let h = Math.floor(d/(1000*60*60*24));
+  let j = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+  let m = Math.floor((d%(1000*60*60))/(1000*60));
+  let s = Math.floor((d%(1000*60))/1000);
+
+  document.getElementById("countdown").innerHTML =
+  h+" Hari "+j+" Jam "+m+" Menit "+s+" Detik";
+},1000);
+
+// SLIDER
+let slides = document.querySelectorAll(".slide");
+let i=0;
+setInterval(()=>{
+  slides[i].classList.remove("active");
+  i=(i+1)%slides.length;
+  slides[i].classList.add("active");
+},4000);
+
 </script>
 
 </body>
