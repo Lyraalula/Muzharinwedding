@@ -143,6 +143,19 @@ button {
 .dots span.active {
   background:#000;
 }
+
+/*MAKE A WISH*/
+.wish-item {
+  background:#f9f9f9;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.wish-item small {
+  color:gray;
+  font-size:12px;
+}
   
 </style>
 </head>
@@ -242,12 +255,18 @@ width="90%" height="250" style="border:0;border-radius:10px;">
 <button onclick="kirim()">Kirim</button>
 </section>
 
-<section class="section fade">
-<h2>Make a Wish</h2>
-<input id="nama2" placeholder="Nama">
-<textarea id="wish" placeholder="Harapan"></textarea>
-<button onclick="kirimWish()">Kirim</button>
-</section>
+<div class="section fade">
+  <div class="card">
+    <h3>Make a Wish</h3>
+
+    <input id="namaWish" placeholder="Nama">
+    <textarea id="pesanWish" placeholder="Tulis harapan..."></textarea>
+
+    <button onclick="kirimWish()">Kirim</button>
+
+    <div id="listWish"></div>
+  </div>
+</div>
 
 <section class="section fade">
 <h2>Amplop Digital</h2>
@@ -349,7 +368,7 @@ function updateDots(){
 
 // init
 updateGallery();
-</script>
+
 
 // RSVP
 function kirim(){
@@ -365,8 +384,53 @@ function kirim(){
 
 // WISH
 function kirimWish(){
-  alert("Terima kasih atas doanya ❤️");
+  let nama = document.getElementById('namaWish').value;
+  let pesan = document.getElementById('pesanWish').value;
+
+  if(nama === '' || pesan === ''){
+    alert('Isi dulu ya 😊');
+    return;
+  }
+
+  let waktu = new Date().toLocaleTimeString();
+
+  let wish = {
+    nama:nama,
+    pesan:pesan,
+    waktu:waktu
+  };
+
+  let data = JSON.parse(localStorage.getItem('wishes')) || [];
+  data.unshift(wish);
+
+  localStorage.setItem('wishes', JSON.stringify(data));
+
+  tampilWish();
+
+  document.getElementById('namaWish').value='';
+  document.getElementById('pesanWish').value='';
 }
+
+function tampilWish(){
+  let data = JSON.parse(localStorage.getItem('wishes')) || [];
+  let html = '';
+
+  data.forEach(w=>{
+    html += `
+      <div class="wish-item">
+        <b>${w.nama}</b><br>
+        <small>${w.waktu}</small>
+        <p>${w.pesan}</p>
+      </div>
+    `;
+  });
+
+  document.getElementById('listWish').innerHTML = html;
+}
+
+// load awal
+tampilWish();
+
 </script>
 
 </body>
