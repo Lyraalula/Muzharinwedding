@@ -247,8 +247,8 @@ img {
   
 .event-card {
   background:white;
-  padding:20px;
-  border-radius:15px;
+  padding: 25px 20px;
+  border-radius: 20px;
   width: 220px; /* semua sama */
   height: 200px; /* biar tinggi sama */
   display: flex;
@@ -256,8 +256,26 @@ img {
   justify-content: center;
   align-items: center;
   text-align: center;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   transition:0.3s;
+}
+
+/* PEMISAH (ikon tengah) */
+.event-divider {
+  font-size: 28px;
+  color: white;
+  opacity: 0.8;
+}
+
+/* LOKASI BOX */
+.event-location {
+  background: rgba(255,255,255,0.95);
+  padding: 25px;
+  border-radius: 20px;
+  width: 90%;
+  text-align: center;
+  color: #333;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .event-card:hover {
@@ -275,7 +293,7 @@ img {
   width:50px;
   height:50px;
   margin:auto;
-  margin-bottom:10px;
+  margin-bottom:12px;
   animation: pop 1.5s infinite ease-in-out;
 }
 
@@ -591,35 +609,41 @@ THE WEDDING OF
   
 <!-- ACARA -->
 <div class="section bg bg2 fade">
-  <h2>Acara</h2>
+  <h2 style="margin-bottom:25px;">Acara</h2>
 
   <div class="event-wrapper">
     <div class="event-row">
 
-      <div class="event-card">
-        <div class="icon-ring sparkle">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="6"/>
-            <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-          </svg>
-          <span class="spark s1"></span>
-          <span class="spark s2"></span>
-          <span class="spark s3"></span>
-        </div>
+      <!-- AKAD -->
+    <div class="event-card">
+      <div class="icon-party sparkle">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="6"/>
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
+        </svg>
+        <span class="spark s1"></span>
+        <span class="spark s2"></span>
+        <span class="spark s3"></span>
+      </div>
         <h3>Akad</h3>
         <p><b>02 Mei 2026</b></p>
         <p>09.30 WIB</p>
       </div>
 
-      <div class="event-card">
-        <div class="icon-party sparkle">
-          <svg viewBox="0 0 24 24">
-            <path d="M2 22l20-8L2 2v7l15 5-15 5z"/>
-          </svg>
-          <span class="spark s1"></span>
-          <span class="spark s2"></span>
-          <span class="spark s3"></span>
-        </div>
+      <!-- PEMISAH -->
+    <div class="event-divider">❧</div>
+
+      
+      <!-- RESEPSI -->
+    <div class="event-card">
+      <div class="icon-party sparkle">
+        <svg viewBox="0 0 24 24">
+          <path d="M2 22l20-8L2 2v7l15 5-15 5z"/>
+        </svg>
+        <span class="spark s1"></span>
+        <span class="spark s2"></span>
+        <span class="spark s3"></span>
+      </div>
         <h3>Resepsi</h3>
         <p><b>02 Mei 2026</b></p>
         <p>11.30 WIB</p>
@@ -627,9 +651,12 @@ THE WEDDING OF
 
     </div>
 
+    <!-- PEMISAH -->
+    <div class="event-divider">❧</div>
+
     <!-- LOKASI -->
-    <div class="card">
-      <div class="icon house sparkle">
+     <div class="event-location">
+      <div class="icon-party sparkle">
         <svg viewBox="0 0 24 24">
           <path d="M3 10L12 3L21 10V20H3Z"/>
         </svg>
