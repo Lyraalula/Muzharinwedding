@@ -314,7 +314,7 @@ img {
   flex-wrap: wrap;
 }
   
-.event-card luxury {
+.event-card.luxury {
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(10px);
   border-radius: 22px;
@@ -648,7 +648,7 @@ THE WEDDING OF
 <div id="content" style="display:none;">
   
 <!-- OPENING -->
-<div class="section bg bg1 fade">
+<div class="section bg bg1 fade" id "opening">
   <div class="red-string"></div>
   <div class="spark-end"></div>
 
@@ -820,6 +820,38 @@ function openInvite(){
     document.getElementById("opening").style.display="none";
     document.getElementById("content").classList.remove("hidden");
 
+  function openInvite(){
+  document.getElementById("cover").style.display="none";
+
+  let opening = document.getElementById("opening");
+  opening.classList.remove("hidden");
+
+  document.getElementById("whoosh").play();
+
+  setTimeout(()=>{
+    document.getElementById("openingText").classList.add("show");
+  },800);
+
+  setTimeout(()=>{
+    opening.style.display="none";
+    document.getElementById("content").style.display="block";
+
+    // fade music
+    let music = document.getElementById("music");
+    music.volume = 0;
+    music.play();
+
+    let fade = setInterval(()=>{
+      if(music.volume < 1){
+        music.volume += 0.05;
+      } else {
+        clearInterval(fade);
+      }
+    },200);
+
+  },4000);
+}
+
 // JAM
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
 
@@ -837,23 +869,6 @@ setInterval(function () {
   document.getElementById("menit").innerText = menit;
   document.getElementById("detik").innerText = detik;
 }, 1000);
-
-// fade in music
-    let music = document.getElementById("music");
-    music.volume = 0;
-    music.play();
-
-    let fade = setInterval(()=>{
-      if(music.volume < 1){
-        music.volume += 0.05;
-      } else {
-        clearInterval(fade);
-      }
-    },200);
-
-  },4000);
-}
-
 
 // NAMA TAMU
 const url = new URLSearchParams(window.location.search);
