@@ -245,18 +245,18 @@ img {
   flex-wrap: wrap;
 }
   
-.event-card {
-  background: white;
-  padding: 25px 20px;
-  border-radius: 20px;
+.event-card luxury {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(10px);
+  border-radius: 22px;
+  padding: 28px 22px;
   width: 220px;
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height: 210px;
   text-align: center;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.08),
+    0 0 0.5px rgba(255,255,255,0.8) inset;
+  transition: all 0.4s ease;
 }
 
 
@@ -282,51 +282,79 @@ img {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.event-card:hover {
-  transform:translateY(-5px);
-  transition: 0.3s;
+/* HOVER HALUS */
+.event-card.luxury:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 
+    0 15px 40px rgba(0,0,0,0.12),
+    0 0 15px rgba(212,175,55,0.15);
 }
 
+/* TYPOGRAPHY PREMIUM */
 .event-card h3 {
-  font-family:'Playfair Display', serif;
-  font-size:18px;
-  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  margin-bottom: 6px;
 }
 
-/* ICON BASE */
+.event-card .date {
+  font-weight: 500;
+}
+
+.event-card .time {
+  font-size: 14px;
+  color: #555;
+}
+
+.event-card .location {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* EMOJI */
 .icon-emoji {
-  font-size: 40px;
-  margin-bottom: 10px;
-  position: relative; /* penting buat sparkle */
-  display: inline-block;
-  animation: pop 1.5s infinite ease-in-out;
-}
-
-  
-/* SPARKLE */
-.spark {
-  box-shadow: 0 0 8px gold, 0 0 15px gold;
-}
-
-.sparkle {
+  font-size: 42px;
+  margin-bottom: 12px;
   position: relative;
+  display: inline-block;
 }
 
+/* GOLD GLOW */
+.icon-emoji.gold {
+  text-shadow: 
+    0 0 6px rgba(212,175,55,0.5),
+    0 0 12px rgba(212,175,55,0.3);
+}
+
+/* SPARKLE LUXURY */
 .spark {
-  position: absolute;
+  background: radial-gradient(circle, #d4af37, transparent);
   width: 6px;
   height: 6px;
-  background: gold;
   border-radius: 50%;
+  position: absolute;
   opacity: 0;
-  animation: sparkle 2s infinite;
+  animation: sparkleLuxury 2.5s infinite ease-in-out;
 }
 
-/* posisi sparkle */
-.s1 { top: -5px; left: 50%; animation-delay: 0s; }
-.s2 { top: 20%; right: -5px; animation-delay: 0.5s; }
-.s3 { bottom: -5px; left: 30%; animation-delay: 1s; }
+.s1 { top: -6px; left: 50%; animation-delay: 0s; }
+.s2 { top: 30%; right: -6px; animation-delay: 0.8s; }
+.s3 { bottom: -6px; left: 30%; animation-delay: 1.6s; }
 
+@keyframes sparkleLuxury {
+  0% {
+    transform: scale(0.4) translateY(0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4) translateY(-8px);
+    opacity: 0;
+  }
+}
 /* KEYFRAMES */
 @keyframes pulse {
   0% {transform:scale(1);}
@@ -350,20 +378,6 @@ img {
   50% {transform:translateY(-8px);}
 }
 
-@keyframes sparkle {
-  0% {
-    transform: scale(0.5) translateY(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2) translateY(-5px);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.5) translateY(-10px);
-    opacity: 0;
-  }
-}
   
 /* MOBILE FIX */
 @media(max-width:500px){
@@ -594,8 +608,8 @@ THE WEDDING OF
   <div class="event-row">
 
     <!-- AKAD -->
-    <div class="event-card">
-      <div class="icon-emoji sparkle">
+    <div class="event-card luxury">
+      <div class="icon-emoji sparkle gold">
         💍
         <span class="spark s1"></span>
         <span class="spark s2"></span>
@@ -607,8 +621,8 @@ THE WEDDING OF
     </div>
 
     <!-- RESEPSI -->
-    <div class="event-card">
-      <div class="icon-emoji sparkle">
+    <div class="event-card luxury">
+      <div class="icon-emoji sparkle gold">
         🎉
         <span class="spark s1"></span>
         <span class="spark s2"></span>
@@ -620,8 +634,8 @@ THE WEDDING OF
     </div>
 
     <!-- LOKASI -->
-    <div class="event-card">
-      <div class="icon-emoji sparkle">
+    <div class="event-card luxury">
+      <div class="icon-emoji sparkle gold">
         🏡
         <span class="spark s1"></span>
         <span class="spark s2"></span>
