@@ -648,7 +648,7 @@ THE WEDDING OF
 <div id="content" style="display:none;">
   
 <!-- OPENING -->
-<div class="section bg bg1 fade" id "opening">
+<div class="section bg bg1 fade" id="opening">
   <div class="red-string"></div>
   <div class="spark-end"></div>
 
@@ -808,30 +808,19 @@ THE WEDDING OF
 // OPEN
 function openInvite(){
   document.getElementById("cover").style.display="none";
-  document.getElementById("opening").classList.remove("hidden");
-
-  document.getElementById("whoosh").play();
-
-  setTimeout(()=>{
-    document.getElementById("openingText").classList.add("show");
-  },800);
-
-  setTimeout(()=>{
-    document.getElementById("opening").style.display="none";
-    document.getElementById("content").classList.remove("hidden");
-
-  function openInvite(){
-  document.getElementById("cover").style.display="none";
 
   let opening = document.getElementById("opening");
   opening.classList.remove("hidden");
 
+  // sound whoosh
   document.getElementById("whoosh").play();
 
+  // animasi text
   setTimeout(()=>{
     document.getElementById("openingText").classList.add("show");
   },800);
 
+  // pindah ke content
   setTimeout(()=>{
     opening.style.display="none";
     document.getElementById("content").style.display="block";
