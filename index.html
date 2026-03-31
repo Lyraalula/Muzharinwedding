@@ -12,6 +12,7 @@ body {
   margin:0;
   font-family:'Poppins', sans-serif;
   background:#f5f5f5;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* COVER */
@@ -95,8 +96,9 @@ img {
   display:flex;
   overflow-x:auto;
   gap:15px;
-  scroll-snap-type:x mandatory;
   padding:10px;
+  scroll-snap-type:x proximity; /* lebih lembut */
+  -webkit-overflow-scrolling: touch;
 }
 .gallery img {
   width:70%;
@@ -268,19 +270,19 @@ images.forEach((_, i)=>{
 
 const dots = dotsContainer.querySelectorAll('span');
 
-setInterval(()=>{
-  index++;
-  if(index >= images.length) index = 0;
+gallery.addEventListener('scroll', ()=>{
+  let center = gallery.scrollLeft + gallery.offsetWidth / 2;
 
-  images[index].scrollIntoView({
-    behavior:'smooth',
-    inline:'center'
+  images.forEach((img,i)=>{
+    let box = img.offsetLeft + img.offsetWidth / 2;
+
+    if(Math.abs(center - box) < img.offsetWidth / 2){
+      dots.forEach(d=>d.classList.remove('active'));
+      dots[i].classList.add('active');
+    }
   });
-
-  dots.forEach(d=>d.classList.remove('active'));
-  dots[index].classList.add('active');
-},3000);
-
+});
+  
 // RSVP
 function kirim(){
   alert("Terima kasih ❤️");
