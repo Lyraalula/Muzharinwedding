@@ -203,6 +203,12 @@ body {
   to{ width:100%; }
 }
 
+@keyframes swipeHint {
+  0% { transform: translateY(0); opacity:0.5;}
+  50% { transform: translateY(8px); opacity:1;}
+  100% { transform: translateY(0); opacity:0.5;}
+}
+
 /* SPARK */
 .spark-end{
   position:absolute;
@@ -665,6 +671,10 @@ THE WEDDING OF
   <p>
   Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka...
   </p>
+
+  <p style="margin-top:20px; font-size:12px; opacity:0.7;">
+  Scroll untuk lanjut ✨
+</p>
 </div>
 </div>
 
@@ -817,11 +827,15 @@ THE WEDDING OF
 </div>
 
 <script>
+let openingTimeout;
+  
 // OPEN
 function openInvite(){
   document.getElementById("cover").style.display="none";
 
   let opening = document.getElementById("opening");
+  let content = document.getElementById("content");
+
   opening.classList.remove("hidden");
 
   // sound whoosh
@@ -842,6 +856,11 @@ setTimeout(()=>{
   setTimeout(()=>{
     document.getElementById("openingText").classList.add("show");
   },800);
+
+  // ⏳ AUTO PINDAH 2 MENIT
+  openingTimeout = setTimeout(()=>{
+    skipOpening();
+  }, 120000); // 120.000 ms = 2 menit
 
   // pindah ke content
   setTimeout(()=>{
@@ -864,6 +883,32 @@ setTimeout(()=>{
   },4000);
 }
 
+// 🚀 FUNCTION SKIP (dipakai scroll & timer)
+function skipOpening(){
+  let opening = document.getElementById("opening");
+  let content = document.getElementById("content");
+
+  opening.style.display="none";
+  content.style.display="block";
+
+  // scroll ke atas content
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+// 🖐️ DETEKSI SCROLL (skip otomatis)
+window.addEventListener("scroll", function(){
+  let opening = document.getElementById("opening");
+
+  // hanya aktif saat opening masih tampil
+  if(opening && opening.style.display !== "none"){
+    clearTimeout(openingTimeout); // stop timer
+    skipOpening();
+  }
+});
+  
 // JAM
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
 
