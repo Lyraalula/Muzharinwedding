@@ -91,6 +91,186 @@ img {
   transform:translateY(0);
 }
 
+/* EVENT */
+.event-card {
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  width:45%;
+  min-width:140px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+
+.event-card:hover {
+  transform:translateY(-5px);
+}
+
+.event-card h3 {
+  font-family:'Playfair Display', serif;
+  font-size:18px;
+}
+
+/* ICON BASE */
+.icon {
+  width:50px;
+  height:50px;
+  margin:auto;
+  margin-bottom:10px;
+}
+
+.icon svg {
+  width:100%;
+  height:100%;
+  stroke:#000;
+  stroke-width:1.5;
+  fill:none;
+}
+
+/* ANIMASI RING */
+.ring {
+  animation: pulse 2s infinite;
+}
+
+/* ANIMASI PARTY */
+.party {
+  animation: bounce 2s infinite;
+}
+
+/* ANIMASI HOUSE */
+.house {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* KEYFRAMES */
+@keyframes pulse {
+  0% {transform:scale(1);}
+  50% {transform:scale(1.1);}
+  100% {transform:scale(1);}
+}
+
+@keyframes bounce {
+  0%,100% {transform:translateY(0);}
+  50% {transform:translateY(-5px);}
+}
+
+@keyframes float {
+  0%,100% {transform:translateY(0);}
+  50% {transform:translateY(-8px);}
+}
+  
+/* MOBILE FIX */
+@media(max-width:500px){
+  .event-card {
+    width:100%;
+  }
+}
+
+/* STORY */
+.story-title {
+  font-family:'Playfair Display', serif;
+  margin-bottom:30px;
+}
+
+/* contrainer */
+.story-title {
+  font-family:'Playfair Display', serif;
+  margin-bottom:30px;
+}
+
+/* animasi */
+.story::before {
+  content:'';
+  position:absolute;
+  left:50%;
+  top:0;
+  width:2px;
+  height:0;
+  background:linear-gradient(to bottom,#ff6b81,#000);
+  transform:translateX(-50%);
+  animation:lineGrow 2s ease forwards;
+}
+
+/* card */
+.story-item {
+  width:45%;
+  padding:20px;
+  background:white;
+  border-radius:15px;
+  margin-bottom:40px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  position:relative;
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+}
+  
+/* kiri kanan zigzag */
+.story-item:nth-child(odd) {
+  margin-left:0;
+}
+.story-item:nth-child(even) {
+  margin-left:auto;
+}
+
+/* titik timeline */
+.story-item::before {
+  content:'';
+  position:absolute;
+  top:25px;
+  width:14px;
+  height:14px;
+  background:#ff6b81;
+  border-radius:50%;
+  box-shadow:0 0 10px #ff6b81;
+}
+
+.story-item:nth-child(odd)::before {
+  right:-7px;
+}
+.story-item:nth-child(even)::before {
+  left:-7px;
+}
+
+/* TEXT */
+.story-item h3 {
+  font-family:'Playfair Display', serif;
+  margin-bottom:5px;
+}
+.story-item h4 {
+  font-size:13px;
+  color:#888;
+  margin-bottom:10px;
+}
+
+/* ANIMASI MASUK */
+.story-item.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* LINE GROW */
+@keyframes lineGrow {
+  from {height:0;}
+  to {height:100%;}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .story::before {
+    left:10px;
+  }
+
+  .story-item {
+    width:100%;
+    margin-left:20px !important;
+  }
+
+  .story-item::before {
+    left:-14px !important;
+  }
+}
+
 /* GALLERY */
 .gallery {
   display:flex;
@@ -174,6 +354,7 @@ Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal 
 </p>
 </div>
 
+<!-- MEMPELAI -->
 <div class="section fade">
 <div class="card">
 <img src="pria.jpg">
@@ -186,11 +367,49 @@ Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal 
 </div>
 </div>
 
+<!-- ACARA -->
 <div class="section fade">
-<div class="card">
-<p>Akad: 09.30 WIB</p>
-<p>Resepsi: 11.30 WIB</p>
-</div>
+  <h2>Acara</h2>
+
+  <div class="event-grid">
+
+    <div class="event-card">
+      <div class="icon ring">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <h3>Akad</h3>
+      <p><b>02 Mei 2026</b></p>
+      <p>09.30 WIB</p>
+    </div>
+
+    <div class="event-card">
+      <div class="icon party">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 20L20 4M14 4h6v6"/>
+        </svg>
+      </div>
+      <h3>Resepsi</h3>
+      <p><b>02 Mei 2026</b></p>
+      <p>11.30 WIB</p>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <div class="icon house">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 10L12 3L21 10V20H3Z"/>
+      </svg>
+    </div>
+    <h3>Lokasi</h3>
+    <p>
+      Kediaman Mempelai Wanita <br>
+      Bekasi Timur Regency 3, cluster jade, blok J3 No.43, rt.07/rw.21, kel. Cimuning, kec. Mustika jaya, bekasi, jawa barat, 17155, Indonesia
+    </p>
+  </div>
 </div>
 
 <div class="section fade">
@@ -199,6 +418,41 @@ Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal 
 </div>
 </div>
 
+<!-- LOVE STORY -->
+  <div class="section fade">
+  <h2 class="story-title">Redstring Story</h2>
+
+  <div class="story cinematic">
+
+    <div class="story-item reveal">
+      <h3>Pendekatan</h3>
+      <h4>Takdir mempertemukan kami di waktu yang tak terduga.</h4>
+      <p>Awal kisah kami bermula dari satu tempat kerja yang sama. Saat itu, kami hanya rekan kerja biasa, masing-masing dengan kehidupan dan pasangan kami sendiri. 
+        Percakapan yang terjalin pun sebatas urusan pekerjaan, tanpa ada rasa yang lebih. Waktu berjalan, hingga akhirnya AzharI harus berpindah ke tempat kerja yang baru dan sejak saat itu, 
+        komunikasi kami pun terputus, seolah cerita kami berhenti begitu saja.</p>
+    </div>
+
+    <div class="story-item reveal">
+      <h3>Kedekatan</h3>
+      <h4>Kedekatan yang tumbuh perlahan, namun penuh makna.</h4>
+      <p>Tak disangka, takdir mempertemukan kami kembali melalui ajakan seorang teman untuk bermain bersama di Blok M. Dari pertemuan sederhana itulah, kedekatan kami mulai tumbuh. 
+        Obrolan semakin hangat, tawa semakin sering hadir, hingga kebersamaan berlanjut ke banyak momen—naik gunung bersama, berbagi cerita, dan menikmati waktu satu sama lain. 
+        Pada bulan Juni 2025, kami menyadari bahwa hubungan ini telah menjadi sesuatu yang lebih bermakna. Dengan penuh keyakinan, AzharI memberikan sebuah cincin sebagai simbol keseriusannya.</p>
+    </div>
+
+    <div class="story-item reveal">
+      <h3>Menikah</h3>
+      <h4>Cinta yang kami jaga, kini kami resmikan dalam ikatan suci.</h4>
+      <p>Cinta yang kami jaga, kini kami resmikan dalam ikatan suci. deskripsi : Langkah kami pun semakin mantap. 
+        Pada akhir November 2025, kedua keluarga dipertemukan dalam sebuah lamaran yang penuh kehangatan dan restu. 
+        Setelah melalui perjalanan yang mengajarkan arti kebersamaan, kesabaran, dan cinta, akhirnya pada Mei 2026 kami sepakat untuk mengikat janji suci pernikahan. 
+        Sebuah awal baru yang kami pilih untuk dijalani bersama, selamanya.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- GALERI -->
 <div class="section fade">
 <h3>Our Moments</h3>
 <div class="gallery" id="gallery">
@@ -209,6 +463,7 @@ Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal 
 <div class="dots" id="dots"></div>
 </div>
 
+<!-- RSVP -->
 <div class="section fade">
 <div class="card">
 <h3>RSVP</h3>
@@ -219,6 +474,7 @@ Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal 
 </div>
 </div>
 
+<!-- HARAPAN -->
 <div class="section fade">
 <div class="card">
 <h3>Make a Wish</h3>
@@ -255,6 +511,19 @@ window.addEventListener('scroll', ()=>{
   });
 });
 
+// STORY
+const reveals = document.querySelectorAll('.reveal');
+
+window.addEventListener('scroll', ()=>{
+  reveals.forEach(el=>{
+    const top = el.getBoundingClientRect().top;
+
+    if(top < window.innerHeight - 100){
+      el.classList.add('show');
+    }
+  });
+});
+  
 // GALLERY
 const gallery = document.getElementById('gallery');
 const images = gallery.querySelectorAll('img');
