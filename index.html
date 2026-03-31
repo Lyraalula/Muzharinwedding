@@ -144,7 +144,76 @@ body {
   display:none;
 }
 
-/* SECTION */
+/* OPENING CINEMATIC */
+.opening{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  background:url('bg1.png') center/cover no-repeat;
+  overflow:hidden;
+}
+
+.opening::before{
+  content:'';
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+/* TEXT */
+.opening-text{
+  position:relative;
+  max-width:80%;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.5s;
+  font-size:18px;
+}
+
+.opening-text.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* RED STRING */
+.red-string{
+  position:absolute;
+  width:0;
+  height:2px;
+  background:red;
+  top:50%;
+  left:0;
+  animation:drawLine 2s forwards;
+}
+
+@keyframes drawLine{
+  to{ width:100%; }
+}
+
+/* SPARK */
+.spark-end{
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:gold;
+  border-radius:50%;
+  top:50%;
+  left:0;
+  opacity:0;
+  animation:sparkMove 2s forwards;
+  box-shadow:0 0 10px gold,0 0 20px gold;
+}
+
+@keyframes sparkMove{
+  0%{ left:0; opacity:1;}
+  100%{ left:100%; opacity:1;}
+}
+
+/* content */
 .section {
   padding: 60px 20px;
   max-width:500px;
@@ -259,16 +328,8 @@ img {
   transition: all 0.4s ease;
 }
 
-
 .event-card p {
   margin: 4px 0;
-}
-
-/* PEMISAH (ikon tengah) */
-.event-divider {
-  font-size: 28px;
-  color: white;
-  opacity: 0.8;
 }
 
 /* LOKASI BOX */
@@ -355,6 +416,7 @@ img {
     opacity: 0;
   }
 }
+  
 /* KEYFRAMES */
 @keyframes pulse {
   0% {transform:scale(1);}
@@ -555,6 +617,10 @@ button {
   <source src="love-story.mp3">
 </audio>
 
+<audio id="whoosh">
+  <source src="whoosh.mp3">
+</audio>
+
 <!-- COVER -->
 <div class="cover" id="cover">
   <div class="cover-content">
@@ -583,11 +649,16 @@ THE WEDDING OF
   
 <!-- OPENING -->
 <div class="section bg bg1 fade">
+  <div class="red-string"></div>
+  <div class="spark-end"></div>
+
+  <div class="opening-text" id="openingText">
   <p>
   Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka...
   </p>
 </div>
-
+</div>
+  
 <!-- MEMPELAI -->
 <div class="section clean fade">
   <div class="card">
@@ -736,10 +807,18 @@ THE WEDDING OF
 <script>
 // OPEN
 function openInvite(){
-  document.getElementById("cover").classList.add("hidden");
-  document.getElementById("content").style.display="block";
-  document.getElementById("music").play();
-}
+  document.getElementById("cover").style.display="none";
+  document.getElementById("opening").classList.remove("hidden");
+
+  document.getElementById("whoosh").play();
+
+  setTimeout(()=>{
+    document.getElementById("openingText").classList.add("show");
+  },800);
+
+  setTimeout(()=>{
+    document.getElementById("opening").style.display="none";
+    document.getElementById("content").classList.remove("hidden");
 
 // JAM
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
@@ -758,6 +837,22 @@ setInterval(function () {
   document.getElementById("menit").innerText = menit;
   document.getElementById("detik").innerText = detik;
 }, 1000);
+
+// fade in music
+    let music = document.getElementById("music");
+    music.volume = 0;
+    music.play();
+
+    let fade = setInterval(()=>{
+      if(music.volume < 1){
+        music.volume += 0.05;
+      } else {
+        clearInterval(fade);
+      }
+    },200);
+
+  },4000);
+}
 
 
 // NAMA TAMU
