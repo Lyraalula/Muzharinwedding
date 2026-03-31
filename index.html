@@ -313,6 +313,7 @@ window.addEventListener('scroll', ()=>{
   });
 });
 
+<script>
 // GALLERY
 const gallery = document.getElementById('gallery');
 const images = gallery.querySelectorAll('img');
@@ -350,7 +351,7 @@ setInterval(()=>{
   updateGallery();
 },3000);
 
-// swipe manual update
+// swipe manual update (FIXED)
 gallery.addEventListener('scroll',()=>{
   let center = gallery.scrollLeft + gallery.offsetWidth/2;
 
@@ -360,6 +361,8 @@ gallery.addEventListener('scroll',()=>{
       index = i;
       updateDots();
     }
+  });
+});
 
 function updateDots(){
   dots.forEach(dot=>dot.classList.remove('active'));
@@ -368,7 +371,7 @@ function updateDots(){
 
 // init
 updateGallery();
-
+</script>
 
 // RSVP
 function kirim(){
