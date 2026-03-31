@@ -187,6 +187,9 @@ body {
   background:red;
   top:50%;
   left:0;
+}
+
+.red-string.active{
   animation:drawLine 2s forwards;
 }
 
@@ -204,8 +207,11 @@ body {
   top:50%;
   left:0;
   opacity:0;
-  animation:sparkMove 2s forwards;
   box-shadow:0 0 10px gold,0 0 20px gold;
+}
+
+.spark-end.active{
+  animation:sparkMove 2s forwards;
 }
 
 @keyframes sparkMove{
@@ -648,9 +654,10 @@ THE WEDDING OF
 <div id="content" style="display:none;">
   
 <!-- OPENING -->
-<div class="section bg bg1 fade" id="opening">
-  <div class="red-string"></div>
-  <div class="spark-end"></div>
+<div class="opening hidden" id="opening">
+  
+  <div class="red-string" id="redString"></div>
+  <div class="spark-end" id="sparkEnd"></div>
 
   <div class="opening-text" id="openingText">
   <p>
@@ -814,6 +821,12 @@ function openInvite(){
 
   // sound whoosh
   document.getElementById("whoosh").play();
+
+  // TRIGGER RED STRING
+  setTimeout(()=>{
+    document.getElementById("redString").classList.add("active");
+    document.getElementById("sparkEnd").classList.add("active");
+  },200);
 
   // animasi text
   setTimeout(()=>{
