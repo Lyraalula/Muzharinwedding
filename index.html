@@ -154,6 +154,7 @@ body {
   position:relative;
   background:url('bg1.png') center/cover no-repeat;
   overflow:hidden;
+  animation: fadeOpening 1s ease;
 }
 
 .opening::before{
@@ -164,6 +165,11 @@ body {
   background:rgba(0,0,0,0.6);
 }
 
+@keyframes fadeOpening {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+  
 /* TEXT */
 .opening-text{
   position:relative;
@@ -641,7 +647,6 @@ THE WEDDING OF
         <div><span id="menit">0</span><small>Menit</small></div>
         <div><span id="detik">0</span><small>Detik</small></div>
       </div>
-     <h3 id="guest"></h3>
     <p style="font-size:13px;">Kepada Yth:</p>
 <h3 id="guest" style="margin-top:5px;"></h3>
     <button onclick="openInvite()" class="btn-open">
@@ -649,9 +654,6 @@ THE WEDDING OF
 </button>
   </div>
 </div>
-
-<!-- CONTENT -->
-<div id="content" style="display:none;">
   
 <!-- OPENING -->
 <div class="opening hidden" id="opening">
@@ -665,6 +667,9 @@ THE WEDDING OF
   </p>
 </div>
 </div>
+
+<!-- CONTENT -->
+<div id="content" style="display:none;">
   
 <!-- MEMPELAI -->
 <div class="section clean fade">
@@ -822,11 +827,16 @@ function openInvite(){
   // sound whoosh
   document.getElementById("whoosh").play();
 
-  // TRIGGER RED STRING
-  setTimeout(()=>{
-    document.getElementById("redString").classList.add("active");
-    document.getElementById("sparkEnd").classList.add("active");
-  },200);
+ // red string
+setTimeout(()=>{
+  redString.classList.add("active");
+  sparkEnd.classList.add("active");
+},300);
+
+// text muncul setelah garis hampir selesai
+setTimeout(()=>{
+  openingText.classList.add("show");
+},1500);
 
   // animasi text
   setTimeout(()=>{
