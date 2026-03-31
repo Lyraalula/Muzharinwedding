@@ -152,6 +152,7 @@ body {
   align-items:center;
   text-align:center;
   position:relative;
+  color: white;
   background:url('bg1.png') center/cover no-repeat;
   overflow:hidden;
   animation: fadeOpening 1s ease;
@@ -186,21 +187,83 @@ body {
 }
 
 /* RED STRING */
-.red-string{
-  position:absolute;
-  width:0;
-  height:2px;
-  background:red;
-  top:50%;
-  left:0;
+.heart-line {
+  width: 120px;
+  height: 100px;
+  margin: 30px auto;
+  position: relative;
 }
 
-.red-string.active{
-  animation:drawLine 2s forwards;
+.heart-line::before,
+.heart-line::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 90px;
+  border: 2px solid red;
+  border-bottom: none;
+  border-left: none;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  left: 30px;
+  top: 0;
+  opacity: 0;
 }
 
-@keyframes drawLine{
-  to{ width:100%; }
+.heart-line::after {
+  transform: rotate(45deg);
+  left: 0;
+}
+
+/* ANIMASI LOVE */
+.heart-line.active::before,
+.heart-line.active::after {
+  animation: drawHeart 2s forwards;
+  box-shadow: 0 0 10px red, 0 0 20px rgba(255,0,0,0.5);
+}
+
+@keyframes drawHeart {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-45deg);
+  }
+}
+
+.heart-line.active::after {
+  animation: drawHeart2 2s forwards;
+}
+
+@keyframes drawHeart2 {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotate(45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+.scroll-hint {
+  margin-top: 20px;
+  font-size: 12px;
+  opacity: 0.8;
+  animation: fadeIn 2s ease;
+}
+
+.arrow {
+  display: inline-block;
+  font-size: 20px;
+  animation: bounceUp 1.5s infinite;
+}
+
+@keyframes bounceUp {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes swipeHint {
@@ -671,11 +734,17 @@ THE WEDDING OF
   <p>
   Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka...
   </p>
+    
+<!-- LOVE STRING -->
+    <div class="heart-line"></div>
 
-  <p style="margin-top:20px; font-size:12px; opacity:0.7;">
-  Scroll untuk lanjut ✨
-</p>
-</div>
+<!-- SCROLL HINT -->
+    <div class="scroll-hint">
+      <span>Scroll untuk lanjut</span><br>
+      <span class="arrow">⬆️</span>
+    </div>
+  </div>
+
 </div>
 
 <!-- CONTENT -->
@@ -843,9 +912,8 @@ function openInvite(){
 
  // red string
 setTimeout(()=>{
-  redString.classList.add("active");
-  sparkEnd.classList.add("active");
-},300);
+  document.querySelector(".heart-line").classList.add("active");
+},1200);
 
 // text muncul setelah garis hampir selesai
 setTimeout(()=>{
