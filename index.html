@@ -198,53 +198,33 @@ body {
 .heart-line::after {
   content: "";
   position: absolute;
-  width: 60px;
-  height: 90px;
+  width: 200px;
+  height: 200px;
+  bottom:80px;
   border: 2px solid red;
   border-bottom: none;
   border-left: none;
   border-radius: 50px 50px 0 0;
-  transform: rotate(-45deg);
-  left: 30px;
+  transform:translateX(-50%);
+  left:50%;
   top: 0;
   opacity: 0;
 }
 
-.heart-line::after {
-  transform: rotate(45deg);
-  left: 0;
+/* efek benang ketarik */
+#heartPath {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
 }
 
-/* ANIMASI LOVE */
-.heart-line.active::before,
-.heart-line.active::after {
-  animation: drawHeart 2s forwards;
-  box-shadow: 0 0 10px red, 0 0 20px rgba(255,0,0,0.5);
+/* aktif */
+.red-string.active #heartPath {
+  animation: drawLove 2.5s ease forwards;
 }
 
-@keyframes drawHeart {
-  from {
-    opacity: 0;
-    transform: scale(0.5) rotate(-45deg);
-  }
+@keyframes drawLove {
   to {
-    opacity: 1;
-    transform: scale(1) rotate(-45deg);
-  }
-}
-
-.heart-line.active::after {
-  animation: drawHeart2 2s forwards;
-}
-
-@keyframes drawHeart2 {
-  from {
-    opacity: 0;
-    transform: scale(0.5) rotate(45deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(45deg);
+    stroke-dashoffset: 0;
   }
 }
 
@@ -727,12 +707,22 @@ THE WEDDING OF
 <!-- OPENING -->
 <div class="opening hidden" id="opening">
   
-  <div class="red-string" id="redString"></div>
-  <div class="spark-end" id="sparkEnd"></div>
+  <svg class="red-string" id="redString" viewBox="0 0 200 200">
+  <path id="heartPath"
+    d="M100 170 
+       C 20 110, 20 40, 100 70 
+       C 180 40, 180 110, 100 170"
+    fill="none"
+    stroke="red"
+    stroke-width="3"
+  />
+</svg>
 
   <div class="opening-text" id="openingText">
   <p>
-  Seperti kisah dalam teori red string, Putri dan Azhari percaya bahwa sejak awal ada benang tak terlihat yang menghubungkan langkah mereka...
+    Seperti kisah dalam teori red string,<br>
+    Putri dan Azhari percaya bahwa sejak awal<br>
+    ada benang tak terlihat yang menghubungkan langkah mereka...
   </p>
     
 <!-- LOVE STRING -->
@@ -913,7 +903,7 @@ function openInvite(){
  // red string
 setTimeout(()=>{
   document.querySelector(".heart-line").classList.add("active");
-},1200);
+},200);
 
 // text muncul setelah garis hampir selesai
 setTimeout(()=>{
