@@ -110,8 +110,12 @@ img {
   background:white;
   padding:20px;
   border-radius:15px;
-  width:45%;
-  min-width:140px;
+  width: 220px; /* semua sama */
+  height: 200px; /* biar tinggi sama */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   box-shadow:0 8px 20px rgba(0,0,0,0.08);
   transition:0.3s;
@@ -119,6 +123,7 @@ img {
 
 .event-card:hover {
   transform:translateY(-5px);
+  transition: 0.3s;
 }
 
 .event-card h3 {
