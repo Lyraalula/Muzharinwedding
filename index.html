@@ -327,10 +327,21 @@ p {
 
 /* SECTION TANPA BG */
 .section.clean {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   background: white;
   color: #333;
 }
 
+@media(min-width:768px){
+  .section.clean {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+  
 /* SECTION DENGAN BG FOTO */
 .section.bg {
   color: white;
@@ -370,11 +381,16 @@ p {
   margin-bottom:20px;
   box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
+.card img {
+  max-height: 350px;
+  object-fit: cover;
+}
 
 /* IMG */
 img {
   width:100%;
   border-radius:12px;
+  height: auto;
 }
 
 /* ANIMASI */
@@ -397,10 +413,14 @@ img {
 }
 
 .event-row {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: auto;
 }
   
 .event-card.luxury {
@@ -409,12 +429,14 @@ img {
   border-radius: 22px;
   padding: 28px 22px;
   width: 220px;
+  max-width: 260px;
   min-height: 210px;
   text-align: center;
   box-shadow: 
     0 10px 30px rgba(0,0,0,0.08),
     0 0 0.5px rgba(255,255,255,0.8) inset;
   transition: all 0.4s ease;
+  flex: 1 1 220px;
 }
 
 .event-card p {
@@ -554,7 +576,7 @@ img {
   content:'';
   position:absolute;
   left:50%;
-  top:0;
+  top:60%;
   width:2px;
   height:0;
   background:linear-gradient(to bottom,#ff6b81,#000);
@@ -564,7 +586,8 @@ img {
 
 /* card */
 .story-item {
-  width:100%;
+  width: 42%;
+  max-width: 420px;
   padding:20px 0;
   background:white;
   border-radius:15px;
@@ -574,6 +597,7 @@ img {
   opacity:0;
   transform:translateY(50px);
   transition:1s;
+  line-height: 1.6;
 }
   
 /* kiri kanan zigzag */
@@ -645,13 +669,18 @@ img {
   }
 }
 
+@media(max-width:768px){
+  .story::before {
+    left:15px;
+  }
+
   .story-item {
     width:100%;
-    margin-left:20px !important;
+    margin-left:25px !important;
   }
 
   .story-item::before {
-    left:-14px !important;
+    left:-15px !important;
   }
 }
 
@@ -660,13 +689,15 @@ img {
   display:flex;
   overflow-x:auto;
   gap:15px;
-  padding:10px;
-  scroll-snap-type:x proximity; /* lebih lembut */
+  padding:20px;
+  scroll-snap-type: x mandatory; /* lebih lembut */
+   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
 .gallery img {
   width:80%;
-  max-width:260px;
+  max-width:300px;
+  flex: 0 0 80%;
   flex-shrink:0;
   border-radius:15px;
   scroll-snap-align:center;
@@ -788,11 +819,13 @@ THE WEDDING OF
   <div class="card">
     <img src="pria.png">
     <h3>Muhamad Azhari</h3>
+    <p>Putra ke-2 dari Bapak Alm. Mukshin & Ibu Suhaini</p>
   </div>
 
   <div class="card">
     <img src="wanita.png">
     <h3>Putri Zahira Rahimah Mumtaz</h3>
+    <p>Putri ke-1 dari Bapak Chandra Teguh B.S & Ibu Rusni Windari Yusuf</p>
   </div>
 </div>
   
@@ -907,10 +940,9 @@ THE WEDDING OF
 <div class="card">
 <h3>RSVP</h3>
   
-<input id="nama" placeholder="Nama">
-<input id="jumlah" placeholder="Jumlah">
-<input id="kota" placeholder="Kota">
-<button onclick="kirim()">Kirim</button>
+<a href="https://docs.google.com/forms/d/178k74WaTt2hcog2EIL3FPaaVoP4xwO1jgoBXhDeCQOs/viewform" target="_blank">
+      <img src="rsvp.png" style="width:100%; border-radius:12px;">
+    </a>
 </div>
 </div>
 
@@ -919,10 +951,9 @@ THE WEDDING OF
   <div class="card">
     <h3>Make a Wish</h3>
     
-<input id="namaWish" placeholder="Nama">
-<textarea id="pesanWish"></textarea>
-<button onclick="kirimWish()">Kirim</button>
-<div id="listWish"></div>
+<a href="https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank">
+      <img src="wish.png" style="width:100%; border-radius:12px;">
+    </a>
 </div>
 </div>
 
