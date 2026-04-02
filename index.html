@@ -1386,9 +1386,8 @@ p{font-size:clamp(14px,3vw,16px);}
       <div><span id="detik">0</span><small>Detik</small></div> 
     </div> 
     <p style="font-size:13px;">Kepada Yth:</p> 
-    <h3 id="guest" style="margin-top:5px;"></h3> 
-    <button onclick="openInvite()" class="btn-open"> 
-      <span>💌 Buka Undangan</span> </button>
+    <h3 id="guest"></h3> 
+    <button onclick="openInvite()" class="btn-open">💌 Buka Undangan</button>
   </div>
 </div>
 
@@ -1397,6 +1396,7 @@ p{font-size:clamp(14px,3vw,16px);}
   <svg class="red-string" id="redString" viewBox="0 0 200 200"> 
     <path id="heartPath" d="M100 170 C 20 110, 20 40, 100 70 C 180 40, 180 110, 100 170" fill="none" stroke="red" stroke-width="3" /> 
   </svg> 
+  
   <div class="opening-text" id="openingText"> 
     <p> Seperti kisah dalam teori red string,<br> Putri dan Azhari percaya bahwa sejak awal<br> 
       ada benang tak terlihat yang menghubungkan langkah mereka... </p> 
@@ -1606,14 +1606,14 @@ document.body.style.overflow = "hidden";
    🔰 GLOBAL (VAR & HELPER)
 ====================================================== */
 let openingTimeout;
+let isOpeningActive = false;
 
 function showContent(){
   const opening = document.getElementById("opening");
   const content = document.getElementById("content");
 
-  opening.style.display = "none";
-  content.classList.add("show");
-
+  isOpeningActive = false;
+  
   window.scrollTo({
     top: 0,
     behavior: "smooth"
@@ -1658,39 +1658,42 @@ function openInvite(){
     document.getElementById("openingText").classList.add("show");
   },500);
 
-  // sound effect
-  document.getElementById("whoosh").play();
+  /* optional audio (safe) */
+  const whoosh = document.getElementById("whoosh");
+  if(whoosh) whoosh.play();
 
-  // animasi text
-  setTimeout(()=>{
-    document.getElementById("openingText").classList.add("show");
-  },800);
-
-  // auto skip 2 menit
-  openingTimeout = setTimeout(()=>{
-    skipOpening();
-  },120000);
-
-  // masuk konten setelah cinematic
-  setTimeout(()=>{
-    showContent();
-
-    // fade music
-    let music = document.getElementById("music");
-    music.volume = 0;
-    music.play();
-
-    let fade = setInterval(()=>{
-      if(music.volume < 1){
-        music.volume += 0.05;
-      } else {
-        clearInterval(fade);
-      }
-    },200);
-
-  },4000);
+  /* auto skip */
+  openingTimeout = setTimeout(showContent, 4000);
 }
 
+/* ================= SCROLL DETECT ================= */
+window.addEventListener("scroll", () => {
+  if(!isOpeningActive) return;
+
+  if(window.scrollY > 50){
+    showContent();
+  }
+});
+
+/* ================= CLICK OPENING ================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const opening = document.getElementById("opening");
+
+  opening.addEventListener("click", () => {
+    if(isOpeningActive){
+      showContent();
+    }
+  });
+});
+
+/* ================= GUEST NAME ================= */
+const url = new URLSearchParams(window.location.search);
+const tamu = url.get("to");
+
+if(tamu){
+  document.getElementById("guest").innerText = "Kepada " + tamu;
+}
+  
 /* ======================================================
    🎬 OPENING (SKIP & SCROLL DETECT)
 ====================================================== */
