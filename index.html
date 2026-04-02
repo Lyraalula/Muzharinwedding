@@ -1605,20 +1605,15 @@ document.body.style.overflow = "hidden";
 /* ======================================================
    🔰 GLOBAL (VAR & HELPER)
 ====================================================== */
-let openingTimeout;
-let isOpeningActive = false;
-
-function showContent(){
-  const opening = document.getElementById("opening");
-  const content = document.getElementById("content");
-
-  isOpeningActive = false;
+let openingTimeout; 
   
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-}
+  function showContent(){ 
+    document.getElementById("opening").style.display="none"; 
+    document.getElementById("content").style.display="block"; 
+    
+    // scroll ke atas 
+    window.scrollTo({ top:0, behavior:"smooth" 
+  }); }
 
 /* ======================================================
    🕒 JAM / COUNTDOWN
@@ -1644,27 +1639,32 @@ setInterval(()=>{
 /* ======================================================
    🎁 COVER (BUKA UNDANGAN)
 ====================================================== */
-function openInvite(){
-  document.getElementById("cover").style.display = "none";
-
-  const opening = document.getElementById("opening");
-  opening.style.display = "flex";
-
-  isOpeningActive = true;
-
-  document.body.style.overflow = "auto";
-
-  setTimeout(()=>{
-    document.getElementById("openingText").classList.add("show");
-  },500);
-
-  /* optional audio (safe) */
-  const whoosh = document.getElementById("whoosh");
-  if(whoosh) whoosh.play();
-
-  /* auto skip */
-  openingTimeout = setTimeout(showContent, 4000);
-}
+function openInvite(){ 
+  document.getElementById("cover").style.display="none"; 
+  const opening = document.getElementById("opening"); 
+  opening.classList.remove("hidden"); 
+  
+  // sound effect 
+  document.getElementById("whoosh").play(); 
+  
+  // animasi text 
+  setTimeout(()=>{ document.getElementById("openingText").classList.add("show"); },800); 
+  
+  // auto skip 2 menit openingTimeout = setTimeout(()=>{ skipOpening(); },120000); 
+  
+  // masuk konten setelah cinematic 
+  setTimeout(()=>{ showContent(); 
+                  
+  // fade music 
+  let music = document.getElementById("music"); 
+  music.volume = 0; 
+  music.play(); 
+  let fade = setInterval(()=>{ 
+    if(music.volume < 1){ 
+      music.volume += 0.05; } 
+  else { clearInterval(fade); 
+       } },200); 
+        },4000); }
 
 /* ================= SCROLL DETECT ================= */
 window.addEventListener("scroll", () => {
