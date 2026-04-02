@@ -58,7 +58,7 @@ p {
   content: "";
   position: absolute;
   width: 100%;
-  max-widht : 400px;
+  max-width : 400px;
   height: 100%;
   background: rgba(0,0,0,0.4); /* atur gelapnya */
   top: 0;
@@ -304,7 +304,7 @@ p {
 /* content */
 .section {
   padding: 60px 15px;
-  widht : 100%;
+  width : 100%;
   max-width:100%;
   margin:auto;
   text-align:center;
@@ -793,6 +793,24 @@ button {
   border-radius:10px;
   margin-top:10px;
 }
+.clickable-card {
+  position: relative;
+  z-index: 5;
+}
+
+.clickable-card a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.clickable-card img {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.clickable-card img:hover {
+  transform: scale(1.03);
+}
 </style>
 </head>
 
@@ -988,7 +1006,7 @@ THE WEDDING OF
 
 <!-- RSVP -->
 <div class="section clean fade">
-<div class="card">
+ <div class="card clickable-card">
 <h3>RSVP</h3>
   
 <a href="https://docs.google.com/forms/d/178k74WaTt2hcog2EIL3FPaaVoP4xwO1jgoBXhDeCQOs/viewform" target="_blank">
@@ -999,7 +1017,7 @@ THE WEDDING OF
 
 <!-- HARAPAN -->
 <div class="section clean fade">
-  <div class="card">
+  <div class="card clickable-card">
     <h3>Make a Wish</h3>
     
 <a href="https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank">
