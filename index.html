@@ -1491,7 +1491,7 @@ p{font-size:clamp(14px,3vw,16px);}
 
   <!-- MAP -->
   <div class="section clean fade"> 
-    <div class="card map-card map-animate.show"> 
+    <div class="card map-card"> 
       <iframe src="https://www.google.com/maps?q=Bekasi&output=embed" width="100%" height="200"></iframe> 
   </div> 
   </div>
@@ -1629,6 +1629,8 @@ document.getElementById("guest").innerText =
 
 // Tombol buka undangan
 function openInvite() {
+  window.scrollTo({ top: 0 });
+  document.body.classList.remove("lock");
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
