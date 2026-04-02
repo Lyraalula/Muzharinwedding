@@ -18,6 +18,12 @@ body{
 }
 body.lock {
   overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+html {
+  overflow-x: hidden;
 }
 *{box-sizing:border-box;}
 html,body{overflow-x:hidden;}
@@ -1604,6 +1610,17 @@ p{font-size:clamp(14px,3vw,16px);}
 <script>
 // ================= COVER =================
 let isOpeningActive = false;
+
+  function lockScroll() {
+  document.body.classList.add("lock");
+}
+
+function unlockScroll() {
+  document.body.classList.remove("lock");
+}
+
+// langsung lock saat pertama load
+lockScroll();
   
 // Countdown
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
@@ -1636,10 +1653,11 @@ function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
-  document.body.classList.add("lock"); // tetap dikunci saat opening
+  lockScroll(); // tetap dikunci
   isOpeningActive = true;
 
   window.scrollTo({ top: 0 });
+}
 
   // munculin isi setelah opening
   setTimeout(() => {
@@ -1658,7 +1676,7 @@ function goToContent(){
   content.classList.add("show");
 
   isOpeningActive = false;
-  document.body.classList.remove("lock"); // 🔥 BARU BOLEH SCROLL
+  unlockScroll(); // 🔥 baru bisa scroll
 
   window.scrollTo({
     top: 0,
