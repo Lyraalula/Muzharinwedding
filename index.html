@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" conte<div class="opening">nt="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muzharin Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
@@ -1603,7 +1603,8 @@ p{font-size:clamp(14px,3vw,16px);}
   
 <script>
 // ================= COVER =================
-
+let isOpeningActive = false;
+  
 // Countdown
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
 
@@ -1632,10 +1633,13 @@ document.getElementById("guest").innerText =
 
 // Tombol buka undangan
 function openInvite() {
-  window.scrollTo({ top: 0 });
-  document.body.classList.remove("lock");
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
+
+  document.body.classList.add("lock"); // tetap dikunci saat opening
+  isOpeningActive = true;
+
+  window.scrollTo({ top: 0 });
 
   // munculin isi setelah opening
   setTimeout(() => {
@@ -1654,13 +1658,14 @@ function goToContent(){
   content.classList.add("show");
 
   isOpeningActive = false;
+  document.body.classList.remove("lock"); // 🔥 BARU BOLEH SCROLL
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 }
-
+  
 /* ======================================================
    📜 SCROLL DETECT (HANYA SAAT OPENING)
 ====================================================== */
