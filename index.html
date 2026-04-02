@@ -1685,27 +1685,36 @@ function openInvite(){
 /* ======================================================
    🎬 OPENING (SKIP & SCROLL DETECT)
 ====================================================== */
-function showContent(){
-  document.getElementById("opening").style.display="none";
+function openInvite(){
+  document.getElementById("cover").style.display="none";
 
-  const content = document.getElementById("content");
-  content.classList.add("show");
+  const opening = document.getElementById("opening");
+  opening.style.display = "flex";
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  setTimeout(()=>{
+    document.getElementById("openingText").classList.add("show");
+  },500);
 }
 
+/* ================= SCROLL TO CONTENT ================= */
 window.addEventListener("scroll", () => {
   const opening = document.getElementById("opening");
 
-  if (opening && getComputedStyle(opening).display !== "none") {
+  if (opening.style.display !== "none") {
     if (window.scrollY > 50) {
-      showContent();
+
+      opening.style.display = "none";
+
+      const content = document.getElementById("content");
+      content.classList.add("show");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
   }
-});
+})
   
 /* ======================================================
    👰 MEMPELAI (ANIMASI FADE)
