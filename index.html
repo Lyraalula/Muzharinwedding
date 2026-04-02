@@ -391,6 +391,10 @@ p{font-size:clamp(14px,3vw,16px);}
   
 @media (max-width: 768px) {
   .couple-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
   
 /* ================= CARD MEMPELAI ================= */
 .couple-card {
@@ -539,6 +543,16 @@ p{font-size:clamp(14px,3vw,16px);}
   margin-top: 40px;
 }
 
+@media (min-width: 1024px){
+  .event-row {
+    gap: 40px;
+  }
+
+  .event-card {
+    width: 260px;
+  }
+}
+
 /* ================= CARD ACARA ================= */
 .event-card {
   width: 240px;
@@ -652,7 +666,8 @@ p{font-size:clamp(14px,3vw,16px);}
 .map-card {
   border-radius: 15px;
   overflow: hidden;
-  margin: 40px 20px;
+  max-width: 420px; /* kecilin desktop */
+  margin: 40px auto;
   opacity: 0;
   transform: translateY(30px);
   animation: mapFade 1.5s ease forwards;
@@ -668,6 +683,7 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* iframe smooth */
 .map-card iframe {
+  height: 180px;
   border: none;
   filter: grayscale(20%) contrast(1.1);
 }
@@ -980,7 +996,8 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* ================= IMAGE GALERI ================= */
 .gallery img {
-  min-width: 60%;
+  min-width: 250px;
+  max-width: 300px;
   height: 220px;
   margin: auto;
   object-fit: cover;
@@ -1094,20 +1111,24 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* ================= RESPONSIVE GALERI ================= */
 @media (max-width: 768px) {
+  .gallery {
+    justify-content: flex-start; /* biar bisa swipe */
+    overflow-x: auto;
+  }
   .gallery img {
-    min-width: 90%;
+    min-width: 60%;
     height: 250px;
   }
 }
   
 @media (min-width: 1024px) {
   .gallery {
-    justify-content: center;
-    overflow: hidden;
+    justify-content: flex-start; /* biar bisa swipe */
+    overflow-x: auto;
   }
 
   .gallery img {
-    min-width: 300px;
+    min-width: 60%;
     height: 350px;
   }
 }
@@ -1217,7 +1238,8 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* ================= IMAGE GIFT ================= */
 .gift-card img {
-  width: 80px;
+  width: 50px;
+  opacity: 0.7;
   margin: auto;
   margin-bottom: 15px;
   object-fit: contain;
@@ -1225,14 +1247,14 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* ================= TEXT GIFT ================= */
 .rekening {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: 1px;
   margin: 5px 0;
 }
 
 .nama {
-  font-size: 14px;
+  font-size: 16px;
   opacity: 0.7;
 }
 
@@ -1299,9 +1321,9 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* ================= IMAGE RSVP & WISH ================= */
 .clickable-card img {
-   width: 90%;
-  margin: auto;
-  display: block;
+  width: 70%;
+  max-width: 260px;
+}
 
   /* tone soft elegant */
   filter: brightness(0.95) contrast(1.05);
@@ -1763,8 +1785,10 @@ const storyObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 
-document.querySelectorAll('.story').forEach(el => {
-  storyObserver.observe(el.closest('.section.clean'));
+document.querySelectorAll('.section.clean').forEach(section => {
+  if(section.querySelector('.story')){
+    storyObserver.observe(section);
+  }
 });
 
 // ================= GALERI =================
@@ -1812,6 +1836,7 @@ gallery.addEventListener("mousemove", (e) => {
   const walk = (x - startX) * 1.5;
   gallery.scrollLeft = scrollLeftPos - walk;
 });
+  
 // ================= GIFT =================
 const giftObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
