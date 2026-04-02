@@ -681,7 +681,7 @@ p{font-size:clamp(14px,3vw,16px);}
 .section.clean {
   position: relative;
   padding: 80px 20px;
-  background: linear-gradient(#111, #1a1a1a);
+  background: linear-gradient(#0f0f0f, #1a1a1a);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -787,15 +787,6 @@ p{font-size:clamp(14px,3vw,16px);}
 
 
 /* ================= SECTION STORY ================= */
-.section.clean {
-  position: relative;
-  padding: 100px 20px;
-  background: linear-gradient(#0f0f0f, #1a1a1a);
-  color: #fff;
-  text-align: center;
-  overflow: hidden;
-}
-
 /* title */
 .story-title {
   font-family: 'Playfair Display', serif;
@@ -1231,14 +1222,7 @@ p{font-size:clamp(14px,3vw,16px);}
 }
 
 /* ================= SECTION RSVP & WISH ================= */
-.section.clean {
-  position: relative;
-  padding: 80px 20px;
-  background: linear-gradient(#0f0f0f, #1a1a1a);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 /* ================= CARD RSVP & WISH ================= */
 .clickable-card {
@@ -1457,7 +1441,7 @@ p{font-size:clamp(14px,3vw,16px);}
   </div>
     
   <!-- ACARA -->
-  <div class="section bg bg2 fade"> 
+   <div class="section bg2 fade">
     <h2 style="margin-bottom:25px;">Acara</h2> 
     <div class="event-row"> 
       
@@ -1509,6 +1493,7 @@ p{font-size:clamp(14px,3vw,16px);}
   <div class="section clean fade"> 
     <h2 class="story-title">Redstring Story</h2> 
     <div class="story cinematic"> 
+      
       <div class="story-item reveal"> 
         <h3>Pendekatan</h3> 
         <h4>Takdir mempertemukan kami di waktu yang tak terduga.</h4> 
@@ -1517,6 +1502,7 @@ p{font-size:clamp(14px,3vw,16px);}
           tanpa ada rasa yang lebih. Waktu berjalan, hingga akhirnya AzharI harus berpindah ke tempat kerja yang baru dan sejak saat itu, <br>
           komunikasi kami pun terputus, seolah cerita kami berhenti begitu saja.</p> 
       </div> 
+      
       <div class="story-item reveal"> 
         <h3>Kedekatan</h3> 
         <h4>Kedekatan yang tumbuh perlahan, namun penuh makna.</h4> 
@@ -1526,6 +1512,7 @@ p{font-size:clamp(14px,3vw,16px);}
           Pada bulan Juni 2025, kami menyadari bahwa hubungan ini telah menjadi sesuatu yang lebih bermakna. Dengan penuh keyakinan, <br>
           AzharI memberikan sebuah cincin sebagai simbol keseriusannya.</p> 
       </div> 
+      
       <div class="story-item reveal"> 
         <h3>Menikah</h3> 
         <h4>Cinta yang kami jaga, kini kami resmikan dalam ikatan suci.</h4> 
@@ -1534,10 +1521,10 @@ p{font-size:clamp(14px,3vw,16px);}
           Setelah melalui perjalanan yang mengajarkan arti kebersamaan, kesabaran, dan cinta, akhirnya pada Mei 2026 <br>
           kami sepakat untuk mengikat janji suci pernikahan. Sebuah awal baru yang kami pilih untuk dijalani bersama, selamanya.</p> 
       </div>
+      
     </div>
-    
-  </div> 
-</div>
+  </div>
+  
 
   <!-- GALERI -->
   <div class="section bg bg4 fade"> 
@@ -1550,18 +1537,18 @@ p{font-size:clamp(14px,3vw,16px);}
       <img src="bg5.png"> 
       <img src="bg6.png"> 
     </div> 
+    
     <div class="dots" id="dots"></div>
   </div>
 
  <!-- GIFT -->
 <div class="section gift-section fade">
   <h2 class="gift-title">Wedding Gift</h2>
-
   <div class="gift-wrapper">
 
     <!-- GIFT 1 -->
     <div class="gift-card">
-      <img src="madiri.jpg" alt="Mandiri">
+      <img src="mandiri.jpg" alt="Mandiri">
       <p class="rekening">1234567890</p>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
       <p class="rekening">1234567890</p>
@@ -1603,9 +1590,7 @@ p{font-size:clamp(14px,3vw,16px);}
         <img src="wish.png" style="width:100%; border-radius:12px;">
       </a>
     </div>
-    
   </div>
-</div>
   
 <script>
 // ================= COVER =================
@@ -1653,11 +1638,10 @@ function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
-  lockScroll(); // tetap dikunci
+  lockScroll();
   isOpeningActive = true;
 
   window.scrollTo({ top: 0 });
-}
 
   // munculin isi setelah opening
   setTimeout(() => {
@@ -1734,8 +1718,8 @@ const mapObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 
-document.querySelectorAll('.section.clean').forEach(sec => {
-  mapObserver.observe(sec);
+document.querySelectorAll('.map-card').forEach(el => {
+  mapObserver.observe(el.parentElement);
 });
 
 /* ======================================================
@@ -1758,8 +1742,8 @@ const storyObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 
-document.querySelectorAll('.section.clean').forEach(sec => {
-  storyObserver.observe(sec);
+document.querySelectorAll('.story').forEach(el => {
+  storyObserver.observe(el.closest('.section.clean'));
 });
 
 /* ======================================================
@@ -1820,19 +1804,18 @@ const rsvpObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.3 });
 
-document.querySelectorAll('.section.clean').forEach(sec => {
-  rsvpObserver.observe(sec);
+document.querySelectorAll('.clickable-card').forEach(el => {
+  rsvpObserver.observe(el.parentElement);
 });
 
 /* ======================================================
    👤 NAMA TAMU (URL PARAM)
 ====================================================== */
-const url = new URLSearchParams(window.location.search);
-const tamu = url.get("to");
+const urlParams = new URLSearchParams(window.location.search);
+const guestName = urlParams.get("to");
 
-if(tamu){
-  document.getElementById("guest").innerText = "Kepada " + tamu;
-}
+document.getElementById("guest").innerText =
+  guestName ? "Kepada " + guestName : "Tamu Undangan";
 </script>
 </body>
 </html>
