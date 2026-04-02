@@ -1596,7 +1596,7 @@ p{font-size:clamp(14px,3vw,16px);}
 // ================= COVER =================
 let isOpeningActive = false;
 
-  function lockScroll() {
+function lockScroll() {
   document.body.classList.add("lock");
 }
 
@@ -1608,6 +1608,8 @@ function unlockScroll() {
 lockScroll();
   
 // Countdown
+const targetDate = new Date("May 2, 2026 09:30:00").getTime();
+
 const countdownInterval = setInterval(() => {
   const now = new Date().getTime();
   const distance = targetDate - now;
@@ -1632,28 +1634,20 @@ const countdownInterval = setInterval(() => {
 
 }, 1000);
 
-// Nama tamu dari URL (?to=Nama)
-const urlParams = new URLSearchParams(window.location.search);
-const guestName = urlParams.get("to");
-
-document.getElementById("guest").innerText =
-  guestName ? guestName : "Tamu Undangan";
-
-
 // Tombol buka undangan
 function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
-  lockScroll(); // tetap dikunci
+  unlockScroll(); // buka scroll
   isOpeningActive = true;
 
   window.scrollTo({ top: 0 });
 
   // munculin isi setelah opening
   setTimeout(() => {
-    document.getElementById("content").classList.add("show");
-  }, 1500);
+  goToContent();
+}, 2000);
 }
   
 /* ======================================================
