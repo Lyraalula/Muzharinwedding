@@ -1643,11 +1643,12 @@ setInterval(()=>{
    🎁 COVER (BUKA UNDANGAN)
 ====================================================== */
 function openInvite(){
-  document.getElementById("cover").style.display="none";
+  document.getElementById("cover").style.display = "none";
 
   const opening = document.getElementById("opening");
+  opening.style.display = "flex";
 
-  opening.classList.remove("hidden");
+  isOpeningActive = true;
 
   // sound effect
   document.getElementById("whoosh").play();
@@ -1685,36 +1686,40 @@ function openInvite(){
 /* ======================================================
    🎬 OPENING (SKIP & SCROLL DETECT)
 ====================================================== */
-function openInvite(){
-  document.getElementById("cover").style.display="none";
-
+function goToContent(){
   const opening = document.getElementById("opening");
-  opening.style.display = "flex";
+  const content = document.getElementById("content");
 
-  setTimeout(()=>{
-    document.getElementById("openingText").classList.add("show");
-  },500);
+  opening.style.display = "none";
+  content.classList.add("show");
+
+  isOpeningActive = false;
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
-/* ================= SCROLL TO CONTENT ================= */
+/* ======================================================
+   📜 SCROLL DETECT (HANYA SAAT OPENING)
+====================================================== */
 window.addEventListener("scroll", () => {
-  const opening = document.getElementById("opening");
+  if(!isOpeningActive) return;
 
-  if (opening.style.display !== "none") {
-    if (window.scrollY > 50) {
-
-      opening.style.display = "none";
-
-      const content = document.getElementById("content");
-      content.classList.add("show");
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
+  if(window.scrollY > 50){
+    goToContent();
   }
-})
+});
+
+/* ======================================================
+   🖱️ CLICK OPENING (1x langsung masuk)
+====================================================== */
+document.getElementById("opening").addEventListener("click", () => {
+  if(isOpeningActive){
+    goToContent();
+  }
+});
   
 /* ======================================================
    👰 MEMPELAI (ANIMASI FADE)
