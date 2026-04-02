@@ -24,7 +24,6 @@ h2{font-size:clamp(22px,4vw,32px);}
 h3{font-size:clamp(18px,3.5vw,24px);}
 p{font-size:clamp(14px,3vw,16px);}
 
-
 /* ================= COVER ================= */
 .cover{
   position: relative;
@@ -1600,98 +1599,43 @@ p{font-size:clamp(14px,3vw,16px);}
 </div>
   
 <script>
-document.body.style.overflow = "hidden";
-  
-/* ======================================================
-   🔰 GLOBAL (VAR & HELPER)
-====================================================== */
-let openingTimeout; 
-  
-  function showContent(){ 
-    document.getElementById("opening").style.display="none"; 
-    document.getElementById("content").style.display="block"; 
-    
-    // scroll ke atas 
-    window.scrollTo({ top:0, behavior:"smooth" 
-  }); }
+// ================= COVER =================
 
-/* ======================================================
-   🕒 JAM / COUNTDOWN
-====================================================== */
+// Countdown
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
 
-setInterval(()=>{
+setInterval(() => {
   const now = new Date().getTime();
-  const selisih = targetDate - now;
+  const distance = targetDate - now;
 
-  const hari = Math.floor(selisih / (1000*60*60*24));
-  const jam = Math.floor((selisih / (1000*60*60)) % 24);
-  const menit = Math.floor((selisih / (1000*60)) % 60);
-  const detik = Math.floor((selisih / 1000) % 60);
+  document.getElementById("hari").innerText =
+    Math.floor(distance / (1000 * 60 * 60 * 24));
+  document.getElementById("jam").innerText =
+    Math.floor((distance / (1000 * 60 * 60)) % 24);
+  document.getElementById("menit").innerText =
+    Math.floor((distance / (1000 * 60)) % 60);
+  document.getElementById("detik").innerText =
+    Math.floor((distance / 1000) % 60);
+}, 1000);
 
-  document.getElementById("hari").innerText = hari;
-  document.getElementById("jam").innerText = jam;
-  document.getElementById("menit").innerText = menit;
-  document.getElementById("detik").innerText = detik;
-},1000);
+
+// Nama tamu dari URL (?to=Nama)
+const urlParams = new URLSearchParams(window.location.search);
+const guestName = urlParams.get("to");
+
+document.getElementById("guest").innerText =
+  guestName ? guestName : "Tamu Undangan";
 
 
-/* ======================================================
-   🎁 COVER (BUKA UNDANGAN)
-====================================================== */
-function openInvite(){ 
-  document.getElementById("cover").style.display="none"; 
-  const opening = document.getElementById("opening"); 
-  opening.classList.remove("hidden"); 
-  
-  // sound effect 
-  document.getElementById("whoosh").play(); 
-  
-  // animasi text 
-  setTimeout(()=>{ document.getElementById("openingText").classList.add("show"); },800); 
-  
-  // auto skip 2 menit openingTimeout = setTimeout(()=>{ skipOpening(); },120000); 
-  
-  // masuk konten setelah cinematic 
-  setTimeout(()=>{ showContent(); 
-                  
-  // fade music 
-  let music = document.getElementById("music"); 
-  music.volume = 0; 
-  music.play(); 
-  let fade = setInterval(()=>{ 
-    if(music.volume < 1){ 
-      music.volume += 0.05; } 
-  else { clearInterval(fade); 
-       } },200); 
-        },4000); }
+// Tombol buka undangan
+function openInvite() {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("opening").style.display = "flex";
 
-/* ================= SCROLL DETECT ================= */
-window.addEventListener("scroll", () => {
-  if(!isOpeningActive) return;
-
-  if(window.scrollY > 50){
-    showContent();
-  }
-});
-
-/* ================= CLICK OPENING ================= */
-document.addEventListener("DOMContentLoaded", () => {
-  const opening = document.getElementById("opening");
-
-  opening.addEventListener("click", () => {
-    if(isOpeningActive){
-      showContent();
-    }
-  });
-});
-
-/* ================= GUEST NAME ================= */
-const url = new URLSearchParams(window.location.search);
-const tamu = url.get("to");
-
-if(tamu){
-  document.getElementById("guest").innerText = "Kepada " + tamu;
+  // munculin isi setelah opening
+  setTimeout(() => {
+    document.getElementById("content").classList.add("show");
+  }, 1500);
 }
   
 /* ======================================================
