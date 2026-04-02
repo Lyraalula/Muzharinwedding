@@ -1593,6 +1593,7 @@ p{font-size:clamp(14px,3vw,16px);}
       </a>
     </div>
   </div>
+
   
 <script>
 // ================= COVER =================
@@ -1606,10 +1607,10 @@ function unlockScroll() {
   document.body.classList.remove("lock");
 }
 
-// langsung lock saat pertama load
+// lock saat pertama load
 lockScroll();
-  
-// Countdown
+
+// ================= COUNTDOWN =================
 const targetDate = new Date("May 2, 2026 09:30:00").getTime();
 
 const countdownInterval = setInterval(() => {
@@ -1636,66 +1637,62 @@ const countdownInterval = setInterval(() => {
 
 }, 1000);
 
-// Tombol buka undangan
+// ================= OPEN INVITE =================
 function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
-  lockScroll(); // 🔥 tetap dikunci
+  lockScroll(); // tetap dikunci
   isOpeningActive = true;
 
   window.scrollTo({ top: 0 });
+}
 
-/* ======================================================
-   🎬 OPENING (SKIP & SCROLL DETECT)
-====================================================== */
+// ================= MASUK KE CONTENT =================
 function goToContent(){
   const opening = document.getElementById("opening");
   const content = document.getElementById("content");
 
-  // fade out opening
-  opening.style.transition = "opacity 1s ease, transform 1s ease";
+  opening.style.transition = "all 0.8s ease";
   opening.style.opacity = "0";
   opening.style.transform = "scale(1.05)";
 
   setTimeout(() => {
     opening.style.display = "none";
-
-    // munculin content dengan smooth
     content.classList.add("show");
 
     isOpeningActive = false;
-    unlockScroll();
+    unlockScroll(); // baru bisa scroll
 
-    window.addEventListener("wheel", (e) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, 800);
+}
+
+// ================= SCROLL / SWIPE DETECT =================
+window.addEventListener("wheel", (e) => {
   if (isOpeningActive && e.deltaY > 0) {
     goToContent();
-  }, 800); // delay biar animasi kelihatan
-}
-  
-/* ======================================================
-   📜 SCROLL DETECT (HANYA SAAT OPENING)
-====================================================== */
-window.addEventListener("scroll", () => {
-  if(!isOpeningActive) return;
+  }
+});
 
-  if(window.scrollY > 10){
+// mobile swipe
+window.addEventListener("touchmove", (e) => {
+  if (isOpeningActive) {
     goToContent();
   }
 });
 
-/* ======================================================
-   🖱️ CLICK OPENING (1x langsung masuk)
-====================================================== */
+// klik opening
 document.getElementById("opening").addEventListener("click", () => {
-  if(isOpeningActive){
+  if (isOpeningActive) {
     goToContent();
   }
 });
-  
-/* ======================================================
-   👰 MEMPELAI (ANIMASI FADE)
-====================================================== */
+
+// ================= ANIMASI FADE =================
 window.addEventListener('scroll', ()=>{
   document.querySelectorAll('.fade').forEach(el=>{
     if(el.getBoundingClientRect().top < window.innerHeight){
@@ -1704,16 +1701,7 @@ window.addEventListener('scroll', ()=>{
   });
 });
 
-
-/* ======================================================
-   🎉 ACARA (IKUT FADE GLOBAL)
-   → tidak perlu script khusus
-====================================================== */
-
-
-/* ======================================================
-   🗺️ MAP (FADE + ZOOM)
-====================================================== */
+// ================= MAP =================
 const mapObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1727,21 +1715,13 @@ document.querySelectorAll('.map-card').forEach(el => {
   mapObserver.observe(el.parentElement);
 });
 
-/* ======================================================
-   📖 STORY (TIMELINE ANIMATION)
-====================================================== */
+// ================= STORY =================
 const storyObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-
-      // munculin line
       entry.target.querySelector('.story').classList.add('show');
-
-      // munculin item satu-satu
       const items = entry.target.querySelectorAll('.story-item');
       items.forEach(item => item.classList.add('show'));
-
-      // munculin section
       entry.target.classList.add('show');
     }
   });
@@ -1751,14 +1731,11 @@ document.querySelectorAll('.story').forEach(el => {
   storyObserver.observe(el.closest('.section.clean'));
 });
 
-/* ======================================================
-   🖼️ GALERI (SCROLL DOT INDICATOR)
-====================================================== */
+// ================= GALERI =================
 const gallery = document.getElementById('gallery');
 const dotsContainer = document.getElementById('dots');
 const images = gallery.querySelectorAll('img');
 
-// buat dots
 images.forEach((_, i) => {
   const dot = document.createElement('span');
   if (i === 0) dot.classList.add('active');
@@ -1767,28 +1744,21 @@ images.forEach((_, i) => {
 
 const dots = dotsContainer.querySelectorAll('span');
 
-// update dot saat scroll
 gallery.addEventListener('scroll', () => {
   const scrollLeft = gallery.scrollLeft;
   const width = gallery.offsetWidth;
-
   const index = Math.round(scrollLeft / width);
 
   dots.forEach(dot => dot.classList.remove('active'));
   if (dots[index]) dots[index].classList.add('active');
 });
 
-/* ======================================================
-   📩 gift
-====================================================== */
-
+// ================= GIFT =================
 const giftObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-
       const cards = entry.target.querySelectorAll('.gift-card');
       cards.forEach(card => card.classList.add('show'));
-
       entry.target.classList.add('show');
     }
   });
@@ -1797,10 +1767,8 @@ const giftObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.gift-section').forEach(sec => {
   giftObserver.observe(sec);
 });
-  
-/* ======================================================
-   📩 RSVP & WISH
-====================================================== */
+
+// ================= RSVP =================
 const rsvpObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1813,14 +1781,13 @@ document.querySelectorAll('.clickable-card').forEach(el => {
   rsvpObserver.observe(el.parentElement);
 });
 
-/* ======================================================
-   👤 NAMA TAMU (URL PARAM)
-====================================================== */
+// ================= NAMA TAMU =================
 const urlParams = new URLSearchParams(window.location.search);
 const guestName = urlParams.get("to");
 
 document.getElementById("guest").innerText =
   guestName ? "Kepada " + guestName : "Tamu Undangan";
+
 </script>
 </body>
 </html>
