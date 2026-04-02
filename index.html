@@ -1641,7 +1641,7 @@ function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
-  unlockScroll(); // buka scroll
+  lockScroll(); // 🔥 tetap dikunci
   isOpeningActive = true;
 
   window.scrollTo({ top: 0 });
@@ -1667,11 +1667,9 @@ function goToContent(){
     isOpeningActive = false;
     unlockScroll();
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
+    window.addEventListener("wheel", (e) => {
+  if (isOpeningActive && e.deltaY > 0) {
+    goToContent();
   }, 800); // delay biar animasi kelihatan
 }
   
