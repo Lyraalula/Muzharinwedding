@@ -333,8 +333,24 @@ p {
   gap: 20px;
   background: white;
   color: #333;
+  position: relative;
+  z-index: 1;
 }
 
+.section.clean a {
+  position: relative;
+  z-index: 5;
+  display: block;
+}
+
+.section.clean img {
+  pointer-events: auto;
+}
+
+.section.clean img {
+  pointer-events: auto;
+}
+  
 @media(min-width:768px){
   .section.clean {
     flex-direction: row;
@@ -565,6 +581,11 @@ img {
   font-family:'Playfair Display', serif;
   margin-bottom:30px;
 }
+  
+.story {
+  position: relative;
+  padding-top: 40px;
+}
 
 /* contrainer */
 .story-title {
@@ -577,12 +598,11 @@ img {
   content:'';
   position:absolute;
   left:50%;
-  top:60%;
+  top:0;
   width:2px;
-  height:0;
-  background:linear-gradient(to bottom,#ff6b81,#000);
+  height:100%;
+  background:linear-gradient(to bottom,#ff4d6d,#ff4d6d,,#000);
   transform:translateX(-50%);
-  animation:lineGrow 2s ease forwards;
 }
 
 /* card */
@@ -684,7 +704,37 @@ img {
     left:-15px !important;
   }
 }
+/* MAP */
+.map-card {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 
+    0 15px 40px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.05);
+}
 
+.section.clean .card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.08),
+    0 20px 50px rgba(0,0,0,0.05);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+.map-animate.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* saat muncul */
+.map-animate.show {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+  
 /* GALLERY */
 .gallery {
   display:flex;
@@ -883,7 +933,7 @@ THE WEDDING OF
 
 <!-- MAP -->
 <div class="section clean fade">
-  <div class="card">
+  <div class="card map-card map-animate.show">
     <iframe src="https://www.google.com/maps?q=Bekasi&output=embed"
     width="100%" height="200"></iframe>
   </div>
@@ -1087,6 +1137,17 @@ window.addEventListener('scroll', ()=>{
       el.classList.add('show');
     }
   });
+});
+
+// MAP ANIMATION
+const map = document.querySelector('.map-animate');
+
+window.addEventListener('scroll', () => {
+  const top = map.getBoundingClientRect().top;
+
+  if(top < window.innerHeight - 100){
+    map.classList.add('show');
+  }
 });
   
 // GALLERY
