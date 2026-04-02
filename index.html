@@ -46,6 +46,7 @@ p{font-size:clamp(14px,3vw,16px);}
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden;
 }
 
 /* efek red string halus */
@@ -387,7 +388,10 @@ p{font-size:clamp(14px,3vw,16px);}
   position: relative;
   flex-wrap: wrap;
 }
-
+  
+@media (max-width: 768px) {
+  .couple-wrapper {
+  
 /* ================= CARD MEMPELAI ================= */
 .couple-card {
   width: 220px;
@@ -961,12 +965,8 @@ p{font-size:clamp(14px,3vw,16px);}
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 20px;
-}
 
- /* 🔥 WAJIB untuk swipe */
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; /* smooth iOS */
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 
@@ -985,8 +985,10 @@ p{font-size:clamp(14px,3vw,16px);}
   object-fit: cover;
   border-radius: 20px;
   scroll-snap-align: center;
-  flex-shrink: 0; /* 🔥 penting */
-  transition: transform 0.4s ease, filter 0.4s ease;
+  flex-shrink: 0;
+
+  filter: brightness(0.9) contrast(1.05);
+  transition: all 0.6s ease;
 }
 
   /* luxury look */
@@ -1769,6 +1771,7 @@ const gallery = document.getElementById('gallery');
 const dotsContainer = document.getElementById('dots');
 const images = gallery.querySelectorAll('img');
 
+// dots
 images.forEach((_, i) => {
   const dot = document.createElement('span');
   if (i === 0) dot.classList.add('active');
@@ -1777,6 +1780,7 @@ images.forEach((_, i) => {
 
 const dots = dotsContainer.querySelectorAll('span');
 
+// update dot
 gallery.addEventListener('scroll', () => {
   const scrollLeft = gallery.scrollLeft;
   const width = gallery.offsetWidth;
@@ -1784,36 +1788,29 @@ gallery.addEventListener('scroll', () => {
 
   dots.forEach(dot => dot.classList.remove('active'));
   if (dots[index]) dots[index].classList.add('active');
-
-  const slider = document.getElementById("gallery");
-
-  let isDown = false;
-  let startX;
-  let scrollLeft;
-  
-  slider.addEventListener("mousedown", (e) => {
-    isDown = true;
-    slider.classList.add("active");
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = slider.scrollLeft;
-  });
-  
-  slider.addEventListener("mouseleave", () => {
-    isDown = false;
-  });
-  
-  slider.addEventListener("mouseup", () => {
-    isDown = false;
-  });
-  
-  slider.addEventListener("mousemove", (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = (x - startX) * 2; // speed
-    slider.scrollLeft = scrollLeft - walk;
 });
 
+// ✅ DRAG SWIPE DESKTOP
+let isDown = false;
+let startX;
+let scrollLeftPos;
+
+gallery.addEventListener("mousedown", (e) => {
+  isDown = true;
+  startX = e.pageX - gallery.offsetLeft;
+  scrollLeftPos = gallery.scrollLeft;
+});
+
+gallery.addEventListener("mouseleave", () => isDown = false);
+gallery.addEventListener("mouseup", () => isDown = false);
+
+gallery.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - gallery.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  gallery.scrollLeft = scrollLeftPos - walk;
+});
 // ================= GIFT =================
 const giftObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
