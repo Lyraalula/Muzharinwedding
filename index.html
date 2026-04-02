@@ -1650,6 +1650,12 @@ function openInvite(){
 
   isOpeningActive = true;
 
+  document.body.style.overflow = "auto";
+
+  setTimeout(()=>{
+    document.getElementById("openingText").classList.add("show");
+  },500);
+
   // sound effect
   document.getElementById("whoosh").play();
 
