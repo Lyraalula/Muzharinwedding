@@ -9,22 +9,23 @@
 
 <style>
 
-/* ===== GLOBAL ===== */
-body {
+/* ================= GLOBAL ================= */
+body{
   margin:0;
-  font-family:'Poppins', sans-serif;
-  background:linear-gradient(to bottom, #ffffff, #f5f5f5);
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(to bottom,#fff,#f5f5f5);
 }
-* { box-sizing: border-box; }
-html, body { overflow-x: hidden; }
+*{box-sizing:border-box;}
+html,body{overflow-x:hidden;}
 
-h1 { font-size: clamp(26px, 5vw, 42px); }
-h2 { font-size: clamp(22px, 4vw, 32px); }
-h3 { font-size: clamp(18px, 3.5vw, 24px); }
-p  { font-size: clamp(14px, 3vw, 16px); }
+h1{font-size:clamp(26px,5vw,42px);}
+h2{font-size:clamp(22px,4vw,32px);}
+h3{font-size:clamp(18px,3.5vw,24px);}
+p{font-size:clamp(14px,3vw,16px);}
 
-/* ===== COVER ===== */
-.cover {
+
+/* ================= COVER ================= */
+.cover{
   position:fixed;
   width:100%;
   height:100vh;
@@ -32,52 +33,48 @@ p  { font-size: clamp(14px, 3vw, 16px); }
   display:flex;
   justify-content:center;
   align-items:center;
-  color:white;
-  text-align:center;
+  color:#fff;
   z-index:10;
 }
-.cover::before {
+
+.cover::before{
   content:"";
   position:absolute;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.5);
+  top:0;left:0;
 }
-.cover-content {
+
+.cover-content{
   position:relative;
   z-index:2;
-  border:1px solid rgba(255,255,255,0.4);
   padding:30px;
   border-radius:20px;
-  backdrop-filter: blur(8px);
+  backdrop-filter:blur(8px);
 }
 
-/* ===== BUTTON ===== */
-.btn-open {
+.btn-open{
   margin-top:20px;
   padding:14px 30px;
-  border:none;
   border-radius:30px;
-  background:white;
+  background:#fff;
   cursor:pointer;
-  animation: float 2s infinite;
-}
-@keyframes float {
-  50% { transform: translateY(-5px); }
 }
 
-/* ===== OPENING ===== */
-.opening {
+
+/* ================= OPENING ================= */
+.opening{
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center;
-  color:white;
   background:url('bg1.png') center/cover no-repeat;
+  color:#fff;
   position:relative;
 }
-.opening::before {
+
+.opening::before{
   content:'';
   position:absolute;
   width:100%;
@@ -85,93 +82,96 @@ p  { font-size: clamp(14px, 3vw, 16px); }
   background:rgba(0,0,0,0.6);
 }
 
-.opening-text {
+.opening-text{
   position:relative;
   opacity:0;
-  transform:translateY(40px);
-  transition:1.5s;
+  transform:translateY(30px);
+  transition:1s;
 }
-.opening-text.show {
+.opening-text.show{
   opacity:1;
   transform:translateY(0);
 }
 
-/* ===== RED STRING ===== */
-#heartPath {
-  stroke-dasharray:400;
-  stroke-dashoffset:400;
-}
-.red-string.active #heartPath {
-  animation: drawLove 2.5s forwards;
-}
-@keyframes drawLove {
-  to { stroke-dashoffset:0; }
-}
 
-/* ===== SECTION ===== */
-.section {
+/* ================= SECTION ================= */
+.section{
   padding:60px 15px;
-  margin:auto;
   text-align:center;
   border-radius:20px;
+  margin-bottom:25px;
 }
 
-/* CLEAN */
-.section.clean {
-  background:white;
+.section.clean{
+  background:#fff;
   color:#333;
 }
 
-/* BG */
-.section.bg {
-  color:white;
+.section.bg{
+  background:url('bg2.png') center/cover no-repeat;
+  color:#fff;
+  position:relative;
 }
-.section.bg::before {
+.section.bg::before{
   content:"";
   position:absolute;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.45);
+  top:0;
 }
+.section.bg *{position:relative;z-index:2;}
 
-/* ===== CARD ===== */
-.card {
-  background:white;
+
+/* ================= CARD ================= */
+.card{
+  background:#fff;
   padding:15px;
   border-radius:15px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* ===== ACARA ===== */
-.event-card {
-  background:white;
-  color:black;
-  border-radius:20px;
+
+/* ================= ACARA ================= */
+.event-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+}
+
+.event-card{
+  background:#fff;
+  color:#000;
   padding:20px;
+  border-radius:20px;
+  width:220px;
 }
 
-/* ===== MAP ===== */
-.map-card {
+
+/* ================= MAP ================= */
+.map-card{
   border-radius:20px;
   overflow:hidden;
-  box-shadow:0 15px 40px rgba(0,0,0,0.15);
-}
-.map-animate {
-  opacity:0;
+  box-shadow:0 20px 50px rgba(0,0,0,0.2);
   transform:scale(0.9);
-}
-.map-animate.show {
-  opacity:1;
-  transform:scale(1);
+  opacity:0;
   transition:1s;
 }
 
-/* ===== STORY ===== */
-.story {
+.map-card.show{
+  transform:scale(1);
+  opacity:1;
+}
+
+
+/* ================= STORY ================= */
+.story{
   position:relative;
   padding-top:40px;
 }
-.story::before {
+
+.story::before{
   content:'';
   position:absolute;
   left:50%;
@@ -181,120 +181,156 @@ p  { font-size: clamp(14px, 3vw, 16px); }
   background:#ff4d6d;
 }
 
-.story-item {
-  width:42%;
-  background:white;
+.story-item{
+  width:45%;
+  background:#fff;
   padding:20px;
   border-radius:15px;
   margin-bottom:40px;
 }
 
-/* ===== GALLERY ===== */
-.gallery {
+.story-item:nth-child(even){
+  margin-left:auto;
+}
+
+@media(max-width:768px){
+  .story::before{left:20px;}
+  .story-item{
+    width:100%;
+    margin-left:30px !important;
+  }
+}
+
+
+/* ================= GALERI ================= */
+.gallery{
   display:flex;
   overflow-x:auto;
   gap:15px;
 }
-.gallery img {
+.gallery img{
   width:80%;
   border-radius:15px;
 }
 
-/* ===== RSVP & WISH ===== */
-.clickable-card img {
+
+/* ================= RSVP & WISH ================= */
+.clickable-card a{
+  display:block;
+}
+.clickable-card img{
   cursor:pointer;
   transition:0.3s;
 }
-.clickable-card img:hover {
-  transform:scale(1.03);
+.clickable-card img:hover{
+  transform:scale(1.05);
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- ===== COVER ===== -->
+<!-- ================= COVER ================= -->
 <div class="cover" id="cover">
   <div class="cover-content">
     <h1>Putri & Azhari</h1>
-    <button onclick="openInvite()" class="btn-open">💌 Buka Undangan</button>
+    <button onclick="openInvite()" class="btn-open">Buka Undangan</button>
   </div>
 </div>
 
-<!-- ===== OPENING ===== -->
+<!-- ================= OPENING ================= -->
 <div class="opening hidden" id="opening">
-  <svg class="red-string" viewBox="0 0 200 200">
-    <path id="heartPath"
-      d="M100 170 C 20 110, 20 40, 100 70 C 180 40, 180 110, 100 170"
-      fill="none" stroke="red"/>
-  </svg>
-
   <div class="opening-text" id="openingText">
     <p>Red string story...</p>
   </div>
 </div>
 
-<!-- ===== CONTENT ===== -->
+<!-- ================= CONTENT ================= -->
 <div id="content" style="display:none;">
 
-<!-- ===== MEMPELAI ===== -->
-<div class="section clean">
-  <div class="card">Mempelai Pria</div>
-  <div class="card">Mempelai Wanita</div>
-</div>
+  <!-- MEMPELAI -->
+  <div class="section clean">
+    <div class="card">Pria</div>
+    <div class="card">Wanita</div>
+  </div>
 
-<!-- ===== ACARA ===== -->
-<div class="section bg">
-  <h2>Acara</h2>
-  <div class="event-card">Akad</div>
-  <div class="event-card">Resepsi</div>
-</div>
+  <!-- ACARA -->
+  <div class="section bg">
+    <h2>Acara</h2>
+    <div class="event-row">
+      <div class="event-card">Akad</div>
+      <div class="event-card">Resepsi</div>
+    </div>
+  </div>
 
-<!-- ===== MAP ===== -->
-<div class="section clean">
-  <div class="card map-card map-animate">
-    <iframe src="https://www.google.com/maps?q=Bekasi&output=embed"></iframe>
+  <!-- MAP -->
+  <div class="section clean">
+    <div class="card map-card" id="map">
+      <iframe src="https://www.google.com/maps?q=Bekasi&output=embed"></iframe>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div class="section clean">
+    <h2>Redstring Story</h2>
+    <div class="story">
+      <div class="story-item">Pendekatan</div>
+      <div class="story-item">Kedekatan</div>
+      <div class="story-item">Menikah</div>
+    </div>
+  </div>
+
+  <!-- GALERI -->
+  <div class="section bg">
+    <div class="gallery">
+      <img src="1.png">
+      <img src="2.png">
+    </div>
+  </div>
+
+  <!-- RSVP -->
+  <div class="section clean">
+    <div class="card clickable-card">
+      <a href="LINK">
+        <img src="rsvp.png">
+      </a>
+    </div>
+  </div>
+
+  <!-- WISH -->
+  <div class="section clean">
+    <div class="card clickable-card">
+      <a href="LINK">
+        <img src="wish.png">
+      </a>
+    </div>
   </div>
 </div>
+  
+<script>
+  /* ================= OPENING ================= */
+function openInvite(){
+  document.getElementById("cover").style.display="none";
 
-<!-- ===== STORY ===== -->
-<div class="section clean">
-  <h2>Redstring Story</h2>
-  <div class="story">
-    <div class="story-item">Pendekatan</div>
-    <div class="story-item">Kedekatan</div>
-    <div class="story-item">Menikah</div>
-  </div>
-</div>
+  const opening = document.getElementById("opening");
+  const content = document.getElementById("content");
 
-<!-- ===== GALERI ===== -->
-<div class="section bg">
-  <div class="gallery">
-    <img src="1.png">
-    <img src="2.png">
-  </div>
-</div>
+  opening.classList.remove("hidden");
 
-<!-- ===== RSVP ===== -->
-<div class="section clean">
-  <div class="card clickable-card">
-    <a href="#" target="_blank">
-      <img src="rsvp.png">
-    </a>
-  </div>
-</div>
+  setTimeout(()=>{
+    opening.style.display="none";
+    content.style.display="block";
+  },4000);
+}
 
-<!-- ===== WISH ===== -->
-<div class="section clean">
-  <div class="card clickable-card">
-    <a href="#" target="_blank">
-      <img src="wish.png">
-    </a>
-  </div>
-</div>
+/* ================= MAP ANIMATION ================= */
+window.addEventListener("scroll",()=>{
+  const map = document.getElementById("map");
 
-</div>
-
+  if(map.getBoundingClientRect().top < window.innerHeight - 100){
+    map.classList.add("show");
+  }
+});
+</script>
 </body>
 </html>
