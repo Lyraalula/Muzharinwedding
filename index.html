@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" conte<div class="opening">nt="width=device-width, initial-scale=1.0">
 <title>Muzharin Wedding</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
@@ -81,8 +81,6 @@ p{font-size:clamp(14px,3vw,16px);}
   opacity: 0.9;
 }
 
-
-  
 .btn-open{
   margin-top:20px;
   padding:14px 30px;
@@ -207,6 +205,19 @@ p{font-size:clamp(14px,3vw,16px);}
   backdrop-filter: blur(4px);
 }
 
+.hidden-content {
+  opacity: 0;
+  transform: translateY(30px);
+  pointer-events: none;
+  transition: 1s ease;
+}
+
+.hidden-content.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+  
 /* ================= RED STRING SVG OPENING ================= */
 .red-string {
   position: absolute;
@@ -1396,13 +1407,13 @@ p{font-size:clamp(14px,3vw,16px);}
     <!-- SCROLL HINT --> <div class="scroll-hint"> 
       <span>Scroll untuk lanjut</span>
       <br> <span class="arrow">⬆️</span> 
+      </div> 
     </div> 
   </div>
 
 <!-- ================= CONTENT ================= -->
-<div id="content" style="display:none;">
-
- 
+ <div id="content" class="hidden-content">
+   
 <!-- MEMPELAI -->
 <section class="couple" id="couple">
 
@@ -1576,7 +1587,7 @@ p{font-size:clamp(14px,3vw,16px);}
   <div class="section clean">
     <div class="card clickable-card">
       <h3>Make a Wish</h3>
-      <a href=""https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank">
+      <a href="https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank">
         <img src="wish.png" style="width:100%; border-radius:12px;">
       </a>
     </div>
@@ -1666,25 +1677,31 @@ function openInvite(){
   },4000);
 }
 
-
 /* ======================================================
    🎬 OPENING (SKIP & SCROLL DETECT)
 ====================================================== */
-function skipOpening(){
-  clearTimeout(openingTimeout);
-  showContent();
-}
-
-// skip saat user scroll
 window.addEventListener("scroll",()=>{
   const opening = document.getElementById("opening");
 
   if(opening && opening.style.display !== "none"){
-    skipOpening();
+    if(window.scrollY > 50){
+      skipOpening();
+    }
   }
 });
 
+function showContent(){
+  document.getElementById("opening").style.display="none";
 
+  const content = document.getElementById("content");
+  content.classList.add("show");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+  
 /* ======================================================
    👰 MEMPELAI (ANIMASI FADE)
 ====================================================== */
