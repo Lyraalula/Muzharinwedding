@@ -24,6 +24,7 @@ body.lock {
 }
 html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 *{box-sizing:border-box;}
 html,body{overflow-x:hidden;}
@@ -192,6 +193,7 @@ p{font-size:clamp(14px,3vw,16px);}
 /* ================= OPENING ================= */
 .opening {
   position: relative;
+  cursor: pointer;
   height: 100vh;
   width: 100%;
   background: 
@@ -1644,12 +1646,6 @@ function openInvite() {
 
   window.scrollTo({ top: 0 });
 
-  // munculin isi setelah opening
-  setTimeout(() => {
-  goToContent();
-}, 2000);
-}
-  
 /* ======================================================
    🎬 OPENING (SKIP & SCROLL DETECT)
 ====================================================== */
@@ -1657,16 +1653,26 @@ function goToContent(){
   const opening = document.getElementById("opening");
   const content = document.getElementById("content");
 
-  opening.style.display = "none";
-  content.classList.add("show");
+  // fade out opening
+  opening.style.transition = "opacity 1s ease, transform 1s ease";
+  opening.style.opacity = "0";
+  opening.style.transform = "scale(1.05)";
 
-  isOpeningActive = false;
-  unlockScroll(); // 🔥 baru bisa scroll
+  setTimeout(() => {
+    opening.style.display = "none";
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+    // munculin content dengan smooth
+    content.classList.add("show");
+
+    isOpeningActive = false;
+    unlockScroll();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }, 800); // delay biar animasi kelihatan
 }
   
 /* ======================================================
@@ -1675,7 +1681,7 @@ function goToContent(){
 window.addEventListener("scroll", () => {
   if(!isOpeningActive) return;
 
-  if(window.scrollY > 50){
+  if(window.scrollY > 10){
     goToContent();
   }
 });
