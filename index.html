@@ -448,26 +448,24 @@ p{font-size:clamp(14px,3vw,16px);}
 /* ================= RED STRING MEMPELAI ================= */
 .string-line {
   position: absolute;
-  width: 500px;
+  width: 400px;
   height: 200px;
-  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* garis merah */
 .string-line path {
-  fill: none;
-  stroke: #8b0000;
-  stroke-width: 2.5;
-  stroke-dasharray: 600;
-  stroke-dashoffset: 600;
-  filter: drop-shadow(0 0 6px rgba(139,0,0,0.6));
-  animation: drawHeart 3s ease forwards;
+  animation: drawHeart 3s ease forwards, glowPulse 2s infinite alternate;
 }
 
-/* animasi muncul */
-@keyframes drawHeart {
+@keyframes glowPulse {
+  from {
+    filter: drop-shadow(0 0 4px rgba(139,0,0,0.4));
+  }
   to {
-    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 12px rgba(139,0,0,0.9));
   }
 }
 
@@ -1323,7 +1321,6 @@ p{font-size:clamp(14px,3vw,16px);}
 .clickable-card img {
   width: 70%;
   max-width: 260px;
-}
 
   /* tone soft elegant */
   filter: brightness(0.95) contrast(1.05);
@@ -1637,7 +1634,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="card clickable-card">
       <h3>RSVP</h3>
       <a href="https://docs.google.com/forms/d/178k74WaTt2hcog2EIL3FPaaVoP4xwO1jgoBXhDeCQOs/viewform" target="_blank">
-        <img src="rsvp.png" style="width:100%; border-radius:12px;">
+        <img src="rsvp.png" class="img-rsvp"">
       </a>
     </div>
   </div>
@@ -1647,7 +1644,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="card clickable-card">
       <h3>Make a Wish</h3>
       <a href="https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank">
-        <img src="wish.png" style="width:100%; border-radius:12px;">
+        <img src="wish.png" class="img-rsvp">
       </a>
     </div>
   </div>
@@ -1856,13 +1853,13 @@ document.querySelectorAll('.gift-section').forEach(sec => {
 const rsvpObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.querySelector('.clickable-card').classList.add('show');
+      entry.target.classList.add('show');
     }
   });
 }, { threshold: 0.3 });
 
 document.querySelectorAll('.clickable-card').forEach(el => {
-  rsvpObserver.observe(el.parentElement);
+  rsvpObserver.observe(el);
 });
 
 // ================= NAMA TAMU =================
