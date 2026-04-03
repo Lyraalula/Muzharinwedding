@@ -33,20 +33,72 @@ h2{font-size:clamp(22px,4vw,32px);}
 h3{font-size:clamp(18px,3.5vw,24px);}
 p{font-size:clamp(14px,3vw,16px);}
 
-/* ================= LOADER ================= */
+/* ================= LOADER PREMIUM ================= */
 .loader {
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#0f0f0f;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-color:#fff;
-transition: opacity 0.5s ease;
+  position: fixed;
+  inset: 0;
+  background:
+ radial-gradient(circle at center, rgba(139,0,0,0.2), transparent),
+ #0a0a0a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* container */
+.loader-content {
+  text-align: center;
+  color: #fff;
+  animation: fadeUp 1.5s ease;
+}
+
+/* RED STRING */
+.loader-string {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.loader-string path {
+  fill: none;
+  stroke: #b30000;
+  stroke-width: 2.5;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawHeart 3s ease forwards;
+}
+
+/* animasi garis */
+@keyframes drawHeart {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* nama */
+.loader h2 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 2px;
+  margin: 10px 0;
+}
+
+/* loading text */
+.loading-text {
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* FADE OUT */
+.loader.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
 }
   
 /* ================= COVER ================= */
@@ -1413,8 +1465,18 @@ transition: opacity 0.5s ease;
 <body>
 <!-- ================= LOADER ================= -->
 <div class="loader" id="loader">
-  <p style="font-family:'Playfair Display'; letter-spacing:3px;">
-Loading...</p>
+  <div class="loader-content">
+    
+    <!-- RED STRING -->
+    <svg class="loader-string" viewBox="0 0 200 200">
+      <path d="M100 170 C 20 110, 20 40, 100 70 C 180 40, 180 110, 100 170"/>
+    </svg>
+
+    <!-- NAMA -->
+    <h2>Putri & Azhari</h2>
+    <p class="loading-text">Loading your special day...</p>
+
+  </div>
 </div>
   
 <!-- ================= MUSIC ================= -->
@@ -3303,15 +3365,17 @@ function toggleMusic(){
 
 // ================= LOADER =================
 window.addEventListener("load", () => {
-  music.volume = 0.2;
   const loader = document.getElementById("loader");
 
-  loader.style.opacity = "0";
-  loader.style.transition = "opacity 0.5s ease";
-
+  // kasih delay dikit biar cinematic
   setTimeout(() => {
-    loader.remove(); // HAPUS TOTAL dari DOM
-  }, 500);
+    loader.classList.add("fade-out");
+
+    setTimeout(() => {
+      loader.remove(); // 🔥 hapus total biar ga muncul lagi
+    }, 1000);
+
+  }, 1500);
 });
   
 // ================= COVER =================
