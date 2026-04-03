@@ -9,20 +9,7 @@
 
 <style>
 /* ================= MUSIC ================= */
-.musicBtn {
-position:fixed;
-bottom:20px;
-right:20px;
-z-index:999;
-padding:10px 14px;
-border-radius:50%;
-border:none;
-background:#8b0000;
-color:#fff;
-font-size:16px;
-cursor:pointer;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
+
 
 /* ================= GLOBAL ================= */
 body{
@@ -1431,11 +1418,9 @@ Loading...</p>
 </div>
   
 <!-- ================= MUSIC ================= -->
-<audio id="bg-music" loop>
+<audio id="bg-music" loop autoplay muted>
   <source src="love-story.mp3" type="audio/mp3">
 </audio>
-
-<button id="musicBtn" onclick="toggleMusic()">🔊</button>
 
 <!-- ================= COVER ================= -->
 <div class="cover" id="cover">
@@ -3318,6 +3303,7 @@ function toggleMusic(){
 
 // ================= LOADER =================
 window.addEventListener("load", () => {
+  music.volume = 0.2;
   const loader = document.getElementById("loader");
 
   loader.style.opacity = "0";
@@ -3374,14 +3360,24 @@ function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
 
-  lockScroll(); // tetap dikunci
+  lockScroll();
   isOpeningActive = true;
 
   window.scrollTo({ top: 0 });
 
-  // ini lebih aman
+  // 🔥 AUTO PLAY + FADE IN SUARA
   music.muted = false;
-  music.play().catch(() => {});
+  music.volume = 0;
+
+  music.play().then(() => {
+    let fade = setInterval(() => {
+      if (music.volume < 1) {
+        music.volume += 0.05;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  }).catch(() => {});
 }
 
 // ================= MASUK KE CONTENT =================
