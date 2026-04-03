@@ -453,19 +453,20 @@ p{font-size:clamp(14px,3vw,16px);}
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 /* garis merah */
 .string-line path {
-  animation: drawHeart 3s ease forwards, glowPulse 2s infinite alternate;
+  astroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: drawHeart 3s ease forwards;
 }
 
 @keyframes glowPulse {
-  from {
-    filter: drop-shadow(0 0 4px rgba(139,0,0,0.4));
-  }
+  @keyframes drawHeart {
   to {
-    filter: drop-shadow(0 0 12px rgba(139,0,0,0.9));
+    stroke-dashoffset: 0;
   }
 }
 
@@ -670,6 +671,7 @@ p{font-size:clamp(14px,3vw,16px);}
   transform: translateY(30px);
   animation: mapFade 1.5s ease forwards;
   animation-delay: 1.2s;
+  cursor: pointer;
 }
 
 @keyframes mapFade {
@@ -1160,7 +1162,7 @@ p{font-size:clamp(14px,3vw,16px);}
 /* ================= RED STRING LINE GIFT ================= */
 .gift-wrapper::before {
   content: "";
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 0;
   width: 100%;
@@ -1275,7 +1277,8 @@ p{font-size:clamp(14px,3vw,16px);}
   }
 
   .gift-wrapper::before {
-    display: none;
+    top: 50%;
+    transform: translateY(-50%);
   }
 }
 
@@ -1482,8 +1485,11 @@ p{font-size:clamp(14px,3vw,16px);}
     </div>
 
     <!-- RED STRING -->
-    <svg class="string-line" viewBox="0 0 500 200">
-      <path d="M10 100 C150 20, 350 180, 490 100" />
+    <svg class="string-line" viewBox="0 0 200 200">
+        <path d="M100 170 C 20 110, 20 40, 100 70 C 180 40, 180 110, 100 170"
+          fill="none"
+          stroke="#b30000"
+          stroke-width="3"/>
     </svg>
 
     <!-- Wanita -->
@@ -1542,7 +1548,9 @@ p{font-size:clamp(14px,3vw,16px);}
   <!-- MAP -->
   <div class="section clean fade"> 
     <div class="card map-card"> 
-      <iframe src="https://www.google.com/maps?q=Bekasi&output=embed" width="100%" height="200"></iframe> 
+      <a href="https://www.google.com/maps?q=Bekasi+Timur+Regency+3+Cluster+Jade+Blok+J3+No+43" target="_blank">
+    <iframe src="https://www.google.com/maps?q=Bekasi&output=embed"></iframe>
+  </a>
   </div> 
   </div>
     
@@ -1780,12 +1788,12 @@ const storyObserver = new IntersectionObserver((entries) => {
       entry.target.classList.add('show');
     }
   });
-}, { threshold: 0.3 });
+}, 
+    { threshold: 0.15 });
 
-document.querySelectorAll('.section.clean').forEach(section => {
-  if(section.querySelector('.story')){
-    storyObserver.observe(section);
-  }
+    const storySection = document.querySelector('.story').closest('.section.clean');
+    storyObserver.observe(storySection);
+    }
 });
 
 // ================= GALERI =================
