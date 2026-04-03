@@ -1538,7 +1538,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <!-- Pria -->
     <div class="couple-card bride">
       <div class="photo">
-        <img src="pria.webp" alt="Azhari">
+        <img src="pria.png" alt="Azhari">
       </div>
       <h3>Muhamad Azhari</h3>
       <p>Putra Ke-2 dari Bapak Alm Mukhsin & Ibu Suhaini</p>
@@ -1552,7 +1552,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <!-- Wanita -->
     <div class="couple-card groom">
       <div class="photo">
-        <img src="wanita.webp" alt="Putri">
+        <img src="wanita.png" alt="Putri">
       </div>
       <h3>Putri Zahira Rahimah Mumtaz</h3>
       <p>Putri Ke-1 dari Bapak Chandra Teguh B.S & Ibu Rusni Windari Yusuf</p>
@@ -1974,15 +1974,43 @@ images.forEach((_, i) => {
 const dots = dotsContainer.querySelectorAll('span');
 
 // update dot
-gallery.addEventListener('scroll', () => {
-  const scrollLeft = gallery.scrollLeft;
-  const width = gallery.offsetWidth;
-  const index = Math.round(scrollLeft / width);
+let ticking = false;
 
-  dots.forEach(dot => dot.classList.remove('active'));
-  if (dots[index]) dots[index].classList.add('active');
+gallery.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      updateDots();
+      ticking = false;
+    });
+    ticking = true;
+  }
 });
 
+function updateDots() {
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  const galleryRect = gallery.getBoundingClientRect();
+  const screenCenter = galleryRect.left + galleryRect.width / 2;
+
+  images.forEach((img, index) => {
+    const rect = img.getBoundingClientRect();
+    const center = rect.left + rect.width / 2;
+
+    const distance = Math.abs(screenCenter - center);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  dots.forEach(dot => dot.classList.remove('active'));
+  if (dots[closestIndex]) {
+    dots[closestIndex].classList.add('active');
+  }
+}
+  
 // ✅ DRAG SWIPE DESKTOP
 let isDown = false;
 let startX;
