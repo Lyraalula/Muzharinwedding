@@ -114,6 +114,9 @@ p{font-size:clamp(14px,3vw,16px);}
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* efek red string halus */
@@ -134,7 +137,14 @@ p{font-size:clamp(14px,3vw,16px);}
   100% { transform: translateX(20%); }
 }
 
-  
+ .cover::before {
+  content: "";
+  display: block;
+  height: 120vh; /* 🔥 bikin bisa di-scroll */
+  scroll-snap-type: y mandatory;
+}
+
+
 /* ================= COVER CONTENT ================= */
 .cover-content {
   position: relative;
@@ -142,6 +152,7 @@ p{font-size:clamp(14px,3vw,16px);}
   backdrop-filter: blur(6px);
   padding: 30px;
   border-radius: 20px;
+  scroll-snap-align: center;
 }
 
 /* title */
@@ -1487,6 +1498,7 @@ p{font-size:clamp(14px,3vw,16px);}
 
 <!-- ================= COVER ================= -->
 <div class="cover" id="cover">
+  <div class="cover-scroll">
   <div class="cover-content">
     <p style="letter-spacing:2px;font-size:12px;"> THE WEDDING OF </p>
     <h1>Putri & Azhari</h1>
