@@ -59,6 +59,7 @@ justify-content:center;
 align-items:center;
 z-index:9999;
 color:#fff;
+transition: opacity 0.5s ease;
 }
   
 /* ================= COVER ================= */
@@ -3232,7 +3233,7 @@ Loading...</p>
 
     <!-- GIFT 1 -->
     <div class="gift-card">
-      <img src="Mandiri.jpg" alt="Mandiri">
+      <img src="Mandiri.png" alt="Mandiri">
       <p class="rekening">1560024960967</p>
       <button onclick="copyText('1560024960967')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
@@ -3259,7 +3260,7 @@ Loading...</p>
 
     <!-- GIFT 3 -->
     <div class="gift-card">
-     <img src="Dana.jpg" alt="Dana">
+     <img src="Dana.png" alt="Dana">
      <img src="Gopay.png" alt="Gopay">
       <p class="rekening">087788648002</p>
       <button onclick="copyText('087788648002')" class="copy-btn">Copy</button>
@@ -3317,7 +3318,14 @@ function toggleMusic(){
 
 // ================= LOADER =================
 window.addEventListener("load", () => {
-  document.getElementById("loader").style.display = "none";
+  const loader = document.getElementById("loader");
+
+  loader.style.opacity = "0";
+  loader.style.transition = "opacity 0.5s ease";
+
+  setTimeout(() => {
+    loader.remove(); // HAPUS TOTAL dari DOM
+  }, 500);
 });
   
 // ================= COVER =================
