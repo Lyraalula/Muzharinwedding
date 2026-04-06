@@ -1056,8 +1056,10 @@ p{font-size:clamp(14px,3vw,16px);}
   .gallery { 
     display: flex; 
     gap: 20px; 
+    scroll-padding-left: 20px;
     overflow-x: auto; 
     -webkit-overflow-scrolling: touch; 
+    cursor: grab;
     
     /* smooth iOS */ 
     scroll-snap-type: x mandatory; 
@@ -1069,6 +1071,9 @@ p{font-size:clamp(14px,3vw,16px);}
   { 
     display: none; 
   } 
+  .gallery:active {
+  cursor: grabbing;
+  }
   .lightbox { 
     display:none; 
     position:fixed; 
@@ -2012,45 +2017,100 @@ const gallery = document.getElementById('gallery');
 const dotsContainer = document.getElementById('dots'); 
 const images = gallery.querySelectorAll('img');
 
-// buat dots
+let positions = [];
+
+// ambil posisi REAL (lebih akurat)
+function getPositions() {
+  positions = [];
+  images.forEach(img => {
+    positions.push(img.offsetLeft - gallery.offsetLeft);
+  });
+}
+
+// buat dots + klik
 images.forEach((_, i) => { 
   const dot = document.createElement('span'); 
   if (i === 0) dot.classList.add('active'); 
+
+  dot.addEventListener("click", () => {
+    if (!positions.length) getPositions(); // 🔥 fix bug
+
+    gallery.scrollTo({
+      left: positions[i],
+      behavior: "smooth"
+    });
+  });
+
   dotsContainer.appendChild(dot); 
 });
 
 const dots = dotsContainer.querySelectorAll('span');
 
-// update saat scroll
+// 🔥 throttle biar smooth
+let ticking = false;
+
 gallery.addEventListener('scroll', () => { 
-  const scrollLeft = gallery.scrollLeft; 
-  const width = gallery.offsetWidth; 
-  const index = Math.round(scrollLeft / width); 
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
 
-  dots.forEach(dot => dot.classList.remove('active')); 
-  if (dots[index]) dots[index].classList.add('active'); 
+      const scrollLeft = gallery.scrollLeft;
+
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      positions.forEach((pos, i) => {
+        const distance = Math.abs(scrollLeft - pos);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = i;
+        }
+      });
+
+      dots.forEach(dot => dot.classList.remove('active'));
+      if (dots[closestIndex]) {
+        dots[closestIndex].classList.add('active');
+      }
+
+      ticking = false;
+    });
+
+    ticking = true;
+  }
 });
-  
-// ================= GIFT =================
-const giftObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const cards = entry.target.querySelectorAll('.gift-card');
-      cards.forEach(card => card.classList.add('show'));
-      entry.target.classList.add('show');
-    }
-  });
-}, { threshold: 0.3 });
 
-// observe di luar
-document.querySelectorAll('.gift-section').forEach(el => {
-  giftObserver.observe(el);
+// load + resize
+window.addEventListener("load", getPositions);
+window.addEventListener("resize", getPositions);
+
+
+
+// ================= DRAG DESKTOP (FIXED) =================
+let isDown = false;
+let startX;
+let scrollStart;
+
+gallery.addEventListener("mousedown", (e) => {
+  isDown = true;
+  startX = e.pageX;
+  scrollStart = gallery.scrollLeft;
 });
 
-  function copyText(text){
-  navigator.clipboard.writeText(text);
-  alert("Nomor berhasil disalin!");
-}
+gallery.addEventListener("mouseleave", () => {
+  isDown = false;
+});
+
+gallery.addEventListener("mouseup", () => {
+  isDown = false;
+});
+
+gallery.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+
+  e.preventDefault();
+
+  const walk = (e.pageX - startX) * 1.5;
+  gallery.scrollLeft = scrollStart - walk;
+});
 
 // ================= RSVP =================
 const rsvpObserver = new IntersectionObserver((entries) => {
