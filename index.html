@@ -1191,7 +1191,56 @@ p{font-size:clamp(14px,3vw,16px);}
     box-shadow: 0 0 10px rgba(139,0,0,0.8); 
   } 
   
-  /* ================= FADE GALERI ================= */ 
+  /* ================= NAV BUTTON ================= */ 
+  .gallery-nav {
+  position: relative;
+  margin-top: 10px;
+}
+
+/* tombol */
+.gallery-nav button {
+  position: absolute;
+  top: -140px; /* posisi naik ke tengah gallery */
+  transform: translateY(-50%);
+  box-shadow: 0 5px 20px rgba(139,0,0,0.5);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+}
+
+/* kiri */
+#prevBtn {
+  left: 10px;
+}
+
+/* kanan */
+#nextBtn {
+  right: 10px;
+}
+
+/* hover */
+.gallery-nav button:hover {
+  background: rgba(139,0,0,0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .gallery-nav button {
+    top: -120px;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+}
+  
   /* ================= RESPONSIVE GALERI ================= */ 
   @media (max-width: 768px) { 
   
@@ -1711,7 +1760,11 @@ p{font-size:clamp(14px,3vw,16px);}
       <img src="foto3.webp"> 
       <img src="foto4.webp"> 
       <img src="foto5.webp"> 
-    
+
+      <div class="gallery-nav">
+        <button id="prevBtn">❮</button>
+        <button id="nextBtn">❯</button>
+      </div>
     </div> 
     <div id="lightbox" class="lightbox"> 
       <img id="lightbox-img" class="lightbox-img"> </div> 
@@ -2082,6 +2135,54 @@ gallery.addEventListener('scroll', () => {
 window.addEventListener("load", getPositions);
 window.addEventListener("resize", getPositions);
 
+  const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+let currentIndex = 0;
+
+// update index dari scroll (biar sinkron)
+function updateIndexFromScroll() {
+  const scrollLeft = gallery.scrollLeft;
+
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  positions.forEach((pos, i) => {
+    const distance = Math.abs(scrollLeft - pos);
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = i;
+    }
+  });
+
+  currentIndex = closestIndex;
+}
+
+// tombol next ➡️
+nextBtn.addEventListener("click", () => {
+  updateIndexFromScroll();
+
+  if (currentIndex < positions.length - 1) {
+    currentIndex++;
+    gallery.scrollTo({
+      left: positions[currentIndex],
+      behavior: "smooth"
+    });
+  }
+});
+
+// tombol prev ⬅️
+prevBtn.addEventListener("click", () => {
+  updateIndexFromScroll();
+
+  if (currentIndex > 0) {
+    currentIndex--;
+    gallery.scrollTo({
+      left: positions[currentIndex],
+      behavior: "smooth"
+    });
+  }
+});
 
 
 // ================= DRAG DESKTOP (FIXED) =================
