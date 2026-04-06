@@ -926,167 +926,111 @@ p{font-size:clamp(14px,3vw,16px);}
 }
 
 
-/* ================= SECTION STORY ================= */
-/* title */
-.story-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  letter-spacing: 2px;
-  margin-bottom: 60px;
-}
-
-/* ================= STORY WRAPPER STORY ================= */
+/* ================= STORY ================= */
 .story {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 700px;
+  width: 100%;
   position: relative;
-  max-width: 800px;
-  margin: auto;
-  padding-left: 30px;
 }
 
-/* ================= RED STRING LINE STORY ================= */
+/* garis red string */
 .story::before {
   content: "";
   position: absolute;
+  left: 20px;
   top: 0;
-  left: 15px;
   width: 2px;
   height: 100%;
   background: linear-gradient(to bottom, transparent, #8b0000, transparent);
-  opacity: 0.6;
-
-  /* animasi */
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 2s ease;
+  opacity: 0.5;
 }
 
-/* aktif saat muncul */
-.story.show::before {
-  transform: scaleY(1);
+/* ================= TITLE ================= */
+.story-title {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 50px;
+  letter-spacing: 2px;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
 }
 
-/* ================= ITEM STORY ================= */
+/* ================= ITEM ================= */
 .story-item {
   position: relative;
-  margin-bottom: 60px;
-  text-align: left;
-  padding-left: 30px;
+  padding-left: 50px;
 
   opacity: 0;
   transform: translateY(40px);
   transition: all 1s ease;
 }
 
-/* muncul saat scroll */
+/* titik red string */
+.story-item::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8b0000;
+  box-shadow: 0 0 10px rgba(139,0,0,0.7);
+}
+
+/* animasi muncul */
 .story-item.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* delay elegan */
-.story-item:nth-child(1).show { transition-delay: 0.2s; }
-.story-item:nth-child(2).show { transition-delay: 0.4s; }
-.story-item:nth-child(3).show { transition-delay: 0.6s; }
-
-/* ================= DOT (TITIK TAKDIR) STORY ================= */
-.story-item::before {
-  content: "";
-  position: absolute;
-  left: -20px;
-  top: 5px;
-  width: 10px;
-  height: 10px;
-  background: #8b0000;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(139,0,0,0.8);
-}
-
-/* efek denyut (takdir hidup) */
-.story-item::after {
-  content: "";
-  position: absolute;
-  left: -24px;
-  top: 1px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(139,0,0,0.3);
-  animation: pulseDot 2.5s infinite;
-}
-
-@keyframes pulseDot {
-  0% { transform: scale(0.8); opacity: 0.6; }
-  50% { transform: scale(1.5); opacity: 0; }
-  100% { transform: scale(0.8); opacity: 0.6; }
-}
-
-/* ================= TEXT STORY ================= */
+/* ================= TEXT ================= */
 .story-item h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 18px;
+  color: #ff4d4d;
   margin-bottom: 5px;
+  letter-spacing: 1px;
 }
 
 .story-item h4 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
-  opacity: 0.8;
+  color: #ddd;
   margin-bottom: 10px;
+  font-style: italic;
 }
 
 .story-item p {
   font-size: 13px;
-  line-height: 1.8;
-  opacity: 0.75;
+  line-height: 1.7;
+  color: #ccc;
 }
 
-/* ================= HOVER EFFECT STORY ================= */
+/* ================= HOVER EFFECT ================= */
 .story-item:hover {
   transform: translateY(-5px);
 }
 
-/* ================= FADE STORY ================= */
-
-
-/* ================= RESPONSIVE STORY ================= */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
   .story {
-    padding-left: 25px;
+    gap: 30px;
+  }
+
+  .story-item {
+    padding-left: 40px;
   }
 
   .story::before {
-    left: 10px;
-    opacity: 1;
-    width: 3px;
+    left: 15px;
   }
 
   .story-item::before {
-    left: -18px;
+    left: 7px;
   }
-
-  .story-item::after {
-    left: -22px;
-  }
-}
-
-/* ================= SECTION ================= */
-.section.bg4 {
-  position: relative;
-  padding: 100px 20px;
-  background: 
-    linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.85)),
-    url('bg4.webp') center/cover no-repeat;
-  text-align: center;
-  color: #fff;
-  overflow: hidden;
-}
-
-/* title */
-.section.bg4 h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  letter-spacing: 2px;
-  margin-bottom: 40px;
 }
 
 /* ================= GALLERY ================= */
