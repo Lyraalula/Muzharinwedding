@@ -1299,7 +1299,7 @@ p{font-size:clamp(14px,3vw,16px);}
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
   justify-content: center; /* 🔥 ini kunci center */
-  gap: 30px;
+  gap: 40px;
   max-width: 1000px;
   margin: auto;
 }
@@ -1331,6 +1331,7 @@ p{font-size:clamp(14px,3vw,16px);}
   opacity: 0;
   transform: translateY(40px);
   transition: all 1s ease;
+  overflow: hidden; 
 }
 
 /* muncul saat scroll */
@@ -1370,11 +1371,13 @@ p{font-size:clamp(14px,3vw,16px);}
 .gift-card::after {
   content: "";
   position: absolute;
-  width: 50%;
+  width: 30%;
+  opacity: 0.3;
   height: 100%;
   top: 0;
   left: -50%;
   background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  z-index: 0;
 }
 
 .gift-card:hover::after {
@@ -1797,7 +1800,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Mandiri.png" alt="Mandiri">
       <p class="rekening">1560024960967</p>
-      <button onclick="copyText('1560024960967')" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, 1560024960967)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
       <p class="rekening">1730013092441</p>
       <button onclick="copyText('1730013092441')" class="copy-btn">Copy</button>
@@ -1808,7 +1811,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Danamon.png" alt="Danamon">
       <p class="rekening">003692395357</p>
-      <button onclick="copyText('003692395357')" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, 003692395357)" class="copy-btn">Copy</button>
       <p class="nama">a.n. M Azhari</p>
     </div>
 
@@ -1816,7 +1819,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Seabank.png" alt="Seabank">
       <p class="rekening">901174902765</p>
-      <button onclick="copyText('901174902765')" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, 901174902765)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -1825,7 +1828,7 @@ p{font-size:clamp(14px,3vw,16px);}
      <img src="Dana.png" alt="Dana">
      <img src="gopay.png" alt="Gopay">
       <p class="rekening">087788648002</p>
-      <button onclick="copyText('087788648002')" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, 087788648002)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -2235,17 +2238,27 @@ gallery.addEventListener("mousemove", (e) => {
 });
 
 // ================= GIFT =================
-function copyText(text) {
-  navigator.clipboard.writeText(text);
+function copyText(button, text) {
+  if (!navigator.clipboard) {
+    // 🔥 fallback untuk browser lama
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+  } else {
+    navigator.clipboard.writeText(text);
+  }
 
-  const btn = event.target;
-  btn.innerText = "Copied!";
+  // animasi tombol
+  button.innerText = "Copied!";
   
   setTimeout(() => {
-    btn.innerText = "Copy";
+    button.innerText = "Copy";
   }, 1500);
 }
-
+  
 // ================= ANIMASI SCROLL (FADE IN) =================
 const cards = document.querySelectorAll(".gift-card");
 
