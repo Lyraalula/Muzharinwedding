@@ -428,6 +428,9 @@ p{font-size:clamp(14px,3vw,16px);}
   text-align: center;
   color: #fff;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 🔥 center semua isi */
 }
 
 /* title */
@@ -447,12 +450,23 @@ p{font-size:clamp(14px,3vw,16px);}
   gap: 60px;
   position: relative;
   flex-wrap: wrap;
+  max-width: 900px; /* 🔥 batas biar gak melebar */
+  margin: 0 auto;   /* 🔥 center horizontal */
+}
+
+.couple-card:first-child {
+  margin-right: 20px;
+}
+
+.couple-card:last-child {
+  margin-left: 20px;
 }
   
 @media (max-width: 768px) {
   .couple-wrapper {
     flex-direction: column;
-    gap: 40px;
+    justify-content: center;
+    gap: 80px; /* biar balance kiri kanan */
   }
 }
   
@@ -461,6 +475,10 @@ p{font-size:clamp(14px,3vw,16px);}
   width: 220px;
   z-index: 2;
   animation: fadeUp 1.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 🔥 biar isi card center */
+  text-align: center;
 }
 
 .couple-card h3 {
