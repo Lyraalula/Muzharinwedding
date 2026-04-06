@@ -428,9 +428,6 @@ p{font-size:clamp(14px,3vw,16px);}
   text-align: center;
   color: #fff;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 🔥 center semua isi */
 }
 
 /* title */
@@ -450,16 +447,6 @@ p{font-size:clamp(14px,3vw,16px);}
   gap: 60px;
   position: relative;
   flex-wrap: wrap;
-  max-width: 900px; /* 🔥 batas biar gak melebar */
-  margin: 0 auto;   /* 🔥 center horizontal */
-}
-
-.couple-card:first-child {
-  margin-right: 20px;
-}
-
-.couple-card:last-child {
-  margin-left: 20px;
 }
   
 @media (max-width: 768px) {
@@ -475,10 +462,6 @@ p{font-size:clamp(14px,3vw,16px);}
   width: 220px;
   z-index: 2;
   animation: fadeUp 1.5s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 🔥 biar isi card center */
-  text-align: center;
 }
 
 .couple-card h3 {
@@ -521,30 +504,6 @@ p{font-size:clamp(14px,3vw,16px);}
 /* hover zoom elegant */
 .photo:hover img {
   transform: scale(1.05);
-}
-
-/* ================= RED STRING MEMPELAI ================= */
-.string-line {
-  position: absolute;
-  width: 400px;
-  height: 200px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* garis merah */
-.string-line path {
-  animation: drawHeart 3s ease forwards, glowPulse 2s infinite alternate;
-}
-
-@keyframes glowPulse {
-  from {
-    filter: drop-shadow(0 0 4px rgba(139,0,0,0.4));
-  }
-  to {
-    filter: drop-shadow(0 0 12px rgba(139,0,0,0.9));
-  }
 }
 
 /* ================= ANIMASI MEMPELAI ================= */
