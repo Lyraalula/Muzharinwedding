@@ -1297,7 +1297,8 @@ p{font-size:clamp(14px,3vw,16px);}
 /* ================= WRAPPER GIFT ================= */
 .gift-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+  justify-content: center; /* 🔥 ini kunci center */
   gap: 30px;
   max-width: 1000px;
   margin: auto;
@@ -1318,6 +1319,8 @@ p{font-size:clamp(14px,3vw,16px);}
 /* ================= CARD GIFT ================= */
 .gift-card {
   width: 100%;
+  max-width: 300px;
+  margin: auto;
   padding: 30px 20px;
   border-radius: 20px;
   background: rgba(255,255,255,0.05);
@@ -1325,7 +1328,6 @@ p{font-size:clamp(14px,3vw,16px);}
   text-align: center;
   position: relative;
   z-index: 2;
-
   opacity: 0;
   transform: translateY(40px);
   transition: all 1s ease;
@@ -1418,8 +1420,14 @@ p{font-size:clamp(14px,3vw,16px);}
 
 /* ================= RESPONSIVE GIFT ================= */
 @media (max-width: 768px) {
+  .gift-wrapper {
+    grid-template-columns: 1fr; /* 1 kolom */
+    justify-items: center; /* 🔥 center horizontal */
+  }
+
   .gift-card {
     width: 90%;
+    max-width: 350px;
   }
 
   .gift-wrapper::before {
@@ -2226,6 +2234,35 @@ gallery.addEventListener("mousemove", (e) => {
   gallery.scrollLeft = scrollStart - walk;
 });
 
+// ================= GIFT =================
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+
+  const btn = event.target;
+  btn.innerText = "Copied!";
+  
+  setTimeout(() => {
+    btn.innerText = "Copy";
+  }, 1500);
+}
+
+// ================= ANIMASI SCROLL (FADE IN) =================
+const cards = document.querySelectorAll(".gift-card");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, {
+  threshold: 0.2
+});
+
+cards.forEach(card => {
+  observer.observe(card);
+});
+  
 // ================= RSVP =================
 const rsvpObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
