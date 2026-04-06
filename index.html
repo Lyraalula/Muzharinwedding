@@ -465,17 +465,25 @@ p{font-size:clamp(14px,3vw,16px);}
   width: 220px;
   z-index: 2;
   animation: fadeUp 1.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 🔥 ini bikin isi naik ke tengah */
+  text-align: center;
+  transform: translateY(-10px);
 }
 
 .couple-card h3 {
   font-family: 'Playfair Display', serif;
-  margin-top: 15px;
+  margin-top: 10px;
+  margin-bottom: 5px;
   font-size: 20px;
 }
 
 .couple-card p {
   font-size: 13px;
   opacity: 0.7;
+  margin-top: 0;
 }
 
 /* ================= FOTO MEMPELAI ================= */
@@ -485,6 +493,7 @@ p{font-size:clamp(14px,3vw,16px);}
   overflow: hidden;
   border-radius: 120px;
   position: relative;
+  margin-bottom: 10px;
 }
 
 /* efek soft glow */
