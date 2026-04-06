@@ -789,8 +789,6 @@ p{font-size:clamp(14px,3vw,16px);}
   z-index: 1;
 }
 
-}
-
 .map-thumbnail img {
   width: 100%;
   height: 220px;
@@ -1533,7 +1531,6 @@ p{font-size:clamp(14px,3vw,16px);}
     <button onclick="openInvite()" class="btn-open">💌 Buka Undangan</button>
   </div>
 </div>
-  </div>
 
 <!-- ================= OPENING ================= -->
 <div class="opening" id="opening" style="display:none;">
@@ -1784,7 +1781,6 @@ p{font-size:clamp(14px,3vw,16px);}
 <script>
 // ================= MUSIC =================
 const music = document.getElementById("bg-music");
-const musicBtn = document.getElementById("musicBtn");
 
 function toggleMusic(){
   if (music.paused) {
@@ -2012,44 +2008,27 @@ document.querySelectorAll('.section.clean').forEach(section => {
 });
 
 // ================= GALERI ================= 
-  const gallery = document.getElementById('gallery'); 
-  const dotsContainer = document.getElementById('dots'); 
-  const images = gallery.querySelectorAll('img'); // 
-  
-  dots images.forEach((_, i) => { 
-    const dot = document.createElement('span'); 
-    if (i === 0) dot.classList.add('active'); 
-    dotsContainer.appendChild(dot); 
-  }); 
-  
-  const dots = dotsContainer.querySelectorAll('span'); 
-   
-  update dot gallery.addEventListener('scroll', () => { 
-    const scrollLeft = gallery.scrollLeft; 
-    const width = gallery.offsetWidth; 
-    const index = Math.round(scrollLeft / width); 
-    dots.forEach(dot => dot.classList.remove('active')); 
-    if (dots[index]) dots[index].classList.add('active'); 
-  }); 
-  
-  // ✅ DRAG SWIPE DESKTOP 
-  let isDown = false; 
-  let startX; 
-  let scrollLeftPos; 
-  
-  gallery.addEventListener("mousedown", (e) => { 
-    isDown = true; 
-    startX = e.pageX - gallery.offsetLeft; 
-    scrollLeftPos = gallery.scrollLeft; 
-  }); 
-  
-  gallery.addEventListener("mouseleave", () => isDown = false); 
-  gallery.addEventListener("mouseup", () => isDown = false); 
-  gallery.addEventListener("mousemove", (e) => { 
-    if (!isDown) return; e.preventDefault(); 
-    const x = e.pageX - gallery.offsetLeft; 
-    const walk = (x - startX) * 1.5; 
-    gallery.scrollLeft = scrollLeftPos - walk; 
+const gallery = document.getElementById('gallery'); 
+const dotsContainer = document.getElementById('dots'); 
+const images = gallery.querySelectorAll('img');
+
+// buat dots
+images.forEach((_, i) => { 
+  const dot = document.createElement('span'); 
+  if (i === 0) dot.classList.add('active'); 
+  dotsContainer.appendChild(dot); 
+});
+
+const dots = dotsContainer.querySelectorAll('span');
+
+// update saat scroll
+gallery.addEventListener('scroll', () => { 
+  const scrollLeft = gallery.scrollLeft; 
+  const width = gallery.offsetWidth; 
+  const index = Math.round(scrollLeft / width); 
+
+  dots.forEach(dot => dot.classList.remove('active')); 
+  if (dots[index]) dots[index].classList.add('active'); 
 });
   
 // ================= GIFT =================
