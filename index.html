@@ -1694,7 +1694,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="map-card"> 
       
       <!-- Thumbnail -->
-      <div class="map-thumbnail" onclick="loadMap(this)">
+      <div class="map-thumbnail" onclick="openMapThumbnail(this)">
         <img src="https://maps.googleapis.com/maps/api/staticmap?center=Danau+Cipeucang+Bekasi&zoom=15&size=600x300&markers=color:red|Danau+Cipeucang+Bekasi" alt="Map">
         <div class="map-overlay">Klik untuk buka lokasi</div>
       </div>
@@ -1702,7 +1702,7 @@ p{font-size:clamp(14px,3vw,16px);}
       <!-- Tombol -->
       <a href="https://maps.app.goo.gl/HVWLE4LuVtDdGyh79" 
          target="_blank" 
-         class="btn-map">
+         class="btn-map" onclick="handleExternalLink()">
          📍 Buka di Google Maps
       </a>
   
@@ -1824,7 +1824,7 @@ p{font-size:clamp(14px,3vw,16px);}
   <div class="section clean">
     <div class="clickable-card">
       <h3>RSVP</h3>
-      <a href="https://forms.gle/fou79BxuG2ZjxEPV7" target="_blank">
+      <a href="https://forms.gle/fou79BxuG2ZjxEPV7" target="_blank" onclick="handleExternalLink()">
         <img src="rsvp.png" class="img-rsvp">
       </a>
     </div>
@@ -1834,7 +1834,7 @@ p{font-size:clamp(14px,3vw,16px);}
   <div class="section clean">
     <div class="clickable-card">
       <h3>Make a Wish</h3>
-      <a href="https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank">
+      <a href="https://forms.gle/wBCUH1UwiEYoZgzLA" target="_blank" onclick="handleExternalLink()">
         <img src="wish.png" class="img-rsvp">
       </a>
     </div>
@@ -1845,30 +1845,71 @@ p{font-size:clamp(14px,3vw,16px);}
 // ================= MUSIC =================
 const music = document.getElementById("bg-music");
 
-function toggleMusic(){
-  if (music.paused) {
-    music.volume = 0;
-    music.play();
+// 🔥 Simpan posisi lagu
+music.addEventListener("timeupdate", () => {
+  localStorage.setItem("musicTime", music.currentTime);
+});
 
-    let fade = setInterval(()=>{
-      if(music.volume < 1){
+// 🔥 Resume saat balik
+window.addEventListener("load", () => {
+  const savedTime = localStorage.getItem("musicTime");
+
+  if (savedTime) {
+    music.currentTime = savedTime;
+  }
+
+  music.play().catch(()=>{});
+});
+
+// 🔥 Pause saat klik link luar
+function handleExternalLink() {
+  localStorage.setItem("musicTime", music.currentTime);
+  music.pause();
+}
+
+// 🔥 Untuk thumbnail map
+function openMapThumbnail(el) {
+  localStorage.setItem("musicTime", music.currentTime);
+  music.pause();
+
+  // lanjut fungsi asli kamu
+  loadMap(el);
+}
+
+// 🔥 Deteksi pindah tab / balik lagi
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    const savedTime = localStorage.getItem("musicTime");
+    if (savedTime) {
+      music.currentTime = savedTime;
+    }
+    music.play().catch(()=>{});
+  }
+});
+  
+// ================= LOADER =================
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  const savedTime = localStorage.getItem("musicTime");
+
+  if (savedTime) {
+    music.currentTime = savedTime;
+  }
+
+  music.muted = false;
+  music.volume = 0;
+
+  music.play().then(() => {
+    let fade = setInterval(() => {
+      if (music.volume < 1) {
         music.volume += 0.05;
       } else {
         clearInterval(fade);
       }
     }, 200);
-
-    musicBtn.innerText = "🔊";
-  } else {
-    music.pause();
-    musicBtn.innerText = "🔈";
-  }
-}
-
-// ================= LOADER =================
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-
+  }).catch(() => {});
+});
+    
   // kasih delay dikit biar cinematic
   setTimeout(() => {
     loader.classList.add("fade-out");
@@ -1879,7 +1920,8 @@ window.addEventListener("load", () => {
 
   }, 1500);
 });
-  
+
+
 // ================= COVER =================
 let isOpeningActive = false;
 
