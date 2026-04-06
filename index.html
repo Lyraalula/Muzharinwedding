@@ -1060,6 +1060,9 @@ p{font-size:clamp(14px,3vw,16px);}
     overflow-x: auto; 
     -webkit-overflow-scrolling: touch; 
     cursor: grab;
+    position: relative;
+    z-index: 1;
+    scroll-snap-stop: always;
     
     /* smooth iOS */ 
     scroll-snap-type: x mandatory; 
@@ -1090,7 +1093,11 @@ p{font-size:clamp(14px,3vw,16px);}
     max-width:90%; 
     max-height:90%; 
   } 
-  
+
+   /* ================= WRAPPER GALERI ================= */ 
+  .gallery-wrapper {
+  position: relative;
+}
   /* ================= IMAGE GALERI ================= */ 
   .gallery img { 
     min-width: 250px; 
@@ -1200,9 +1207,9 @@ p{font-size:clamp(14px,3vw,16px);}
 /* tombol */
 .gallery-nav button {
   position: absolute;
-  top: -140px; /* posisi naik ke tengah gallery */
+  top: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 5px 20px rgba(139,0,0,0.5);
+  z-index: 10;
   background: rgba(0,0,0,0.5);
   border: none;
   color: #fff;
@@ -1213,6 +1220,7 @@ p{font-size:clamp(14px,3vw,16px);}
   cursor: pointer;
   backdrop-filter: blur(6px);
   transition: 0.3s ease;
+  box-shadow: 0 5px 20px rgba(139,0,0,0.5);
 }
 
 /* kiri */
@@ -1224,7 +1232,7 @@ p{font-size:clamp(14px,3vw,16px);}
 #nextBtn {
   right: 10px;
 }
-
+  
 /* hover */
 .gallery-nav button:hover {
   background: rgba(139,0,0,0.7);
@@ -1760,12 +1768,13 @@ p{font-size:clamp(14px,3vw,16px);}
       <img src="foto3.webp"> 
       <img src="foto4.webp"> 
       <img src="foto5.webp"> 
+     </div> 
 
       <div class="gallery-nav">
         <button id="prevBtn">❮</button>
         <button id="nextBtn">❯</button>
       </div>
-    </div> 
+    
     <div id="lightbox" class="lightbox"> 
       <img id="lightbox-img" class="lightbox-img"> </div> 
     <div class="dots" id="dots"></div> 
@@ -2184,7 +2193,11 @@ prevBtn.addEventListener("click", () => {
   }
 });
 
-
+// fallback
+window.addEventListener("load", () => {
+  getPositions();
+});
+  
 // ================= DRAG DESKTOP (FIXED) =================
 let isDown = false;
 let startX;
