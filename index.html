@@ -3,10 +3,12 @@
 <head>
 <link rel="preconnect" href="https://www.google.com">
 <link rel="preconnect" href="https://maps.googleapis.com">
+<link rel="preload" as="image" href="bg.webp">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muzharin Wedding</title>
 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -70,7 +72,7 @@ p{font-size:clamp(14px,3vw,16px);}
   stroke-width: 2.5;
   stroke-dasharray: 500;
   stroke-dashoffset: 500;
-  animation: drawHeart 3s ease forwards;
+  animation: drawHeart 1.5s ease forwards;
 }
 
 /* animasi garis */
@@ -111,9 +113,7 @@ p{font-size:clamp(14px,3vw,16px);}
   position: fixed;
   height: 100vh;
   width: 100%;
-  background: 
-    linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0.6)),
-    url('bg.webp') center/cover no-repeat;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1630,7 +1630,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <!-- Pria -->
     <div class="couple-card bride">
       <div class="photo">
-        <img src="pria.png" alt="Azhari">
+        <img src="pria.png" loading="lazy" alt="Azhari">
       </div>
       <h3>Muhamad Azhari</h3>
       <p>Putra Ke-2 dari Bapak Alm Mukhsin & Ibu Suhaini</p>
@@ -1639,7 +1639,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <!-- Wanita -->
     <div class="couple-card groom">
       <div class="photo">
-        <img src="wanita.png" alt="Putri">
+        <img src="wanita.png" loading="lazy" alt="Putri">
       </div>
       <h3>Putri Zahira Rahimah Mumtaz</h3>
       <p>Putri Ke-1 dari Bapak Chandra Teguh B.S & Ibu Rusni Windari Yusuf</p>
@@ -1749,21 +1749,21 @@ p{font-size:clamp(14px,3vw,16px);}
   <div class="section bg4 fade"> 
     <h3>Our Moments</h3> 
     <div class="gallery" id="gallery"> 
-      <img src="bg.webp">
-      <img src="bg1.webp"> 
-      <img src="bg2.webp"> 
-      <img src="bg3.webp"> 
-      <img src="bg4.webp"> 
-      <img src="bg5.webp"> 
-      <img src="bg6.webp"> 
-      <img src="bg7.webp">
-      <img src="bg8.webp">
-      <img src="foto.webp">
-      <img src="foto1.webp"> 
-      <img src="foto2.webp"> 
-      <img src="foto3.webp"> 
-      <img src="foto4.webp"> 
-      <img src="foto5.webp"> 
+      <img src="bg.webp" loading="lazy">
+      <img src="bg1.webp" loading="lazy"> 
+      <img src="bg2.webp" loading="lazy"> 
+      <img src="bg3.webp" loading="lazy"> 
+      <img src="bg4.webp" loading="lazy"> 
+      <img src="bg5.webp" loading="lazy"> 
+      <img src="bg6.webp" loading="lazy"> 
+      <img src="bg7.webp" loading="lazy">
+      <img src="bg8.webp" loading="lazy">
+      <img src="foto.webp" loading="lazy">
+      <img src="foto1.webp" loading="lazy"> 
+      <img src="foto2.webp" loading="lazy"> 
+      <img src="foto3.webp" loading="lazy"> 
+      <img src="foto4.webp" loading="lazy"> 
+      <img src="foto5.webp" loading="lazy"> 
      </div> 
 
       <div class="gallery-nav">
@@ -1851,7 +1851,7 @@ music.addEventListener("timeupdate", () => {
 });
 
 // 🔥 Resume saat balik
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const savedTime = localStorage.getItem("musicTime");
 
   if (savedTime) {
@@ -1889,6 +1889,8 @@ document.addEventListener("visibilitychange", () => {
   
 // ================= LOADER =================
 window.addEventListener("load", () => {
+  document.querySelector(".cover").style.background =
+    "linear-gradient(rgba(20,20,20,0.5), rgba(20,20,20,0.6)), url('bg.webp') center/cover no-repeat";
   const loader = document.getElementById("loader");
   const savedTime = localStorage.getItem("musicTime");
 
@@ -1918,7 +1920,7 @@ window.addEventListener("load", () => {
       loader.remove(); // 🔥 hapus total biar ga muncul lagi
     }, 1000);
 
-  }, 1500);
+  }, 800);
 });
 
 
