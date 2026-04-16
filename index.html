@@ -2275,19 +2275,39 @@ gallery.addEventListener("mousemove", (e) => {
 
 // ================= GIFT =================
 function copyText(button, text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text);
-  } else {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        button.innerText = "Copied!";
+      }).catch(() => {
+        fallbackCopy();
+      });
+    } else {
+      fallbackCopy();
+    }
+  } catch (e) {
+    fallbackCopy();
+  }
+
+  function fallbackCopy() {
     const textarea = document.createElement("textarea");
     textarea.value = text;
+    textarea.style.position = "fixed"; // 🔥 penting biar gak scroll
+    textarea.style.opacity = "0";
     document.body.appendChild(textarea);
+    textarea.focus();
     textarea.select();
-    document.execCommand("copy");
+
+    try {
+      document.execCommand("copy");
+      button.innerText = "Copied!";
+    } catch (err) {
+      button.innerText = "Failed!";
+    }
+
     document.body.removeChild(textarea);
   }
 
-  button.innerText = "Copied!";
-  
   setTimeout(() => {
     button.innerText = "Copy";
   }, 1500);
