@@ -1408,7 +1408,31 @@ p{font-size:clamp(14px,3vw,16px);}
   cursor:pointer;
 }
 
-/* ================= FADE GIFT ================= */
+/* ================= TOAST COPY ================= */
+#copyToast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  letter-spacing: 1px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s ease;
+  z-index: 99999;
+}
+
+/* muncul */
+#copyToast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 
 /* ================= RESPONSIVE GIFT ================= */
@@ -1817,6 +1841,8 @@ p{font-size:clamp(14px,3vw,16px);}
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
+    <div id="copyToast">Berhasil disalin ✅</div>
+
   </div>
 </div>
   
@@ -1887,7 +1913,6 @@ document.addEventListener("visibilitychange", () => {
   }
 });
   
-// ================= LOADER =================
 // ================= LOADER (FIXED & FAST) =================
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
@@ -2274,6 +2299,8 @@ gallery.addEventListener("mousemove", (e) => {
 });
 
 // ================= GIFT =================
+const toast = document.getElementById("copyToast");
+  
 document.querySelectorAll(".copy-btn").forEach(btn => {
   btn.addEventListener("click", function () {
     const text = this.getAttribute("data-copy");
@@ -2288,7 +2315,17 @@ document.querySelectorAll(".copy-btn").forEach(btn => {
 
     try {
       document.execCommand("copy");
+      
+       // 🔥 ubah text tombol
       this.innerText = "Copied!";
+
+      // 🔥 munculin toast
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2000);
+
     } catch (err) {
       this.innerText = "Failed!";
     }
@@ -2300,6 +2337,7 @@ document.querySelectorAll(".copy-btn").forEach(btn => {
     }, 1500);
   });
 });
+  
 // ================= ANIMASI SCROLL (FADE IN) =================
 const cards = document.querySelectorAll(".gift-card");
 
