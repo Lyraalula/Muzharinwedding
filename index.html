@@ -2296,43 +2296,44 @@ gallery.addEventListener("mousemove", (e) => {
 });
 
 // ================= GIFT =================
-const toast = document.getElementById("copyToast");
-  
-document.querySelectorAll(".copy-btn").forEach(btn => {
-  btn.addEventListener("click", function () {
-    const text = this.getAttribute("data-copy");
+document.addEventListener("DOMContentLoaded", () => {
 
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.style.position = "fixed";
-    textarea.style.opacity = "0";
+  const toast = document.getElementById("copyToast");
 
-    document.body.appendChild(textarea);
-    textarea.select();
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+      const text = this.getAttribute("data-copy");
 
-    try {
-      document.execCommand("copy");
-      
-       // 🔥 ubah text tombol
-      this.innerText = "Copied!";
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
 
-      // 🔥 munculin toast
-      toast.classList.add("show");
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        document.execCommand("copy");
+
+        this.innerText = "Copied!";
+        toast.classList.add("show");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2000);
+
+      } catch (err) {
+        this.innerText = "Failed!";
+      }
+
+      document.body.removeChild(textarea);
 
       setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2000);
-
-    } catch (err) {
-      this.innerText = "Failed!";
-    }
-
-    document.body.removeChild(textarea);
-
-    setTimeout(() => {
-      this.innerText = "Copy";
-    }, 1500);
+        this.innerText = "Copy";
+      }, 1500);
+    });
   });
+
 });
   
 // ================= ANIMASI SCROLL (FADE IN) =================
