@@ -1429,7 +1429,7 @@ p{font-size:clamp(14px,3vw,16px);}
 }
 
 /* muncul */
-.copyToast-show {
+.copyToast.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
@@ -1643,6 +1643,17 @@ p{font-size:clamp(14px,3vw,16px);}
   filter: blur(0);
 }
 
+
+/* ================= RESPONSIVE CLOSING ================= */
+@media (max-width: 768px) {
+  .closing {
+    max-width: 90%;
+  }
+
+  .closing::before {
+    display: none;
+  }
+  
 /* ================= COPYRIGHT ================= */
 .copyright {
   text-align: center;
@@ -1941,6 +1952,8 @@ p{font-size:clamp(14px,3vw,16px);}
       <button onclick="copyText('087788648002', this)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
+
+    <div id="copyToast" class="copyToast">Berhasil disalin ✅</div>
 
   </div>
 </div>
