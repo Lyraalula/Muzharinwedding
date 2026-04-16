@@ -1945,7 +1945,7 @@ window.addEventListener("load", () => {
   music.play().then(() => {
     let fade = setInterval(() => {
       if (music.volume < 1) {
-        music.volume += 0.05;
+         music.volume = Math.min(1, music.volume + 0.05);
       } else {
         clearInterval(fade);
       }
@@ -2013,7 +2013,7 @@ function openInvite() {
   music.play().then(() => {
     let fade = setInterval(() => {
       if (music.volume < 1) {
-        music.volume += 0.05;
+         music.volume = Math.min(1, music.volume + 0.05);
       } else {
         clearInterval(fade);
       }
