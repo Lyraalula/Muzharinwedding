@@ -1660,22 +1660,16 @@ p{font-size:clamp(14px,3vw,16px);}
 .copyright {
   text-align: center;
   padding: 20px 10px 40px;
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: rgba(255,255,255,0.4);
-  background: #000;
-}
-
-/* copyright */
-.copyright {
   margin-top: 40px;
   font-size: 12px;
-  opacity: 0.5;
   letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  background: #000;
+  opacity: 0.5;
 }
 
 /* ================= FADE TO BLACK ================= */
-#fadeBlack {
+.fadeBlack {
   position: fixed;
   inset: 0;
   background: #000;
@@ -1686,8 +1680,61 @@ p{font-size:clamp(14px,3vw,16px);}
 }
 
 /* aktif */
-#fadeBlack.show {
+.fadeBlack.show {
   opacity: 1;
+}
+
+/* ================= THE END ================= */
+.theEnd {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0 15px rgba(255,255,255,0.4);
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  letter-spacing: 6px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 2s ease;
+
+  z-index: 100000;
+}
+
+/* muncul */
+.theEnd.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= FINAL QUOTE ================= */
+.finalQuote {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+
+  max-width: 500px;
+  text-align: center;
+
+  font-size: 14px;
+  line-height: 1.8;
+  color: #ddd;
+  letter-spacing: 1px;
+
+  opacity: 0;
+  transition: 2s ease;
+
+  z-index: 100000;
+}
+
+/* muncul */
+.finalQuote.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
   
 </style>
@@ -1723,10 +1770,10 @@ p{font-size:clamp(14px,3vw,16px);}
     <p>02 Mei 2026</p> 
     <div id="countdown" class="countdown"> 
       <div><span id="hari">0</span><small>Hari</small></div> 
-      <div><span id="jam">0</span><small>Jam</small></div> 
-      <div><span id="menit">0</span><small>Menit</small></div> 
-      <div><span id="detik">0</span><small>Detik</small></div> 
-    </div> 
+      <div><span id="jam">0</span><small>Jam</small></div>
+      <div><span id="menit">0</span><small>Menit</small></div>
+      <div><span id="detik">0</span><small>Detik</small></div>
+    </div>
     <p style="font-size:13px;">Kepada Yth:</p> 
     <h3 id="guest"></h3> 
     <button onclick="openInvite()" class="btn-open">💌 Buka Undangan</button>
@@ -1750,9 +1797,9 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="scroll-hint"> 
       <span>Scroll untuk lanjut</span>
       <br> <span class="arrow">⬆️</span> 
-      </div> 
+    </div>
 
-    </div> 
+    </div>
   </div>
 
 <!-- ================= CONTENT ================= -->
@@ -1795,33 +1842,33 @@ p{font-size:clamp(14px,3vw,16px);}
         <div class="icon-emoji sparkle gold"> 💍 <span class="spark s1"></span> 
           <span class="spark s2"></span> 
           <span class="spark s3"></span> 
-        </div> 
+        </div>
         <h3>Akad</h3> 
         <p><b>02 Mei 2026</b></p> 
-        <p>09.30 WIB</p> 
-      </div> 
+        <p>08.00 - 10.30 WIB</p> 
+      </div>
       
       <!-- RESEPSI --> 
       <div class="event-card luxury"> 
         <div class="icon-emoji sparkle gold"> 🎉 <span class="spark s1"></span> 
           <span class="spark s2"></span> 
           <span class="spark s3"></span> 
-        </div> 
+        </div>
         <h3>Resepsi</h3> 
         <p><b>02 Mei 2026</b></p> 
-        <p>11.30 WIB</p> 
-      </div> 
+        <p>11.30- 16.00 WIB</p> 
+      </div>
       
       <!-- LOKASI --> 
       <div class="event-card luxury"> 
         <div class="icon-emoji sparkle gold"> 🏡 <span class="spark s1"></span> 
           <span class="spark s2"></span> 
           <span class="spark s3"></span> 
-        </div> 
+        </div>
         <h3>Lokasi</h3> 
-        <p style="font-size:13px; line-height:1.5;"> Danau Cipeucang<br> 
+        <p style="font-size:13px; line-height:1.5;"> Chandra Home's<br> 
           Bekasi Timur Regency 3<br> 
-           RT.009/RW.022, Cimuning, Kec. Mustika Jaya, Kota Bks, Jawa Barat 17155 </p>
+           Cluster Jade No.43 blok j3, RT.07/RW.021, Cimuning, Kec. Mustika Jaya, Kota Bks, Jawa Barat 17155 </p>
       </div>
       
     </div>
@@ -1833,18 +1880,18 @@ p{font-size:clamp(14px,3vw,16px);}
       
       <!-- Thumbnail -->
       <div class="map-thumbnail" onclick="openMapThumbnail(this)">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=Danau+Cipeucang+Bekasi&zoom=15&size=600x300&markers=color:red|Danau+Cipeucang+Bekasi" loading="lazy" alt="Map">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=Chandra+Home%27s+Bekasi&zoom=15&size=600x300&markers=color:red|Chandra+Home%27s+Bekasi" loading="lazy" alt="Map">
         <div class="map-overlay">Klik untuk buka lokasi</div>
       </div>
   
       <!-- Tombol -->
-      <a href="https://maps.app.goo.gl/HVWLE4LuVtDdGyh79" 
+      <a href="https://maps.app.goo.gl/6wGm5JJJ7jMGPxU19" 
          target="_blank" 
          class="btn-map" onclick="handleExternalLink()">
          📍 Buka di Google Maps
       </a>
   
-    </div> 
+    </div>
   </div>
     
   <!-- STORY -->
@@ -1859,7 +1906,7 @@ p{font-size:clamp(14px,3vw,16px);}
           masing-masing dengan kehidupan dan pasangan kami sendiri. Percakapan yang terjalin pun sebatas urusan pekerjaan, <br>
           tanpa ada rasa yang lebih. Waktu berjalan, hingga akhirnya Azhari harus berpindah ke tempat kerja yang baru dan sejak saat itu, <br>
           komunikasi kami pun terputus, seolah cerita kami berhenti begitu saja.</p> 
-      </div> 
+      </div>
       
       <div class="story-item reveal"> 
         <h3>Kedekatan</h3> 
@@ -1869,7 +1916,7 @@ p{font-size:clamp(14px,3vw,16px);}
           hingga kebersamaan berlanjut ke banyak momen—naik gunung bersama, berbagi cerita, dan menikmati waktu satu sama lain. <br>
           Pada bulan Juni 2025, kami menyadari bahwa hubungan ini telah menjadi sesuatu yang lebih bermakna. Dengan penuh keyakinan, <br>
           Azhari memberikan sebuah cincin sebagai simbol keseriusannya.</p> 
-      </div> 
+      </div>
       
       <div class="story-item reveal"> 
         <h3>Menikah</h3> 
@@ -1902,7 +1949,7 @@ p{font-size:clamp(14px,3vw,16px);}
       <img src="foto3.webp" loading="lazy"> 
       <img src="foto4.webp" loading="lazy"> 
       <img src="foto5.webp" loading="lazy"> 
-     </div> 
+     </div>
 
       <div class="gallery-nav">
         <button id="prevBtn">❮</button>
@@ -1911,7 +1958,7 @@ p{font-size:clamp(14px,3vw,16px);}
     
     <div id="lightbox" class="lightbox"> 
       <img id="lightbox-img" class="lightbox-img"> </div> 
-    <div class="dots" id="dots"></div> 
+    <div class="dots" id="dots"></div>
   </div>
   
  <!-- GIFT -->
@@ -1955,8 +2002,6 @@ p{font-size:clamp(14px,3vw,16px);}
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
-    <div id="copyToast" class="copyToast">Berhasil disalin ✅</div>
-
   </div>
 </div>
   
@@ -1978,7 +2023,7 @@ p{font-size:clamp(14px,3vw,16px);}
         <img src="wish.png" class="img-rsvp">
       </a>
     </div>
-  </div
+  </div>
 
   <!-- ================= CLOSING ================= -->
 <div class="closing">
@@ -2016,7 +2061,14 @@ p{font-size:clamp(14px,3vw,16px);}
     © lyrazhari2026
   </p>
 
-  <div id="fadeBlack"></div>
+  <div id="theEnd">Putri & Azhari</div>
+  
+  <div id="finalQuote">
+  "Benang tak terlihat itu nyata,dan hari ini kami memilih untuk tidak pernah melepaskannya.<br>
+  Dan pada akhirnya, kami menemukan bahwa rumah bukanlah sebuah tempat, melainkan seseorang yang selalu kita pilih untuk pulang."
+</div>
+
+  <div id="copyToast" class="copyToast">Berhasil disalin ✅</div>
   
 <script>
 // ================= MUSIC =================
@@ -2585,6 +2637,28 @@ window.addEventListener("scroll", () => {
   }
 });
 
+const theEnd = document.getElementById("theEnd");
+
+// 🔥 tampil setelah layar gelap
+fadeBlack.addEventListener("transitionend", () => {
+  if (fadeBlack.classList.contains("show")) {
+    setTimeout(() => {
+      theEnd.classList.add("show");
+    }, 1000); // delay biar lebih dramatis
+  }
+});
+
+const finalQuote = document.getElementById("finalQuote");
+
+// 🔥 muncul setelah THE END
+theEnd.addEventListener("transitionend", () => {
+  if (theEnd.classList.contains("show")) {
+    setTimeout(() => {
+      finalQuote.classList.add("show");
+    }, 1500); // delay biar cinematic
+  }
+});
+  
 </script>
 </body>
 </html>
