@@ -1785,10 +1785,10 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Mandiri.png" alt="Mandiri">
       <p class="rekening">1560024960967</p>
-      <button onclick="copyText(this, '1560024960967')" class="copy-btn">Copy</button>
+      <button class="copyText(this, '1560024960967')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
       <p class="rekening">1730013092441</p>
-      <button onclick="copyText(this,'1730013092441')" class="copy-btn">Copy</button>
+      <button class="copyText(this,'1730013092441')" class="copy-btn">Copy</button>
       <p class="nama">a.n. M. Azhari</p>
     </div>
 
@@ -1796,7 +1796,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Danamon.png" alt="Danamon">
       <p class="rekening">003692395357</p>
-      <button onclick="copyText(this, '003692395357')" class="copy-btn">Copy</button>
+      <button class="copyText(this, '003692395357')" class="copy-btn">Copy</button>
       <p class="nama">a.n. M Azhari</p>
     </div>
 
@@ -1804,7 +1804,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Seabank.png" alt="Seabank">
       <p class="rekening">901174902765</p>
-      <button onclick="copyText(this, '901174902765')" class="copy-btn">Copy</button>
+      <button class="copyText(this, '901174902765')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -1813,7 +1813,7 @@ p{font-size:clamp(14px,3vw,16px);}
      <img src="Dana.png" alt="Dana">
      <img src="gopay.png" alt="Gopay">
       <p class="rekening">087788648002</p>
-      <button onclick="copyText(this, '087788648002')" class="copy-btn">Copy</button>
+      <button class="copyText(this, '087788648002')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -2274,45 +2274,32 @@ gallery.addEventListener("mousemove", (e) => {
 });
 
 // ================= GIFT =================
-function copyText(button, text) {
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(() => {
-        button.innerText = "Copied!";
-      }).catch(() => {
-        fallbackCopy();
-      });
-    } else {
-      fallbackCopy();
-    }
-  } catch (e) {
-    fallbackCopy();
-  }
+document.querySelectorAll(".copy-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    const text = this.getAttribute("data-copy");
 
-  function fallbackCopy() {
     const textarea = document.createElement("textarea");
     textarea.value = text;
-    textarea.style.position = "fixed"; // 🔥 penting biar gak scroll
+    textarea.style.position = "fixed";
     textarea.style.opacity = "0";
+
     document.body.appendChild(textarea);
-    textarea.focus();
     textarea.select();
 
     try {
       document.execCommand("copy");
-      button.innerText = "Copied!";
+      this.innerText = "Copied!";
     } catch (err) {
-      button.innerText = "Failed!";
+      this.innerText = "Failed!";
     }
 
     document.body.removeChild(textarea);
-  }
 
-  setTimeout(() => {
-    button.innerText = "Copy";
-  }, 1500);
-}
-  
+    setTimeout(() => {
+      this.innerText = "Copy";
+    }, 1500);
+  });
+});
 // ================= ANIMASI SCROLL (FADE IN) =================
 const cards = document.querySelectorAll(".gift-card");
 
