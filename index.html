@@ -1695,7 +1695,7 @@ p{font-size:clamp(14px,3vw,16px);}
       
       <!-- Thumbnail -->
       <div class="map-thumbnail" onclick="openMapThumbnail(this)">
-        <img src="https://maps.googleapis.com/maps/api/staticmap?center=Danau+Cipeucang+Bekasi&zoom=15&size=600x300&markers=color:red|Danau+Cipeucang+Bekasi" alt="Map">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=Danau+Cipeucang+Bekasi&zoom=15&size=600x300&markers=color:red|Danau+Cipeucang+Bekasi" loading="lazy" alt="Map">
         <div class="map-overlay">Klik untuk buka lokasi</div>
       </div>
   
@@ -1888,10 +1888,29 @@ document.addEventListener("visibilitychange", () => {
 });
   
 // ================= LOADER =================
+// ================= LOADER (FIXED & FAST) =================
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("loader");
+
+  // 🔥 langsung hilang tanpa nunggu semua asset
+  setTimeout(() => {
+    loader.classList.add("fade-out");
+
+    setTimeout(() => {
+      loader.remove();
+    }, 800);
+
+  }, 700);
+});
+
+// 🔥 background delay (biar ringan)
 window.addEventListener("load", () => {
   document.querySelector(".cover").style.background =
     "linear-gradient(rgba(20,20,20,0.5), rgba(20,20,20,0.6)), url('bg.webp') center/cover no-repeat";
-  const loader = document.getElementById("loader");
+});
+
+// 🔥 music tetap jalan normal
+window.addEventListener("load", () => {
   const savedTime = localStorage.getItem("musicTime");
 
   if (savedTime) {
@@ -1911,18 +1930,6 @@ window.addEventListener("load", () => {
     }, 200);
   }).catch(() => {});
 });
-    
-  // kasih delay dikit biar cinematic
-  setTimeout(() => {
-    loader.classList.add("fade-out");
-
-    setTimeout(() => {
-      loader.remove(); // 🔥 hapus total biar ga muncul lagi
-    }, 1000);
-
-  }, 800);
-});
-
 
 // ================= COVER =================
 let isOpeningActive = false;
