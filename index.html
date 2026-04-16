@@ -1809,10 +1809,10 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Mandiri.png" alt="Mandiri">
       <p class="rekening">1560024960967</p>
-      <button class="copy-btn" data-copy="1560024960967">Copy</button>
+      <button onclick="copyText('1560024960967', this)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
       <p class="rekening">1730013092441</p>
-       <button class="copy-btn" data-copy="1730013092441">Copy</button>
+      <button onclick="copyText('1730013092441', this)" class="copy-btn">Copy</button>
       <p class="nama">a.n. M. Azhari</p>
     </div>
 
@@ -1820,7 +1820,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Danamon.png" alt="Danamon">
       <p class="rekening">003692395357</p>
-      <button class="copy-btn" data-copy="003692395357">Copy</button>
+      <button onclick="copyText('003692395357', this)" class="copy-btn">Copy</button>
       <p class="nama">a.n. M Azhari</p>
     </div>
 
@@ -1828,7 +1828,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Seabank.png" alt="Seabank">
       <p class="rekening">901174902765</p>
-      <button class="copy-btn" data-copy="901174902765">Copy</button>
+      <button onclick="copyText('901174902765', this)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -1837,7 +1837,7 @@ p{font-size:clamp(14px,3vw,16px);}
      <img src="Dana.png" alt="Dana">
      <img src="gopay.png" alt="Gopay">
       <p class="rekening">087788648002</p>
-      <button class="copy-btn" data-copy="087788648002">Copy</button>
+      <button onclick="copyText('087788648002', this)" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -2296,52 +2296,37 @@ gallery.addEventListener("mousemove", (e) => {
 });
 
 // ================= GIFT =================
-document.addEventListener("DOMContentLoaded", () => {
+function copyText(text, btn) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
 
-  const toast = document.getElementById("copyToast");
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
 
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-    btn.addEventListener("click", function () {
-      const text = this.getAttribute("data-copy");
+  try {
+    document.execCommand("copy");
+    btn.innerText = "Copied!";
+    
+    const toast = document.getElementById("copyToast");
+    if (toast) {
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
+    }
 
-      const textarea = document.createElement("textarea");
-      textarea.value = text; 
-      textarea.setAttribute("readonly", "");
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
+  } catch (err) {
+    btn.innerText = "Failed!";
+  }
 
-      document.body.appendChild(textarea);
+  document.body.removeChild(textarea);
 
-      try {
-         textarea.focus();
-          textarea.select();
-        
-          const success = document.execCommand("copy");
-        
-          if (success) {
-            this.innerText = "Copied!";
-            toast.classList.add("show");
-        
-            setTimeout(() => {
-              toast.classList.remove("show");
-            }, 2000);
-          } else {
-            this.innerText = "Failed!";
-          }
-        
-        } catch (err) {
-          this.innerText = "Failed!";
-        }
-
-      document.body.removeChild(textarea);
-
-      setTimeout(() => {
-        this.innerText = "Copy";
-      }, 1500);
-    });
-  });
-
-});
+  setTimeout(() => {
+    btn.innerText = "Copy";
+  }, 1500);
+}
   
 // ================= ANIMASI SCROLL (FADE IN) =================
 const cards = document.querySelectorAll(".gift-card");
