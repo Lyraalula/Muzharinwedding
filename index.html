@@ -1785,10 +1785,10 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Mandiri.png" alt="Mandiri">
       <p class="rekening">1560024960967</p>
-      <button onclick="copyText(this, 1560024960967)" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, '1560024960967')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
       <p class="rekening">1730013092441</p>
-      <button onclick="copyText('1730013092441')" class="copy-btn">Copy</button>
+      <button onclick="copyText(this,'1730013092441')" class="copy-btn">Copy</button>
       <p class="nama">a.n. M. Azhari</p>
     </div>
 
@@ -1796,7 +1796,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Danamon.png" alt="Danamon">
       <p class="rekening">003692395357</p>
-      <button onclick="copyText(this, 003692395357)" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, '003692395357')" class="copy-btn">Copy</button>
       <p class="nama">a.n. M Azhari</p>
     </div>
 
@@ -1804,7 +1804,7 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="gift-card">
       <img src="Seabank.png" alt="Seabank">
       <p class="rekening">901174902765</p>
-      <button onclick="copyText(this, 901174902765)" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, '901174902765')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -1813,7 +1813,7 @@ p{font-size:clamp(14px,3vw,16px);}
      <img src="Dana.png" alt="Dana">
      <img src="gopay.png" alt="Gopay">
       <p class="rekening">087788648002</p>
-      <button onclick="copyText(this, 087788648002)" class="copy-btn">Copy</button>
+      <button onclick="copyText(this, '087788648002')" class="copy-btn">Copy</button>
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
@@ -2275,19 +2275,17 @@ gallery.addEventListener("mousemove", (e) => {
 
 // ================= GIFT =================
 function copyText(button, text) {
-  if (!navigator.clipboard) {
-    // 🔥 fallback untuk browser lama
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text);
+  } else {
     const textarea = document.createElement("textarea");
     textarea.value = text;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-  } else {
-    navigator.clipboard.writeText(text);
   }
 
-  // animasi tombol
   button.innerText = "Copied!";
   
   setTimeout(() => {
