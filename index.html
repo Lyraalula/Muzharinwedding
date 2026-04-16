@@ -2297,35 +2297,51 @@ gallery.addEventListener("mousemove", (e) => {
 
 // ================= GIFT =================
 function copyText(text, btn) {
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
 
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
+  // 🔥 pakai clipboard modern dulu
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      successCopy(btn);
+    }).catch(() => {
+      fallbackCopy(text, btn);
+    });
+  } else {
+    fallbackCopy(text, btn);
+  }
 
-  try {
-    document.execCommand("copy");
-    btn.innerText = "Copied!";
-    
+  function successCopy(button) {
+    button.innerText = "Copied!";
+
     const toast = document.getElementById("copyToast");
     if (toast) {
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
-  } catch (err) {
-    btn.innerText = "Failed!";
+    setTimeout(() => {
+      button.innerText = "Copy";
+    }, 1500);
   }
 
-  document.body.removeChild(textarea);
+  function fallbackCopy(text, button) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
 
-  setTimeout(() => {
-    btn.innerText = "Copy";
-  }, 1500);
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+
+    try {
+      document.execCommand("copy");
+      successCopy(button);
+    } catch (err) {
+      button.innerText = "Failed!";
+    }
+
+    document.body.removeChild(textarea);
+  }
 }
   
 // ================= ANIMASI SCROLL (FADE IN) =================
