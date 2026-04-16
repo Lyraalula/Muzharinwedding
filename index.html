@@ -2305,26 +2305,33 @@ document.addEventListener("DOMContentLoaded", () => {
       const text = this.getAttribute("data-copy");
 
       const textarea = document.createElement("textarea");
-      textarea.value = text;
+      textarea.value = text; 
+      textarea.setAttribute("readonly", "");
       textarea.style.position = "fixed";
       textarea.style.opacity = "0";
 
       document.body.appendChild(textarea);
-      textarea.select();
 
       try {
-        document.execCommand("copy");
-
-        this.innerText = "Copied!";
-        toast.classList.add("show");
-
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 2000);
-
-      } catch (err) {
-        this.innerText = "Failed!";
-      }
+         textarea.focus();
+          textarea.select();
+        
+          const success = document.execCommand("copy");
+        
+          if (success) {
+            this.innerText = "Copied!";
+            toast.classList.add("show");
+        
+            setTimeout(() => {
+              toast.classList.remove("show");
+            }, 2000);
+          } else {
+            this.innerText = "Failed!";
+          }
+        
+        } catch (err) {
+          this.innerText = "Failed!";
+        }
 
       document.body.removeChild(textarea);
 
