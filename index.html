@@ -1409,7 +1409,7 @@ p{font-size:clamp(14px,3vw,16px);}
 }
 
 /* ================= TOAST COPY ================= */
-#copyToast {
+.copyToast {
   position: fixed;
   bottom: 30px;
   left: 50%;
@@ -1429,7 +1429,7 @@ p{font-size:clamp(14px,3vw,16px);}
 }
 
 /* muncul */
-#copyToast.show {
+.copyToast-show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
@@ -1576,28 +1576,81 @@ p{font-size:clamp(14px,3vw,16px);}
     display: none;
   }
 
-  /* ================= CLOSING ================= */
+ /* ================= CLOSING PREMIUM ================= */
 .closing {
+  position: relative;
   text-align: center;
-  padding: 80px 20px;
-  background: linear-gradient(#0f0f0f, #000);
+  padding: 100px 20px;
+  background: radial-gradient(circle at center, #1a1a1a, #000);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* red string subtle line */
+.closing::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -50%;
+  width: 200%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8b0000, transparent);
+  opacity: 0.3;
+  animation: stringFlow 6s linear infinite;
+}
+
+/* text */
+.closing p {
+  max-width: 650px;
+  margin: 15px auto;
+  line-height: 1.9;
+  font-size: 14px;
+  color: #ddd;
+  position: relative;
+  z-index: 2;
+}
+
+/* signature */
+.signature {
+  margin-top: 40px;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  letter-spacing: 2px;
   color: #fff;
 }
 
-.closing p {
-  max-width: 600px;
-  margin: 10px auto;
-  line-height: 1.8;
-  font-size: 14px;
-  opacity: 0.9;
+/* glow effect */
+.signature::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  margin: 15px auto;
+  background: #8b0000;
+  box-shadow: 0 0 10px rgba(139,0,0,0.7);
 }
 
-/* nama */
-.signature {
-  margin-top: 30px;
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  letter-spacing: 1px;
+/* ================= FADE CLOSING ================= */
+.closing.fade {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  filter: blur(6px);
+}
+
+.closing.fade.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* ================= COPYRIGHT ================= */
+.copyright {
+  text-align: center;
+  padding: 20px 10px 40px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  background: #000;
 }
 
 /* copyright */
@@ -1607,6 +1660,23 @@ p{font-size:clamp(14px,3vw,16px);}
   opacity: 0.5;
   letter-spacing: 1px;
 }
+
+/* ================= FADE TO BLACK ================= */
+#fadeBlack {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 5s ease;
+  z-index: 99999;
+}
+
+/* aktif */
+#fadeBlack.show {
+  opacity: 1;
+}
+  
 </style>
 </head>
 
@@ -1872,6 +1942,8 @@ p{font-size:clamp(14px,3vw,16px);}
       <p class="nama">a.n. Putri Zahira Rahimah Mumtaz</p>
     </div>
 
+    <div id="copyToast">Berhasil disalin ✅</div>
+
   </div>
 </div>
   
@@ -1896,10 +1968,28 @@ p{font-size:clamp(14px,3vw,16px);}
   </div
 
   <!-- ================= CLOSING ================= -->
-<div class="closing">
+<div class="closing fade">
   <p>
-    Terima kasih atas doa dan kehadiran Anda yang menjadi bagian dari kebahagiaan kami.
-    Semoga kebaikan dan doa yang diberikan kembali kepada Anda dalam kebahagiaan yang berlipat.
+    Dengan penuh rasa syukur dan kebahagiaan, kami mengucapkan terima kasih yang sebesar-besarnya 
+    atas kehadiran, doa, serta segala bentuk perhatian yang telah diberikan kepada kami.
+    Setiap langkah yang kami tempuh hingga hari ini tidak terlepas dari dukungan dan kebaikan
+    orang-orang terkasih seperti Anda.
+  </p>
+
+  <p>
+    Doa dan harapan yang Anda panjatkan menjadi bagian yang sangat berarti dalam perjalanan
+    baru yang kami mulai. Semoga segala kebaikan yang telah diberikan kembali kepada Anda
+    dalam bentuk kebahagiaan, kesehatan, dan keberkahan yang berlipat ganda.
+  </p>
+
+  <p>
+    Kami percaya bahwa setiap pertemuan memiliki makna, dan setiap kebersamaan akan selalu
+    menjadi kenangan yang tak terlupakan. Semoga momen ini menjadi awal dari perjalanan
+    indah kami dalam membangun kehidupan bersama yang penuh cinta, kesetiaan, dan kebahagiaan.
+  </p>
+
+  <p>
+    Terima kasih telah menjadi bagian dari cerita kami, hari ini dan selamanya.
   </p>
 
   <p class="signature">
@@ -1907,10 +1997,13 @@ p{font-size:clamp(14px,3vw,16px);}
     Putri & Azhari
   </p>
 
+  </div>
+
   <p class="copyright">
     © lyrazhari2026
   </p>
-</div>
+
+  <div id="fadeBlack"></div>
   
 <script>
 // ================= MUSIC =================
@@ -2458,9 +2551,27 @@ const guestName = urlParams.get("to");
 document.getElementById("guest").innerText =
   guestName ? "Kepada " + guestName : "Tamu Undangan";
 
+// ================= LAST SCENE FADE =================
+const fadeBlack = document.getElementById("fadeBlack");
+const closing = document.querySelector(".closing");
+
+let hasFaded = false; // 🔥 biar cuma jalan sekali
+
+window.addEventListener("scroll", () => {
+  if (!closing || hasFaded) return;
+
+  const rect = closing.getBoundingClientRect();
+
+  if (rect.top < window.innerHeight * 0.3) {
+    hasFaded = true;
+
+    // 🔥 delay biar cinematic
+    setTimeout(() => {
+    fadeBlack.classList.add("show");
+  }, 2500);
+  }
+});
+
 </script>
-  
-  <div id="copyToast">Berhasil disalin ✅</div>
-  
 </body>
 </html>
