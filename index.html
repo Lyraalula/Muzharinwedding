@@ -1868,6 +1868,35 @@ p{font-size:clamp(14px,3vw,16px);}
 // ================= MUSIC =================
 const music = document.getElementById("bg-music");
 
+  music.addEventListener("ended", () => {
+
+  let fadeOut = setInterval(() => {
+    if (music.volume > 0.03) {
+      music.volume -= 0.03;
+    } else {
+      clearInterval(fadeOut);
+
+      music.pause();
+      music.currentTime = 0;
+      music.volume = 0; // 🔥 FIX DI SINI
+
+      music.play().then(() => {
+
+        let fadeIn = setInterval(() => {
+          if (music.volume < 1) {
+            music.volume = Math.min(1, music.volume + 0.03);
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 200);
+
+      }).catch(()=>{});
+
+    }
+  }, 150);
+
+});
+
 // 🔥 Simpan posisi lagu
 music.addEventListener("timeupdate", () => {
   localStorage.setItem("musicTime", music.currentTime);
