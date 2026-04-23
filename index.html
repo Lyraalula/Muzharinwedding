@@ -1653,6 +1653,7 @@ p{font-size:clamp(14px,3vw,16px);}
   width: 100%;
   height: 140px;
   pointer-events: none;
+  z-index: 5;
 }
 
 .flower {
@@ -1665,6 +1666,7 @@ p{font-size:clamp(14px,3vw,16px);}
   opacity: 0;
   transform: scale(0);
   animation: bloom 3s ease forwards, sway 4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.3s);
 }
 
 .flower::after {
@@ -2164,16 +2166,16 @@ p{font-size:clamp(14px,3vw,16px);}
     
   <!-- ================= flower ================= -->
   <div class="flower-garden">
-    <div class="flower" style="left:5%"></div>
-    <div class="flower" style="left:15%"></div>
-    <div class="flower" style="left:25%"></div>
-    <div class="flower" style="left:35%"></div>
-    <div class="flower" style="left:45%"></div>
-    <div class="flower" style="left:55%"></div>
-    <div class="flower" style="left:65%"></div>
-    <div class="flower" style="left:75%"></div>
-    <div class="flower" style="left:85%"></div>
-    <div class="flower" style="left:95%"></div>
+    <div class="flower" style="left:5%; --i:1"></div>
+    <div class="flower" style="left:15%; --i:2"></div>
+    <div class="flower" style="left:25%; --i:3"></div>
+    <div class="flower" style="left:35%; --i:4></div>
+    <div class="flower" style="left:45%; --i:5"></div>
+    <div class="flower" style="left:55%"; --i:6"></div>
+    <div class="flower" style="left:65%; --i:7"></div>
+    <div class="flower" style="left:75%; --i:8"></div>
+    <div class="flower" style="left:85%; --i:9"></div>
+    <div class="flower" style="left:95%; --i:10"></div>
 </div>
   </div>
 
@@ -2181,10 +2183,10 @@ p{font-size:clamp(14px,3vw,16px);}
     <p> © lyrazhari2026 </p>
   </div>
 
-  <div id="fadeBlack" class="fade-black">
-  <div id="theEnd">Putri & Azhari</div>
+  <div id="fadeBlack" class="fadeBlack">
+  <div id="theEnd" class="theEnd">Putri & Azhari</div>
 
-  <div id="finalQuote">
+  <div id="finalQuote" class="finalQuote">
     "Benang tak terlihat itu nyata, dan hari ini kami memilih untuk tidak pernah melepaskannya.<br>
     Dan pada akhirnya, kami menemukan bahwa rumah bukanlah sebuah tempat, melainkan seseorang yang selalu kita pilih untuk pulang."
   </div>
@@ -2744,102 +2746,57 @@ function startCinematicEffects() {
   const MAX_PETAL = 8;
 
   function createButterfly() {
-    if (butterflyCount >= MAX_BUTTERFLY) return;
-
-    butterflyCount++;
-
-    const el = document.createElement("div");
-    el.className = "butterfly";
-    el.style.left = Math.random() * window.innerWidth + "px";
-
-    const duration = 10 + Math.random() * 5;
-    el.style.animationDuration = duration + "s";
-
-    document.body.appendChild(el);
-
-    setTimeout(() => {
-      el.remove();
-      butterflyCount--;
-    }, duration * 1000);
+    const b = document.createElement("div");
+    b.className = "butterfly";
+  
+    // random posisi & durasi
+    b.style.left = Math.random() * 100 + "vw";
+    b.style.animationDuration = (6 + Math.random() * 4) + "s";
+  
+    document.body.appendChild(b);
+  
+    setTimeout(() => b.remove(), 10000);
   }
 
-  function createPetal() {
-    if (petalCount >= MAX_PETAL) return;
-
-    petalCount++;
-
+    function createPetal() {
     const p = document.createElement("div");
     p.className = "petal";
-    p.style.left = Math.random() * window.innerWidth + "px";
-
-    const duration = 6 + Math.random() * 4;
-    p.style.animationDuration = duration + "s";
-
+  
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (5 + Math.random() * 3) + "s";
+  
     document.body.appendChild(p);
-
-    setTimeout(() => {
-      p.remove();
-      petalCount--;
-    }, duration * 1000);
+  
+    setTimeout(() => p.remove(), 8000);
   }
 
-  setInterval(() => {
-    if (document.visibilityState === "visible") {
-      createButterfly();
-    }
-  }, 2500);
-
-  setInterval(() => {
-    if (document.visibilityState === "visible") {
-      createPetal();
-    }
-  }, 2000);
-}
+  // jalan terus
+setInterval(createButterfly, 2000);
+setInterval(createPetal, 1200);
   
 // ================= LAST SCENE FADE =================
-const fadeBlack = document.getElementById("fadeBlack");
-const closing = document.querySelector(".closing");
+function startClosing() {
+  const fade = document.getElementById("fadeBlack");
+  const end = document.getElementById("theEnd");
+  const quote = document.getElementById("finalQuote");
 
-let hasFaded = false; // 🔥 biar cuma jalan sekali
+  fade.classList.add("show");
 
-window.addEventListener("scroll", () => {
-  if (!closing || hasFaded) return;
+  setTimeout(() => {
+    end.classList.add("show");
+  }, 2000);
 
-  const rect = closing.getBoundingClientRect();
-
-  if (rect.top < window.innerHeight * 0.3) {
-    hasFaded = true;
-
-    // 🔥 delay biar cinematic
-    setTimeout(() => {
-    fadeBlack.classList.add("show");
-  }, 2500);
-  }
-});
-
-const theEnd = document.getElementById("theEnd");
-
-// 🔥 tampil setelah layar gelap
-fadeBlack.addEventListener("transitionend", (e) => {
-  if (e.target === fadeBlack && fadeBlack.classList.contains("show")) {
-    setTimeout(() => {
-      theEnd.classList.add("show");
-    }, 1000);
-  }
-});
-
-const finalQuote = document.getElementById("finalQuote");
-
-// 🔥 muncul setelah THE END
-if (theEnd) {
-  theEnd.addEventListener("transitionend", () => {
-    if (theEnd.classList.contains("show")) {
-      setTimeout(() => {
-        finalQuote.classList.add("show");
-      }, 1500);
-    }
-  });
+  setTimeout(() => {
+    quote.classList.add("show");
+  }, 4000);
 }
+
+// contoh trigger (scroll paling bawah)
+window.addEventListener("scroll", () => {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+    startClosing();
+  }
+});
   
 </script>
 </body>
