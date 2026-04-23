@@ -2169,9 +2169,9 @@ p{font-size:clamp(14px,3vw,16px);}
     <div class="flower" style="left:5%; --i:1"></div>
     <div class="flower" style="left:15%; --i:2"></div>
     <div class="flower" style="left:25%; --i:3"></div>
-    <div class="flower" style="left:35%; --i:4></div>
+    <div class="flower" style="left:35%; --i:4"></div>
     <div class="flower" style="left:45%; --i:5"></div>
-    <div class="flower" style="left:55%"; --i:6"></div>
+    <div class="flower" style="left:55%; --i:6"></div>
     <div class="flower" style="left:65%; --i:7"></div>
     <div class="flower" style="left:75%; --i:8"></div>
     <div class="flower" style="left:85%; --i:9"></div>
@@ -2734,6 +2734,8 @@ document.getElementById("guest").innerText =
   
 // ================= CINEMATIC EFFECT CONTROL =================
 let effectsStarted = false;
+let butterflyCount = 0;
+let petalCount = 0;
 
 function startCinematicEffects() {
   if (effectsStarted) return;
@@ -2745,20 +2747,27 @@ function startCinematicEffects() {
   const MAX_BUTTERFLY = 6;
   const MAX_PETAL = 8;
 
-  function createButterfly() {
+   function createButterfly() {
+    if (butterflyCount > 6) return;
+  
     const b = document.createElement("div");
     b.className = "butterfly";
   
-    // random posisi & durasi
     b.style.left = Math.random() * 100 + "vw";
     b.style.animationDuration = (6 + Math.random() * 4) + "s";
   
     document.body.appendChild(b);
+    butterflyCount++;
   
-    setTimeout(() => b.remove(), 10000);
+    setTimeout(() => {
+      b.remove();
+      butterflyCount--;
+    }, 10000);
   }
-
-    function createPetal() {
+  
+  function createPetal() {
+    if (petalCount > 10) return;
+  
     const p = document.createElement("div");
     p.className = "petal";
   
@@ -2766,10 +2775,14 @@ function startCinematicEffects() {
     p.style.animationDuration = (5 + Math.random() * 3) + "s";
   
     document.body.appendChild(p);
+    petalCount++;
   
-    setTimeout(() => p.remove(), 8000);
+    setTimeout(() => {
+      p.remove();
+      petalCount--;
+    }, 8000);
   }
-
+  
   // jalan terus
 setInterval(createButterfly, 2000);
 setInterval(createPetal, 1200);
@@ -2793,11 +2806,11 @@ function startClosing() {
 
 // contoh trigger (scroll paling bawah)
 window.addEventListener("scroll", () => {
-  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
     startClosing();
   }
 });
-  
+}
 </script>
 </body>
 </html>
