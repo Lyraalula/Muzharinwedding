@@ -1577,6 +1577,118 @@ p{font-size:clamp(14px,3vw,16px);}
   }
 }
 
+/* ================= CINEMATIC EFFECT ================= */
+.butterfly, .petal {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* === BUTTERFLY === */
+.butterfly {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  animation: flyCinematic linear forwards;
+}
+
+.butterfly::before,
+.butterfly::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  background: radial-gradient(circle, #fff, #ffb6c1);
+  border-radius: 50%;
+}
+
+.butterfly::before {
+  left: -6px;
+  animation: flap 0.4s infinite ease-in-out;
+}
+.butterfly::after {
+  right: -6px;
+  animation: flap 0.4s infinite ease-in-out reverse;
+}
+
+@keyframes flap {
+  0%,100% { transform: rotate(0deg) scaleY(1); }
+  50% { transform: rotate(20deg) scaleY(0.7); }
+}
+
+@keyframes flyCinematic {
+  0% { transform: translateY(100vh) translateX(0) scale(0.6); opacity:0; }
+  10% { opacity:0.7; }
+  30% { transform: translateY(70vh) translateX(40px) scale(0.8); }
+  60% { transform: translateY(40vh) translateX(-30px) scale(1); }
+  100% { transform: translateY(-20vh) translateX(20px) scale(0.7); opacity:0; }
+}
+
+/* === PETAL === */
+.petal {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ffb6c1, #ff69b4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  animation: fallPetal linear forwards;
+}
+
+@keyframes fallPetal {
+  0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity:0; }
+  10% { opacity:0.8; }
+  50% { transform: translateY(50vh) translateX(40px) rotate(180deg); }
+  100% { transform: translateY(110vh) translateX(-30px) rotate(360deg); opacity:0; }
+}
+
+/* === FLOWER GARDEN === */
+.flower-garden {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 140px;
+  pointer-events: none;
+}
+
+.flower {
+  position: absolute;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  background: radial-gradient(circle, #ff69b4, #ff1493);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  animation: bloom 3s ease forwards, sway 4s ease-in-out infinite;
+}
+
+.flower::after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  width: 2px;
+  height: 30px;
+  background: #4caf50;
+  transform: translateX(-50%);
+}
+
+@keyframes bloom {
+  0% { transform: scale(0); opacity:0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity:0.9; }
+}
+
+@keyframes sway {
+  0%,100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+}
+
  /* ================= CLOSING PREMIUM ================= */
 .closing {
   position: relative;
@@ -2026,50 +2138,61 @@ p{font-size:clamp(14px,3vw,16px);}
   </div>
 
   <!-- ================= CLOSING ================= -->
-<div class="closing">
-  <p>
-    Dengan penuh rasa syukur dan kebahagiaan, kami mengucapkan terima kasih yang sebesar-besarnya 
-    atas kehadiran, doa, serta segala bentuk perhatian yang telah diberikan kepada kami.
-    Setiap langkah yang kami tempuh hingga hari ini tidak terlepas dari dukungan dan kebaikan
-    orang-orang terkasih seperti Anda.
-  </p>
-
-  <p>
-    Doa dan harapan yang Anda panjatkan menjadi bagian yang sangat berarti dalam perjalanan
-    baru yang kami mulai. Semoga segala kebaikan yang telah diberikan kembali kepada Anda
-    dalam bentuk kebahagiaan, kesehatan, dan keberkahan yang berlipat ganda.
-  </p>
-
-  <p>
-    Kami percaya bahwa setiap pertemuan memiliki makna, dan setiap kebersamaan akan selalu
-    menjadi kenangan yang tak terlupakan. Semoga momen ini menjadi awal dari perjalanan
-    indah kami dalam membangun kehidupan bersama yang penuh cinta, kesetiaan, dan kebahagiaan.
-  </p>
-
-  <p>
-    Terima kasih telah menjadi bagian dari cerita kami, hari ini dan selamanya.
-  </p>
-
-  <p class="signature">
-    With love,<br>
-    Putri & Azhari
-  </p>
-
+  <div class="closing">
+    <p>
+      Dengan penuh rasa syukur dan kebahagiaan, kami mengucapkan terima kasih yang sebesar-besarnya 
+      atas kehadiran, doa, serta segala bentuk perhatian yang telah diberikan kepada kami.
+      Setiap langkah yang kami tempuh hingga hari ini tidak terlepas dari dukungan dan kebaikan
+      orang-orang terkasih seperti Anda.
+    </p>
+  
+    <p>
+      Doa dan harapan yang Anda panjatkan menjadi bagian yang sangat berarti dalam perjalanan
+      baru yang kami mulai. Semoga segala kebaikan yang telah diberikan kembali kepada Anda
+      dalam bentuk kebahagiaan, kesehatan, dan keberkahan yang berlipat ganda.
+    </p>
+  
+    <p>
+      Kami percaya bahwa setiap pertemuan memiliki makna, dan setiap kebersamaan akan selalu
+      menjadi kenangan yang tak terlupakan. Semoga momen ini menjadi awal dari perjalanan
+      indah kami dalam membangun kehidupan bersama yang penuh cinta, kesetiaan, dan kebahagiaan.
+    </p>
+  
+    <p>
+      Terima kasih telah menjadi bagian dari cerita kami, hari ini dan selamanya.
+    </p>
+    
+  <!-- ================= flower ================= -->
+  <div class="flower-garden">
+    <div class="flower" style="left:5%"></div>
+    <div class="flower" style="left:15%"></div>
+    <div class="flower" style="left:25%"></div>
+    <div class="flower" style="left:35%"></div>
+    <div class="flower" style="left:45%"></div>
+    <div class="flower" style="left:55%"></div>
+    <div class="flower" style="left:65%"></div>
+    <div class="flower" style="left:75%"></div>
+    <div class="flower" style="left:85%"></div>
+    <div class="flower" style="left:95%"></div>
+</div>
   </div>
 
-  <p class="copyright">
-    © lyrazhari2026
-  </p>
+   <div class="copyright">
+    <p> © lyrazhari2026 </p>
+  </div>
 
+  <div id="fadeBlack" class="fade-black">
   <div id="theEnd">Putri & Azhari</div>
-  
-  <div id="finalQuote">
-  "Benang tak terlihat itu nyata,dan hari ini kami memilih untuk tidak pernah melepaskannya.<br>
-  Dan pada akhirnya, kami menemukan bahwa rumah bukanlah sebuah tempat, melainkan seseorang yang selalu kita pilih untuk pulang."
-</div>
 
-  <div id="copyToast" class="copyToast">Berhasil disalin ✅</div>
+  <div id="finalQuote">
+    "Benang tak terlihat itu nyata, dan hari ini kami memilih untuk tidak pernah melepaskannya.<br>
+    Dan pada akhirnya, kami menemukan bahwa rumah bukanlah sebuah tempat, melainkan seseorang yang selalu kita pilih untuk pulang."
+  </div>
+</div>
   
+  <div id="copyToast" class="copyToast">Berhasil disalin ✅</div>
+
+    
 <script>
 // ================= MUSIC =================
 const music = document.getElementById("bg-music");
@@ -2106,17 +2229,6 @@ const music = document.getElementById("bg-music");
 // 🔥 Simpan posisi lagu
 music.addEventListener("timeupdate", () => {
   localStorage.setItem("musicTime", music.currentTime);
-});
-
-// 🔥 Resume saat balik
-document.addEventListener("DOMContentLoaded", () => {
-  const savedTime = localStorage.getItem("musicTime");
-
-  if (savedTime) {
-    music.currentTime = savedTime;
-  }
-
-  music.play().catch(()=>{});
 });
 
 // 🔥 Pause saat klik link luar
@@ -2235,6 +2347,8 @@ const countdownInterval = setInterval(() => {
 function openInvite() {
   document.getElementById("cover").style.display = "none";
   document.getElementById("opening").style.display = "flex";
+  
+  startCinematicEffects(); // 🔥 aktifkan animasi
 
   lockScroll();
   isOpeningActive = true;
@@ -2256,6 +2370,7 @@ function openInvite() {
   }).catch(() => {});
 }
 
+  
 // ================= MASUK KE CONTENT =================
 function goToContent(){
   const opening = document.getElementById("opening");
@@ -2280,8 +2395,6 @@ function goToContent(){
 }
 
 // ================= SCROLL / SWIPE DETECT =================
-let alreadyOpened = false;
-  
   window.addEventListener("wheel", (e) => {
   if (isOpeningActive && e.deltaY > 0) {
     goToContent();
@@ -2342,7 +2455,7 @@ const mapObserver = new IntersectionObserver((entries) => {
 function loadMap(el) {
   el.innerHTML = `
     <iframe 
-      src="https://www.google.com/maps?q=Danau+Cipeucang+Bekasi&output=embed"
+      src="https://www.google.com/maps?q=Chandra+Home%27s+Bekasi&output=embed"
       loading="lazy"
       style="width:100%; height:220px; border:0;">
     </iframe>
@@ -2615,7 +2728,74 @@ const guestName = urlParams.get("to");
 
 document.getElementById("guest").innerText =
   guestName ? "Kepada " + guestName : "Tamu Undangan";
+  
+  
+// ================= CINEMATIC EFFECT CONTROL =================
+let effectsStarted = false;
 
+function startCinematicEffects() {
+  if (effectsStarted) return;
+  effectsStarted = true;
+
+  let butterflyCount = 0;
+  let petalCount = 0;
+
+  const MAX_BUTTERFLY = 6;
+  const MAX_PETAL = 8;
+
+  function createButterfly() {
+    if (butterflyCount >= MAX_BUTTERFLY) return;
+
+    butterflyCount++;
+
+    const el = document.createElement("div");
+    el.className = "butterfly";
+    el.style.left = Math.random() * window.innerWidth + "px";
+
+    const duration = 10 + Math.random() * 5;
+    el.style.animationDuration = duration + "s";
+
+    document.body.appendChild(el);
+
+    setTimeout(() => {
+      el.remove();
+      butterflyCount--;
+    }, duration * 1000);
+  }
+
+  function createPetal() {
+    if (petalCount >= MAX_PETAL) return;
+
+    petalCount++;
+
+    const p = document.createElement("div");
+    p.className = "petal";
+    p.style.left = Math.random() * window.innerWidth + "px";
+
+    const duration = 6 + Math.random() * 4;
+    p.style.animationDuration = duration + "s";
+
+    document.body.appendChild(p);
+
+    setTimeout(() => {
+      p.remove();
+      petalCount--;
+    }, duration * 1000);
+  }
+
+  setInterval(() => {
+    if (document.visibilityState === "visible") {
+      createButterfly();
+    }
+  }, 2500);
+
+  setInterval(() => {
+    if (document.visibilityState === "visible") {
+      createPetal();
+    }
+  }, 2000);
+}
+  
 // ================= LAST SCENE FADE =================
 const fadeBlack = document.getElementById("fadeBlack");
 const closing = document.querySelector(".closing");
@@ -2640,24 +2820,26 @@ window.addEventListener("scroll", () => {
 const theEnd = document.getElementById("theEnd");
 
 // 🔥 tampil setelah layar gelap
-fadeBlack.addEventListener("transitionend", () => {
-  if (fadeBlack.classList.contains("show")) {
+fadeBlack.addEventListener("transitionend", (e) => {
+  if (e.target === fadeBlack && fadeBlack.classList.contains("show")) {
     setTimeout(() => {
       theEnd.classList.add("show");
-    }, 1000); // delay biar lebih dramatis
+    }, 1000);
   }
 });
 
 const finalQuote = document.getElementById("finalQuote");
 
 // 🔥 muncul setelah THE END
-theEnd.addEventListener("transitionend", () => {
-  if (theEnd.classList.contains("show")) {
-    setTimeout(() => {
-      finalQuote.classList.add("show");
-    }, 1500); // delay biar cinematic
-  }
-});
+if (theEnd) {
+  theEnd.addEventListener("transitionend", () => {
+    if (theEnd.classList.contains("show")) {
+      setTimeout(() => {
+        finalQuote.classList.add("show");
+      }, 1500);
+    }
+  });
+}
   
 </script>
 </body>
